@@ -1,0 +1,24 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using System.Text.Json
+@using Umbraco.Cms.Core.Models.Blocks;
+
+@{
+    var parallaxBackgroundImage = Model.Value<IPublishedContent>("parallaxBackgroundImage");
+}
+
+<section id="ecotel-section" class="ecotel-fullwidth-section" style="background-image: url('@parallaxBackgroundImage?.Url()');">
+    <div class="row align-items-stretch g-0 m-0">           
+        <div class="col-lg-6 p-0"></div>
+        <!-- Right: Text panel -->
+        <div class="col-lg-6 p-0">
+            <div class="ecotel-text-panel">
+                <h2 class="display-6 fw-bold mb-4 text-white">@Model.Value("parallaxHeading")</h2>
+                <div class="border-start border-danger border-3 ps-4 lh-lg py-1 text-white fs-6 opacity-75">
+                    @Model.Value("parallaxContent")
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

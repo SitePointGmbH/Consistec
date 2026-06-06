@@ -1,0 +1,19 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.UseIndustries>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "master.cshtml";
+}
+
+<div id="einsatzbereiche-page">
+    <partial name="PageHeader" />
+
+    <section class="py-10 bg-white">
+        <div class="pb-5">
+            @await Html.GetBlockGridHtmlAsync(Model.Content)
+        </div>
+
+        <partial name="industry-tabs" />
+        @await Html.GetBlockGridHtmlAsync(Model.LowerContent)
+    </section>
+</div>
+

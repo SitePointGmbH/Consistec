@@ -1,0 +1,66 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@{
+    var root = Model.Root();
+    var commonComponent = root.Children().FirstOrDefault(x => x.ContentType.Alias == "commonComponents");
+    var mainNavigation = commonComponent?.Value<IEnumerable<Link>>("mainNavigation");
+    var stickyNavigation = commonComponent?.Value<BlockListModel>("stickyNavigation");
+}
+
+<nav class="navbar navbar-expand-lg fixed-top py-3 header-nav blur-reveal shadow-sm">
+    <div class="container-fluid px-4 px-md-5">
+
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <span class="logo-text">consistec</span>
+        </a>
+
+        <button class="navbar-toggler border-0 shadow-none"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            @if (mainNavigation != null)
+            {
+                var currentUrl = Context.Request.Path.ToString().ToLower();
+
+                <ul class="navbar-nav gap-2 gap-lg-3 align-items-lg-center mt-lg-0">
+                    @foreach (var link in mainNavigation)
+                    {
+                        var linkUrl = link.Url?.ToLower();
+                        var isActive = currentUrl == linkUrl;
+
+                        <li class="nav-item @(isActive ? "active" : "")">
+                            <a class="nav-link menu-item px-0"
+                               href="@link.Url"
+                               target="@link.Target">
+                                @link.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+
+        </div>
+    </div>
+</nav>
+
+@if (stickyNavigation != null)
+{
+    <div class="sticky-badge">
+        @foreach (var link in stickyNavigation)
+        {
+            var menuImage = link.Content.Value<IPublishedContent>("menuImage");
+            <a href="@link.Content.Value("menuLink")" title="@link.Content.Value("menuTitle")">
+                <i class="bi f-bold @link.Content.Value("iconCssClass")"></i>
+            </a>
+        }
+        <a class="cancle-button">
+            <i class="bi bi-x-lg"></i>
+        </a>
+    </div>
+}

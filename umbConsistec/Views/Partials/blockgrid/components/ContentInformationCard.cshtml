@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentInformationCard,GridContentSetting>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var sectionHeader = Model.Content.Value<string>("sectionHeader");
+    var richTextContent = Model.Content.Value<string>("richTextContent");
+}
+  
+<div class="interactive-about-card h-100 bg-white border rounded-3 p-4 shadow-sm hover-lift d-flex flex-column">
+    <div class="card-gray-header p-3 bg-light border-bottom rounded-2 mb-4 text-center">
+        <h5 class="fw-bold mb-0 text-dark">@Html.Raw(sectionHeader)</h5>
+    </div>
+
+    <div class="card-body-content flex-grow-1">
+        @Html.Raw(richTextContent)
+    </div>
+</div>

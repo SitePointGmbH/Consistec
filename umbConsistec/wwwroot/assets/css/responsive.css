@@ -1,0 +1,476 @@
+﻿/* --- Global Responsive Adjustments --- */
+
+@media (max-width: 1024px) {
+  .ecotel-video-wrap {
+    height: 380px;
+  }
+}
+
+@media (max-width: 991px) {
+  .ecotel-video-wrap {
+    height: 380px;
+  }
+
+  .ecotel-text-panel {
+    min-height: auto;
+    padding: 2.5rem 2rem;
+  }
+
+  .py-10 {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+
+  .p-section {
+    position: relative;
+    height: auto;
+    padding: 4rem 0;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .stacking-wrapper {
+    height: auto !important;
+  }
+
+  /* Industry Section Responsive */
+  .industry-tab-box {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 1.5rem !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 1.5rem !important;
+  }
+
+  .industry-tab-box.active {
+    width: 100% !important;
+    margin-right: 0 !important;
+    border: 1.5px solid var(--medical-orange) !important;
+    /* Full orange border matching the description */
+    transform: none !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  #industry-content-area {
+    margin-top: 2rem;
+    min-height: auto !important;
+  }
+
+  /* Solutions Grid */
+  .solutions-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Hero Adjustments */
+  .display-1 {
+    font-size: 3.5rem !important;
+  }
+
+  /* Roadmap Mobile */
+  .roadmap-line-bg,
+  .roadmap-line-progress {
+    display: none !important;
+  }
+
+  .roadmap-step {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin-bottom: 2.5rem !important;
+    text-align: center !important;
+  }
+
+  .roadmap-step .step-copy {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .roadmap-step .step-indicator {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Mobile Menu Toggler Support */
+  .navbar-toggler {
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: none !important;
+    position: relative !important;
+    z-index: 99999 !important;
+  }
+
+  .navbar-toggler img {
+    width: 24px !important;
+    height: 24px !important;
+    object-fit: contain !important;
+    pointer-events: none !important;
+    /* Forces clicks directly onto the parent button */
+    transition:
+      transform 0.25s ease-in-out,
+      opacity 0.25s ease-in-out !important;
+  }
+
+  .navbar-toggler-line {
+    display: none !important;
+  }
+
+  /* Hide the original toggler on the far right when menu is expanded */
+  body.navbar-collapse-show .navbar-toggler:not(.navbar-toggler-clone) {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Style and position the cloned toggler at the top-right of the white drawer (red dot area) */
+  .navbar-toggler-clone {
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: none !important;
+    position: absolute !important;
+    top: 25px !important;
+    right: 25px !important;
+    z-index: 99999 !important;
+  }
+
+  .navbar-toggler-clone img {
+    width: 24px !important;
+    height: 24px !important;
+    object-fit: contain !important;
+    pointer-events: none !important;
+  }
+
+  /* When collapsed (menu is closed) */
+  .navbar-toggler.collapsed .navbar-toggler-open {
+    display: inline-block !important;
+    opacity: 1 !important;
+  }
+
+  .navbar-toggler.collapsed .navbar-toggler-close {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  /* When expanded (menu is open) */
+  .navbar-toggler:not(.collapsed) .navbar-toggler-open {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .navbar-toggler:not(.collapsed) .navbar-toggler-close {
+    display: inline-block !important;
+    opacity: 1 !important;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 767px) {
+  /* Prevent horizontal gutter overflow in value prop section */
+  #second-section .row {
+    --bs-gutter-x: 1.5rem !important;
+  }
+
+  .adler-parallax-bg {
+    background-attachment: scroll;
+    /* fixed doesn't work on iOS */
+    min-height: 420px;
+  }
+
+  .adler-content {
+    padding: 3rem 1.5rem 2.5rem;
+  }
+
+  .display-1 {
+    font-size: 2.8rem !important;
+  }
+
+  .display-4 {
+    font-size: 2rem !important;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem !important;
+  }
+
+  /* Benefit Focus Mobile */
+  .benefit-item {
+    opacity: 1 !important;
+    transform: none !important;
+    margin-bottom: 2rem !important;
+    text-align: center !important;
+  }
+
+  /* Word-wrap rules to prevent compound German words from overflowing without shrinking sizes */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .display-1,
+  .display-4,
+  .display-5,
+  .display-6,
+  .flow-heading,
+  .analysis-title {
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+
+  /* STACK SECTION - 767px Breakpoint Adjustments */
+  .flow-heading {
+    min-height: auto !important;
+    margin-bottom: 1.25rem !important;
+    font-size: 1.4rem !important;
+    display: block !important;
+    text-align: center !important;
+  }
+
+  .purple-box {
+    width: 100% !important;
+    max-width: 300px !important;
+    height: 150px !important;
+    margin: 0 auto !important;
+  }
+
+  .arrow {
+    height: 60px !important;
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+  }
+
+  /* EVENT LAYER - 767px Breakpoint Adjustments */
+  .event-items {
+    margin-top: 1.5rem !important;
+  }
+
+  .analysis-title {
+    min-height: auto !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .analysis-box {
+    width: 80% !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
+  }
+
+  .big-arrow-wrap {
+    margin: 2rem 0 !important;
+  }
+
+  .big-arrow {
+    margin: 0 auto !important;
+  }
+
+  /* Testimonials Centering on Mobile */
+  .testimonial-v-card {
+    max-width: 320px !important;
+    margin: 0 auto 30px auto !important;
+    text-align: center !important;
+  }
+
+  /* Case Studies Grid centering */
+  .interactive-banner-style-02 {
+    max-width: 320px !important;
+    margin: 0 auto 30px auto !important;
+  }
+
+  /* Ecotel Video Sizing for mobile */
+  .ecotel-video-wrap {
+    height: 280px !important;
+  }
+
+  .ecotel-prev {
+    left: 10px !important;
+  }
+
+  .ecotel-next {
+    right: 10px !important;
+  }
+
+  /* Layer 3: Analysis Layer */
+  .benefit-box {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  /* STACK SECTION - 480px Breakpoint Adjustments */
+  .flow-heading {
+    font-size: 2rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .purple-box {
+    max-width: 280px !important;
+    height: 140px !important;
+  }
+
+  .purple-box .text-white.small {
+    font-size: 0.8rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .purple-box svg {
+    transform: scale(0.85) !important;
+    transform-origin: center center !important;
+  }
+
+  .arrow {
+    height: 45px !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .arrow::after {
+    bottom: -10px !important;
+    border-left: 10px solid transparent !important;
+    border-right: 10px solid transparent !important;
+    border-top: 12px solid #4b248c !important;
+  }
+
+  /* EVENT LAYER - 480px Breakpoint Adjustments */
+  .analysis-box {
+    width: 80% !important;
+  }
+
+  /* Ecotel Video & Text Slider adjustments */
+  .ecotel-video-wrap {
+    height: 240px !important;
+  }
+
+  #ecotel-section .position-absolute.top-50.start-50.translate-middle.z-3 {
+    width: 90% !important;
+  }
+
+  /* Converting Industry grid list to single column to let German text flow */
+  .industry-grid-mockup {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 425px) {
+  /* STACK SECTION - 425px Breakpoint Adjustments */
+  .flow-heading {
+    font-size: 1.25rem !important;
+  }
+
+  .purple-box {
+    max-width: 260px !important;
+    height: 130px !important;
+  }
+
+  .purple-box .text-white.small {
+    font-size: 0.75rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .purple-box svg {
+    transform: scale(0.8) !important;
+  }
+
+  .arrow {
+    height: 40px !important;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+
+  /* EVENT LAYER - 425px Breakpoint Adjustments */
+  .analysis-box {
+    width: 80% !important;
+  }
+
+  /* Ecotel Video Height Adjustments */
+  .ecotel-video-wrap {
+    height: 220px !important;
+  }
+}
+
+@media (max-width: 375px) {
+  /* STACK SECTION - 375px Breakpoint Adjustments */
+  .flow-heading {
+    font-size: 1.15rem !important;
+  }
+
+  .purple-box {
+    max-width: 240px !important;
+    height: 120px !important;
+  }
+
+  .purple-box .text-white.small {
+    font-size: 0.7rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .purple-box svg {
+    transform: scale(0.75) !important;
+  }
+
+  .arrow {
+    height: 35px !important;
+  }
+
+  /* EVENT LAYER - 375px Breakpoint Adjustments */
+  .analysis-box {
+    width: 80% !important;
+  }
+
+  /* Ecotel Video Height Adjustments */
+  .ecotel-video-wrap {
+    height: 200px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .event-items {
+    margin-top: 0;
+  }
+
+  /* STACK SECTION - 320px Breakpoint Adjustments */
+  .flow-heading {
+    font-size: 1.1rem !important;
+  }
+
+  .purple-box {
+    max-width: 220px !important;
+    height: 110px !important;
+  }
+
+  .purple-box .text-white.small {
+    font-size: 0.65rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .purple-box svg {
+    transform: scale(0.7) !important;
+  }
+
+  .arrow {
+    height: 30px !important;
+  }
+
+  /* EVENT LAYER - 320px Breakpoint Adjustments */
+  .analysis-box {
+    width: 80% !important;
+  }
+
+  /* Ecotel Video Height Adjustments */
+  .ecotel-video-wrap {
+    height: 180px !important;
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "name": "RTE Styles",
+  "extensions": [
+    {
+      "type": "tiptapToolbarExtension",
+      "kind": "styleMenu",
+      "alias": "My.RTE.StyleMenu",
+      "name": "My RTE Style Menu",
+      "meta": {
+        "alias": "myRteStyles",
+        "label": "Content Styles",
+        "icon": "icon-palette"
+      },
+      "items": [
+        {
+          "label": "Font Weight - Bold",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a,strong",
+            "class": "fw-bold"
+          }
+        },
+        {
+          "label": "Text Size - Small",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "small"
+          }
+        },
+        {
+          "label": "Margin Top - None",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mt-0"
+          }
+        },
+        {
+          "label": "Margin Top - Extra Small (0.25rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mt-1"
+          }
+        },
+        {
+          "label": "Margin Top - Small (0.5rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mt-2"
+          }
+        },
+        {
+          "label": "Margin Top - Medium (1rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mt-3"
+          }
+        },
+        {
+          "label": "Margin Top - Large (1.5rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mt-4"
+          }
+        },
+        {
+          "label": "Margin Top - Extra Large (3rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mt-5"
+          }
+        },
+        {
+          "label": "Margin Bottom - None",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mb-0"
+          }
+        },
+        {
+          "label": "Margin Bottom - Extra Small (0.25rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mb-1"
+          }
+        },
+        {
+          "label": "Margin Bottom - Small (0.5rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mb-2"
+          }
+        },
+        {
+          "label": "Margin Bottom - Medium (1rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mb-3"
+          }
+        },
+        {
+          "label": "Margin Bottom - Large (1.5rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mb-4"
+          }
+        },
+        {
+          "label": "Margin Bottom - Extra Large (3rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "mb-5"
+          }
+        },
+        {
+          "label": "Padding Top - None",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pt-0"
+          }
+        },
+        {
+          "label": "Padding Top - Extra Small (0.25rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pt-1"
+          }
+        },
+        {
+          "label": "Padding Top - Small (0.5rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pt-2"
+          }
+        },
+        {
+          "label": "Padding Top - Medium (1rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pt-3"
+          }
+        },
+        {
+          "label": "Padding Top - Large (1.5rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pt-4"
+          }
+        },
+        {
+          "label": "Padding Top - Extra Large (3rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pt-5"
+          }
+        },
+        {
+          "label": "Padding Bottom - None",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pb-0"
+          }
+        },
+        {
+          "label": "Padding Bottom - Extra Small (0.25rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pb-1"
+          }
+        },
+        {
+          "label": "Padding Bottom - Small (0.5rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pb-2"
+          }
+        },
+        {
+          "label": "Padding Bottom - Medium (1rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pb-3"
+          }
+        },
+        {
+          "label": "Padding Bottom - Large (1.5rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pb-4"
+          }
+        },
+        {
+          "label": "Padding Bottom - Extra Large (3rem)",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "pb-5"
+          }
+        },
+        {
+          "label": "Text Dark - Dark",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "text-dark"
+          }
+        },
+        {
+          "label": "Margin Zero - m-0",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "m-0"
+          }
+        },
+        {
+          "label": "Line Height - lh-2",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "lh-2"
+          }
+        },
+        {
+          "label": "Font Weight - fw-400",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "fw-normal"
+          }
+        },
+        {
+          "label": "Font Size - fs-5",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "fs-5"
+          }
+        },
+        {
+          "label": "Display Size - display6",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "display-6"
+          }
+        },
+        {
+          "label": "Font Size - fs-2",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "fs-2"
+          }
+        },
+        {
+          "label": "Text muted - Gray",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "text-muted"
+          }
+        },
+        {
+          "label": "Font Size - fs-4",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "fs-4"
+          }
+        },
+        {
+          "label": "Display Size - display5",
+          "data": {
+            "tag": "p,h1,h2,h3,h4,h5,h6,img,div,a",
+            "class": "display-5"
+          }
+        }
+      ]
+    }
+  ]
+}

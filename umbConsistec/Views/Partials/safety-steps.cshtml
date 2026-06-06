@@ -1,0 +1,47 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using System.Text.Json
+@using Umbraco.Cms.Core.Models.Blocks;
+
+<div class="roadmap-pin-container bg-light" id="roadmap-pin-container">
+    <section class="roadmap-section" id="roadmap">
+        <div class="container">
+            <div class="row mb-0 mt-2">
+                <div class="col-12 px-0">
+                <h2 class="display-5 fw-light text-dark mb-0">@Model.Value("safetyStepsHeading")</h2>
+                </div>
+            </div>
+
+            <div class="roadmap-scrub-container position-relative">
+                <div class="roadmap-line-bg"></div>
+                <div class="roadmap-line-progress" id="timelineProgress"></div>
+                @{
+                    var safetyContentBlocks = Model.Value<BlockGridModel>("safetyContent");
+                    int count = 0;
+
+                    <div class="row gx-5 justify-content-between position-relative z-3">
+                        @foreach (var safetyblock in safetyContentBlocks)
+                        {
+                            var content = safetyblock.Content;
+
+                        <div class="col-3 roadmap-step" data-step="@count">
+                                <div class="step-indicator bg-white rounded-0 mb-4 transition-all d-flex 
+                                    align-items-center justify-content-center shadow-sm">
+                                    <i class="bi @content.Value("iconClass") fs-2 transition-all"></i>
+                                </div>
+                            <h6 class="fw-bold mb-3">@content.Value("indicator")</h6>
+                                <div class="step-copy transition-all">
+                                    <div class="small text-muted mb-0">
+                                        @content.Value("indicatorDescription")
+                                    </div>
+                                </div>
+                            </div>
+                            count++;
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</div>

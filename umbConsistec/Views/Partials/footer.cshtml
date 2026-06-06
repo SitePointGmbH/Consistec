@@ -1,0 +1,119 @@
+﻿@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var root = Model.Root();
+
+    var commonComponent = root
+        .Children()
+        .FirstOrDefault(x => x.ContentType.Alias == "commonComponents");
+
+    var footerNavigationFirstColumn = commonComponent?
+        .Value<IEnumerable<Link>>("footerNavigation");
+
+    var footerNavigationSecondColumn = commonComponent?
+        .Value<IEnumerable<Link>>("footerNavigation2");
+
+    var address = commonComponent?.Value("address");
+    var telephone = commonComponent?.Value("telephone");
+    var email = commonComponent?.Value("email");
+
+    var socialMedias = commonComponent?
+        .Value<BlockListModel>("socialMedia");
+}
+
+<footer class="footer-section py-5 bg-dark text-white mt-auto">
+    <div class="container">
+        <div class="row g-4 justify-content-between">
+
+            <div class="col-lg-2 mb-4 mb-lg-0">              
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <span class="logo-text text-white mb-0">consistec</span>
+                </a>
+            </div>
+
+            @if (footerNavigationFirstColumn != null)
+            {
+                <div class="col-6 col-md-4 col-lg-2 mb-4 mb-lg-0">
+                    <ul class="list-unstyled footer-links mb-0">
+                        @foreach (var footerNav in footerNavigationFirstColumn)
+                        {
+                            <li class="mb-2">
+                                <a href="@footerNav.Url"
+                                   target="@footerNav.Target"
+                                   class="text-white-50 text-decoration-none small transition">
+                                    @footerNav.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @if (footerNavigationSecondColumn != null)
+            {
+                <div class="col-6 col-md-4 col-lg-2 mb-4 mb-lg-0">
+                    <ul class="list-unstyled footer-links mb-0">
+                        @foreach (var footerNav in footerNavigationSecondColumn)
+                        {
+                            <li class="mb-2">
+                                <a href="@footerNav.Url"
+                                   target="@footerNav.Target"
+                                   class="text-white-50 text-decoration-none small transition">
+                                    @footerNav.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <div class="col-md-6 col-lg-2 mb-4 mb-lg-0 text-white-50 small">
+                @Html.Raw(address)
+            </div>
+
+            <div class="col-md-6 col-lg-2 mb-4 mb-lg-0">
+                <div class="mb-2">
+                    <span class="fw-bold me-2 opacity-75 small">T</span>
+                    <a href="tel:@telephone"
+                       class="text-white-50 text-decoration-none small">
+                        @telephone
+                    </a>
+                </div>
+
+                <div>
+                    <span class="fw-bold me-2 opacity-75 small">M</span>
+                    <a href="mailto:@email"
+                       class="text-white-50 text-decoration-none small">
+                        @email
+                    </a>
+                </div>
+            </div>
+
+            @if (socialMedias != null)
+            {
+                <div class="col-lg-2 text-lg-end">
+                    <div class="d-flex flex-wrap gap-2 justify-content-start"
+                         style="max-width: 110px; margin-left: auto;">
+
+                        @foreach (var socialMedia in socialMedias)
+                        {
+                            <a href="@socialMedia.Content.Value("link")"
+                               target="_blank"
+                               title="@socialMedia.Content.Value("title")"
+                               class="social-icon-circle">
+
+                                <i class="bi @socialMedia.Content.Value("iconCssClass")"></i>
+
+                            </a>
+                        }
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</footer>

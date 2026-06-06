@@ -1,0 +1,53 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+
+@if (Model.HasValue("bannerTextLines", fallback: Fallback.ToLanguage))
+{
+    var bg = Model.Value<IPublishedContent>("bannerImage", fallback: Fallback.ToLanguage);
+    var bannerTextLines = Model.Value<IEnumerable<string>>("bannerTextLines",fallback: Fallback.ToLanguage);
+
+    <section class="hero-section d-flex align-items-center position-relative border-bottom"
+             style="min-height: 60vh;
+        @(bg != null ? $"background-image:url({bg.Url()}); background-repeat:no-repeat; background-position:center; background-size:cover;" : "")">
+
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-7 col-sm-10 position-relative"
+                     data-anime='{
+                    "el": "childs",
+                    "opacity": [0, 1],
+                    "translateX": [-30, 0],
+                    "duration": 800,
+                    "delay": 0,
+                    "staggervalue": 300,
+                    "easing": "easeOutQuad"
+                    }'>
+
+                    <!-- Top Brand Tag -->
+                    <h2 class="fw-light text-white fancy-text-style-4 pb-0 mb-5"
+                        style="font-size: 2.5rem;">
+                        caplon©
+                    </h2>
+
+                    <!-- Dynamic Wave Rotator -->
+                    <h1 class="display-4 fw-light text-white fancy-text-style-4 mb-0 pb-0"
+                        style="line-height: 0.95;">
+
+                        <span data-fancy-text='{
+                            "effect": "wave",
+                            "direction": "up",
+                            "speed": 40,
+                            "duration": 5000,
+                            "string": [
+                                @Html.Raw(string.Join(",", bannerTextLines.Select(x => $"\"{x}\"")))
+                            ]
+                        }'>
+                        </span>
+
+                    </h1>
+
+                </div>
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,17 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var root = Model.Root();
+
+    var commonComponent = root
+        .Children()
+        .FirstOrDefault(x => x.ContentType.Alias == "commonComponents");
+
+    var favicon = commonComponent?.Value<IPublishedContent>("favicon");
+}
+
+<title>@Model.Value("pageTitle")</title>
+<meta name="description" content="@Model.Value("pageMetaDescription")" />
+<meta name="keywords" content="@Model.Value("pageMetaKeywords")" />
+
+<link rel="icon" type="image/x-icon" href="@favicon?.Url()" />

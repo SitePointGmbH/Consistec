@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentButtonCard,GridContentSetting>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var sectionHeader = Model.Content.Value<string>("sectionHeader");
+    var richTextContent = Model.Content.Value<string>("richTextContent");
+    var buttonLink = Model.Content.Value<Umbraco.Cms.Core.Models.Link>("ctaButton");
+}
+
+<div class="solution-card p-5 border bg-light h-100 transition shadow-sm hover-lift d-flex flex-column">
+    <h4 class="fw-bold mb-5"> @Html.Raw(sectionHeader)</h4>
+    @Html.Raw(richTextContent)
+    <div class="d-flex align-items-center mt-auto">
+        @if (buttonLink != null)
+        {
+            <a href="@buttonLink.Url"
+                   target="@buttonLink.Target"
+                   class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
+                @buttonLink.Name
+            </a>
+        }
+    </div>
+</div>
+                

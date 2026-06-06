@@ -1,0 +1,14 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.AboutUs>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "master.cshtml";
+}
+
+<div id="ueber-uns-page">
+    <partial name="PageHeader" />
+
+    <div class="py-10 pb-5">
+       @await Html.GetBlockGridHtmlAsync(Model.Content)
+    </div>
+</div>
+ 

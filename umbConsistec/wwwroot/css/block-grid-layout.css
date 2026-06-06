@@ -1,0 +1,148 @@
+.umb-block-grid__layout-container {
+    position: relative;
+    /*    display: grid;*/
+    display: flex;
+    flex-direction: column;
+    gap: 2rem !important;
+    grid-template-columns: repeat(var(--umb-block-grid--grid-columns, 1), minmax(0, 1fr));
+    grid-auto-flow: row;
+    grid-auto-rows: minmax(0px, min-content);
+    column-gap: var(--umb-block-grid--column-gap, 0);
+    row-gap: var(--umb-block-grid--row-gap, 0);
+}
+
+.umb-block-grid__layout-item {
+    position: relative;
+    /* For small devices we scale columnSpan by three, to make everything bigger than 1/3 take full width: */
+    grid-column-end: span min(calc(var(--umb-block-grid--item-column-span, 1) * 3), var(--umb-block-grid--grid-columns));
+    grid-row: span var(--umb-block-grid--item-row-span, 1);
+}
+
+.button-group {
+    position: absolute;
+    bottom: 0;
+}
+
+.h-90 {
+    height: 90vh;
+}
+
+.umb-block-grid__area-container,
+.umb-block-grid__block--view::part(area-container) {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--umb-block-grid--area-grid-columns, var(--umb-block-grid--grid-columns, 1)), minmax(0, 1fr));
+    grid-auto-flow: row;
+    grid-auto-rows: minmax(50px, min-content);
+    column-gap: var(--umb-block-grid--areas-column-gap, 0);
+    row-gap: var(--umb-block-grid--areas-row-gap, 0);
+}
+
+.umb-block-grid__area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* For small devices we scale columnSpan by three, to make everything bigger than 1/3 take full width: */
+    grid-column-end: span min(calc(var(--umb-block-grid--area-column-span, 1) * 3), var(--umb-block-grid--area-grid-columns));
+    grid-row: span var(--umb-block-grid--area-row-span, 1);
+}
+
+.umb-block-grid__area-actions>button {
+    height: auto !important;
+}
+
+@media (min-width:1024px) {
+    .umb-block-grid__layout-item {
+        grid-column-end: span min(var(--umb-block-grid--item-column-span, 1), var(--umb-block-grid--grid-columns));
+    }
+
+    .umb-block-grid__area {
+        grid-column-end: span min(var(--umb-block-grid--area-column-span, 1), var(--umb-block-grid--area-grid-columns));
+    }
+}
+
+/**** Custom additions to the default Grid Layout Stylesheet: ****/
+
+.umb-block-grid {
+    container-type: inline-size;
+}
+
+.umb-block-grid>.umb-block-grid__layout-container>.umb-block-grid__layout-item {
+    padding: 0;
+}
+
+.umb-block-grid__area-container,
+.umb-block-grid__block--view::part(area-container) {
+    --umb-block-grid--areas-column-gap: 24px;
+    --umb-block-grid--areas-row-gap: 24px;
+}
+
+@container (min-width: 720px) {
+
+    .umb-block-grid__area-container,
+    .umb-block-grid__block--view::part(area-container) {
+        --umb-block-grid--areas-column-gap: 24px;
+        --umb-block-grid--areas-row-gap: 24px;
+    }
+}
+
+.umb-block-grid__block--actions {
+    margin-top: 0px !important;
+}
+
+.umb-block-grid__area {
+    height: 100% !important;
+}
+
+.umb-block-grid__layout-container,
+.umb-block-grid__layout-item {
+    height: 100%;
+}
+
+
+.card.top .umb-block-grid__layout-item {
+    text-align: center;
+}
+
+.btn-primary {
+    --bs-btn-bg: #262d5c;
+    --bs-btn-border-color: #262d5c;
+    --bs-btn-hover-bg: #6B73AB;
+    --bs-btn-hover-border-color: #6B73AB;
+    --bs-btn-active-bg: #6B73AB;
+    --bs-btn-active-border-color: #6B73AB;
+}
+
+.grid-link-action {
+    color: #3e3989;
+    font-weight: 500;
+}
+
+.grid-link-action:hover {
+    color: #f7a609;
+}
+
+.rich-text {
+    color: inherit;
+}
+
+.rich-text>p:first-child {
+    margin-top: 0;
+}
+
+.lh-2 {
+    line-height: 1.7;
+    color: #495057;
+}
+
+.content-center {
+    margin: 0 auto;
+}
+
+.content-right {
+    margin-left: auto;
+}
+
+.faq-title {
+    margin-bottom: 0 !important;
+}

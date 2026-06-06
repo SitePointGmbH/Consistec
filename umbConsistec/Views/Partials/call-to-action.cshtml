@@ -1,0 +1,45 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using System.Text.Json
+@using Umbraco.Cms.Core.Models.Blocks;
+
+@{
+    var call2ActionBackgroundImage = Model.Value<IPublishedContent>("call2ActionBackgroundImage");
+}
+
+<section id="adler-section" class="adler-fullwidth-section">
+    <div class="adler-parallax-bg" id="adler-parallax-bg"
+         style="background-image: url('@call2ActionBackgroundImage?.Url()')">
+        <!-- Dark overlay -->
+        <div class="adler-overlay"></div>
+        <!-- Content -->
+        <div class="adler-content">
+            <div class="row justify-content-center align-items-center g-4 text-center">
+                <div class="col-xl-6 col-lg-7 col-md-9">
+                    <h3 class="text-white mb-0 fw-500 ls-minus-1px ps-10px pe-10px creative-solutions">
+                        @Model.Value("call2ActionHeading")
+                    </h3>
+                </div>
+                @{
+                    var c2c = Model.Value<Link>("call2ActionLink");
+                    @if (c2c != null)
+                    {
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <a href="@c2c.Url"
+                                class="btn btn-large btn-gradient-pink-orange px-5 py-3 rounded-0 fw-normal shadow-sm 
+                                transition text-white" target="@c2c.Target">
+                                @c2c.Name<i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="adler-footer-bar">
+                <div class="text-uppercase text-white fw-500 ls-05px">
+                    @Model.Value("call2ActionBottomLine")
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

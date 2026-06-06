@@ -1,0 +1,45 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ThreeOneColumnBlock,ColumnSetting>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var container = Model.Settings?.Container == "Full Width Container"
+        ? "container-fluid"
+        : "container";
+
+    var width = string.IsNullOrWhiteSpace(Model.Settings?.Width)
+        ? "100%"
+        : $"{Model.Settings.Width}%";
+
+    var alignmentClass = Model.Settings?.ContainerAlignment switch
+    {
+        "Right" => "content-right",
+        "Center" => "content-center",
+        _ => string.Empty
+    };
+
+    var customCssClass = string.IsNullOrWhiteSpace(Model.Settings?.CustomCssClass)
+        ? ""
+        : Model.Settings.CustomCssClass;
+
+    var containerStyles = new List<string>();
+
+    if (!string.IsNullOrWhiteSpace(Model.Settings?.BackgroundColorCode))
+    {
+        containerStyles.Add($"background-color: {Model.Settings.BackgroundColorCode}");
+    }
+
+    if (!string.IsNullOrWhiteSpace(Model.Settings?.CssStyle))
+    {
+        containerStyles.Add(Model.Settings.CssStyle);
+    }
+
+    var containerStyleAttr = containerStyles.Any() 
+        ? $"style=\"{string.Join("; ", containerStyles)}\"" 
+        : string.Empty;
+}
+
+<div class="@container @customCssClass" @Html.Raw(containerStyleAttr)>
+    <div class="@alignmentClass" style="width:@width;">
+        @await Html.GetBlockGridItemAreasHtmlAsync(Model)
+    </div>
+</div>

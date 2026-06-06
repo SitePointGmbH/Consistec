@@ -1,0 +1,71 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using System.Text.Json
+@using Umbraco.Cms.Core.Models.Blocks;
+
+<!-- Case Studies -->
+<section class="py-10 bg-white position-relative overflow-hidden" id="case-studies">
+    <!-- Animated Particle Background Canvas -->
+    <div id="particle-style" class="position-absolute top-0 start-0 w-100 h-100"
+        style="opacity: 0.6; background-color: #dee2e6;"></div>
+    @{
+        var caseStudiesBlocks = Model.Value<BlockGridModel>("caseStudiesBlock");
+        var caseStudiesCtaLink = Model.Value<Link>("caseStudiesCta");
+    <div class="container position-relative" style="z-index: 1;">
+        <h2 class="display-6 fw-light mb-4 blur-reveal text-dark">@Model.Value("caseStudiesHeading")</h2>
+        <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-1 
+                justify-content-center transition-inner-all g-4">
+            @foreach (var block in caseStudiesBlocks)
+            {
+                var content = block.Content;
+                var imgBox = content.Value<IPublishedContent>("image");
+                var iconImageBox = content.Value<IPublishedContent>("iconImage");
+                var linkBlock = content.Value<Link>("link");
+            <div class="col interactive-banner-style-02 ">
+                <div class="h-100 text-center position-relative border-radius-6px box-shadow-quadruple-large
+                    overflow-hidden">
+                    <figure class="m-0">
+                        <a href="#" class="position-relative d-block">
+                            <img src="@imgBox?.Url()" alt="" />                               
+                        </a>
+                        <figcaption class="w-100 position-absolute bottom-0px bg-white custom_profile_intro">
+                            <div class="position-relative z-index-2 p-40px border-bottom border-dark-opacity">
+
+                               <img src="@iconImageBox?.Url()" alt="" class="features-icon d-block">
+                                <a href="#" class="fw-600 d-inline-block mb-5px text-dark-gray fs-18">
+                                    @content.Value("heading")
+                                </a>
+                                <div class="w-80 lg-w-100 fs-16 mx-auto mb-15px lg-mb-10px text-light-opacity">
+                                    <p>@content.Value("description")</p>
+                                </div>
+                            </div>
+                            @if (linkBlock != null){
+                            <a href="@linkBlock.Url"
+                                class="btn btn-link btn-hover-animation-switch btn-medium fw-700 text-dark-gray text-uppercase p-20px z-index-1">
+                                <span>
+                                    <span class="btn-text">@linkBlock.Name</span>
+                                    <span class="btn-icon"><i class="bi bi-arrow-right"></i></span>
+                                    <span class="btn-icon"><i class="bi bi-arrow-right"></i></span>
+                                </span>
+                            </a>
+                            }
+                            <div class="box-overlay bg-base-color"></div>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>                    
+            }
+        </div>
+        <div class="text-center mt-5 pt-4 blur-reveal delay-2">
+            <div class="text-danger small fw-bold mb-4">
+                @Model.Value("caseStudiesBottomText")
+            </div>
+            @if (caseStudiesCtaLink != null) { 
+            <a href="@caseStudiesCtaLink.Url" class="btn btn-large btn-gradient-pink-orange text-white 
+                rounded-0">@caseStudiesCtaLink.Name</a>
+            }
+        </div>
+    </div>
+    }
+</section>

@@ -1,0 +1,72 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using System.Text.Json
+@using Umbraco.Cms.Core.Models.Blocks;
+
+@{
+    var bannerBlocks = Model.Value<BlockGridModel>("banner");
+    int countBanner = 1;
+    var titleList = new List<string>();
+
+    if (bannerBlocks != null)
+    {
+        foreach (var bannerBlock in bannerBlocks)
+        {
+            var title = bannerBlock.Content.Value<string>("overlayText");
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                titleList.Add(title);
+            }
+        }
+    }
+    var jsonTitles = JsonSerializer.Serialize(titleList);
+}
+
+<section id="home" class="hero-section d-flex align-items-center position-relative min-vh-100 bg-light border-bottom">
+    <div class="hero-bg-carousel">
+        @if (bannerBlocks != null)
+        {
+            foreach (var bannerBlock in bannerBlocks)
+            {
+                var image = bannerBlock.Content.Value<MediaWithCrops>("menuImage");
+                <div class="hero-bg-slide @(countBanner == 1 ? "active" : "")"
+                        style="background-image: url('@image?.Url()');">
+                </div>
+                countBanner++;
+            }
+        }
+
+        <div class="hero-carousel-dots">
+            @if (bannerBlocks != null)
+            {
+                int dotCount = 1;
+                foreach (var item in bannerBlocks)
+                {
+                    <span class="hero-dot @(dotCount == 1 ? "active" : "")"></span>
+                    dotCount++;
+                }
+            }
+        </div>
+    </div>
+
+    <div class="container px-4 px-md-5">
+        <div class="row align-items-center">
+            <div class="col-lg-10">
+                <div class="hero-rotator-container mb-2">
+                    <h1 class="display-4 fw-light text-dark fancy-text-style-4 mb-0 pb-0"
+                        style="line-height: 0.95;">
+                        <span data-fancy-text='{
+                            "effect": "wave",
+                            "direction": "up",
+                            "speed": 40,
+                            "duration": 4500,
+                            "string": @Html.Raw(jsonTitles)
+                        }'>
+                        </span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,12 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Contact>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "master.cshtml";
+}
+
+<div id="kontakt-page">
+    <partial name="PageHeader" />
+    <section class="py-10 bg-white">
+        @await Html.GetBlockGridHtmlAsync(Model.Content)      
+    </section>
+</div>

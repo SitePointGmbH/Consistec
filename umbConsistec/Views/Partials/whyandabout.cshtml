@@ -1,0 +1,55 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using System.Text.Json
+@using Umbraco.Cms.Core.Models.Blocks;
+
+@{
+    var sectionPosterImage = Model.Value<IPublishedContent>("sectionPosterImage");
+    var sectionPosterVideo = Model.Value<IPublishedContent>("sectionPosterVideo");
+}
+
+<section class="py-10 bg-white" id="second-section">
+    <div class="container">
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-9 blur-reveal">
+                <div class="fs-4 text-dark mb-4 px-lg-5" data-aos="fade-down">
+                    @Model.Value("sectionDescriptionAbout")
+                </div>
+                @{
+                    var buttonLink = Model.Value<Link>("sectionCta");
+
+                    if (buttonLink != null)
+                    {
+                        <a href="@buttonLink.Url"
+                               class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block xl-mb-15px md-mx-auto px-5 py-3 rounded-0 fw-normal shadow-sm transition text-white"
+                               data-aos="fade-up" data-aos-delay="400">
+                            @buttonLink.Name
+                        </a>
+                    }
+                }
+                
+            </div>
+        </div>
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-7 blur-reveal">
+                <div class="video-container ratio ratio-16x9 rounded-2 shadow-sm bg-dark overflow-hidden position-relative cursor-pointer">
+                    <video id="scrollVideo"
+                        class="w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-0"
+                        src="@sectionPosterVideo?.Url()"
+                        poster="@sectionPosterImage?.Url()" loop muted playsinline>
+                    </video>
+
+                </div>
+            </div>
+            <div class="col-lg-5 blur-reveal delay-1">
+                <div class="ps-lg-4">
+                    <h3 class="display-6 fw-light mb-4"> @Model.Value("sectionHeading")</h3>
+                    <div class="text-muted mb-4">
+                        @Model.Value("sectionDescriptionWhy")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

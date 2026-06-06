@@ -1,0 +1,11 @@
+﻿
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.TextPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	
+	Layout = "master.cshtml";
+}
+<partial name="PageHeader" />
+<section class="py-10 bg-white">
+    @await Html.GetBlockGridHtmlAsync(Model.Content)
+</section>

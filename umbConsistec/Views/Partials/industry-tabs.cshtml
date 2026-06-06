@@ -1,0 +1,85 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using System.Text.Json
+@using Umbraco.Cms.Core.Models.Blocks;
+
+<div class="container pb-5">
+
+    <div class="row g-0 justify-content-center d-none d-lg-flex">
+
+        <div class="col-lg-4 d-flex flex-column gap-5  blur-reveal">
+            @{
+                int countRegistrationButton = 1;
+               
+                var registrations = Model.Value<IEnumerable<BlockListItem>>("tabContent");
+                foreach (var block in registrations)
+                {
+                    string dynamicParameter = "energy" + countRegistrationButton.ToString();
+                    var content = block.Content;
+                    <div class="industry-tab-box p-4 border transition-all cursor-pointer @(countRegistrationButton == 1 ? "active" : "")"
+                         onclick="switchIndustry('@dynamicParameter', this)">
+                        <h4 class="fw-bold mb-2">@content.Value("tabContentHeading")</h4>
+                        <div class="small text-muted mb-0">
+                            <p>@content.Value("tabContentSubheading")</p>
+                        </div>
+                    </div>
+                    countRegistrationButton++;
+                }
+            }
+        </div>
+                 
+        <div class="col-lg-7 border bg-light p-5 blur-reveal delay-1" id="industry-content-area"
+             style="min-height: 500px;">
+            <div id="industry-content-placeholder" class="position-relative">
+                @{
+                    int countRegistration = 1;
+                   
+                    foreach (var block in registrations)
+                    {
+                        string dynamicId = "energy" + countRegistration.ToString();
+                        var content = block.Content;
+                        <div id="@("desktop-content-" + dynamicId)" class="industry-content-section @(countRegistration > 1 ? "d-none position-absolute top-0 start-0 w-100" :"")">
+                            <h3 class="fw-bold mb-4">@content.Value("tabContentHeading")</h3>
+                            @content.Value("tabDescription")
+                        </div>
+                        countRegistration++;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    
+    <div class="row g-0 justify-content-center d-block d-lg-none mt-4">
+        <div class="col-12 blur-reveal">
+            <div class="accordion industry-custom-accordion" id="industryAccordionMobile">
+                
+               @{
+                        int countmobileButton = 1;                       
+                        var registrationsMobile = Model.Value<IEnumerable<BlockListItem>>("tabContent");
+                        foreach (var blocks in registrationsMobile)
+                        {
+                            string dynamicParameterId = "Energy" + countmobileButton.ToString();
+                            var content = blocks.Content;
+                        <div class="accordion-item industry-accordion-item">
+                    
+                            <h2 class="accordion-header" id="@("headingMobile" + dynamicParameterId)">
+                                <button class="accordion-button collapsed industry-accordion-button" type="button" data-bs-target="#@("collapseMobile" + dynamicParameterId)" aria-expanded="false" aria-controls="@("collapseMobile" + dynamicParameterId)">
+                                    @content.Value("tabContentHeading")
+                                </button>
+                            </h2>
+                            
+                            <div id="@("collapseMobile" + dynamicParameterId)" class="accordion-collapse collapse" aria-labelledby="@("headingMobile" + dynamicParameterId)">
+                                <div class="accordion-body industry-accordion-body">
+                                    <h3 class="fw-bold mb-4">@content.Value("tabContentHeading")</h3>
+                                    @content.Value("tabDescription")
+                                </div>
+                            </div>
+                        </div>
+                        countmobileButton++;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

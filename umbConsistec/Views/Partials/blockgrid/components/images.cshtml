@@ -1,0 +1,11 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<Images,GridContentSetting>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var image = Model.Content.Image;
+    if (image is not null)
+    {
+        <div style="text-align:@Model.Settings?.Alignment" class="p-4 bg-white shadow border rounded-4 @Model.Settings?.CustomCssClass">
+            <img class="image img-fluid" src="@image.Url()" title="@image.Name" alt="@image.Name" />
+        </div>
+    }
+}

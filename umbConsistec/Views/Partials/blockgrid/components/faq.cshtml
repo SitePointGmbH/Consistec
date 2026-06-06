@@ -1,0 +1,29 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<BlockGridItem>
+
+@{
+    var question = Model.Content.Value<string>("question");
+    var answer = Model.Content.Value<string>("answer");
+    var faqId = $"faq-{Model.Content.Key}";
+}
+<div class="accordion accordion-flush" id="faqAccordion">
+    <div class="accordion-item faq-theme-box">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed fs-5 fw-bold text-dark shadow-none"
+                    type="button"
+                    data-bs-target="#@faqId"
+                    aria-expanded="false"
+                    aria-controls="@faqId">
+                @Html.Raw(question)
+            </button>
+        </h2>
+
+        <div id="@faqId"
+             class="accordion-collapse collapse"
+             data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+                @Html.Raw(answer)
+            </div>
+        </div>
+    </div>
+</div>

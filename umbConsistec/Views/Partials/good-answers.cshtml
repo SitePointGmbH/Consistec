@@ -1,0 +1,72 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using System.Text.Json
+@using Umbraco.Cms.Core.Models.Blocks;
+
+<div class="benefits-pin-container bg-light" id="benefits-pin-container">
+    <section class="benefits-section d-flex align-items-center" id="benefits-section">
+        <div class="container w-100">
+            <div class="row justify-content-center mb-3">
+                <div class="col-lg-10 text-center">
+                    <h2 class="display-6 fw-bold mb-4">
+                        <span data-fancy-text='{ "opacity": [0, 1], "rotate": [10, 0], "translateX": [0, 0], "translateY": [30, 0], "delay": 100, "speed": 50, "string": ["@Model.Value("goodAnswerHeading")"], "easing": "easeOutQuad" }'>
+                        </span>
+                    </h2>
+                    <div class="fs-5 fw-bold text-dark mb-0 fancy-text-style-4">
+                        <p>
+                            <span data-fancy-text='{ "effect": "wave", "direction": "up", "speed": 40, "string": 
+                                ["@Model.Value("goodAnswerSubheading")"], "duration": 2500 }'>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    @{
+                        IEnumerable<BlockListItem> blocks = null;
+                        try {
+                            blocks = Model.Value<IEnumerable<BlockListItem>>("answers");
+                        } catch (Exception) {
+                            // Gracefully ignore invalid or deleted block types
+                        }
+                    }
+                    @if (blocks != null && blocks.Any())
+                    {
+                        <div class="benefits-list py-2">
+                            @{
+                                int index = 0;
+                            }
+                            @foreach (var block in blocks)
+                            {
+                                var aosDirection = index % 2 == 0 ? "fade-right" : "fade-left";
+
+                                <div class="benefit-item mb-3" data-aos="@aosDirection">
+                                    <div class="fs-5 mb-0">
+                                        @Html.Raw(block.Content.Value("textContent"))
+                                    </div>
+                                </div>
+                                index++;
+                            }
+                        </div>
+                    }
+                    @{
+                        var ctaButton = Model.Value<Link>("goodAnswerC2A");                     
+                        @if (ctaButton != null)
+                        {
+                            <div class="text-center mt-3 benefit-item" data-step="5">
+                                <a href="@ctaButton.Url"
+                                       target="@ctaButton.Target"
+                                       class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
+                                    @ctaButton.Name
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
