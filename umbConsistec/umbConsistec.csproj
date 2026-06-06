@@ -5,16 +5,76 @@
         <Nullable>enable</Nullable>
         <CompressionEnabled>false</CompressionEnabled> <!-- Disable compression. E.g. for umbraco backoffice files. These files should be precompressed by node and not let dotnet handle it -->
     </PropertyGroup>
+    <ItemGroup>
+      <Content Include="wwwroot\media\01ghhv2x\image4.jpg" />
+      <Content Include="wwwroot\media\2w4dcz0m\image1.jpg" />
+      <Content Include="wwwroot\media\4yxl2wa2\image1.jpg" />
+      <Content Include="wwwroot\media\dxfhfbhd\consistec-white.png" />
+      <Content Include="wwwroot\media\dxzeughf\image4.jpg" />
+      <Content Include="wwwroot\media\ergngf4q\video3.mp4" />
+      <Content Include="wwwroot\media\flqahr3e\video1.mp4" />
+      <Content Include="wwwroot\media\fmdnqowi\image2.jpg" />
+      <Content Include="wwwroot\media\g4afr0j0\image5.jpg" />
+      <Content Include="wwwroot\media\gutbdpj5\image1.jpg" />
+      <Content Include="wwwroot\media\iaejgsne\video2_compressed.mp4" />
+      <Content Include="wwwroot\media\isydg3m4\consistec-black.png" />
+      <Content Include="wwwroot\media\izvfsvgu\image1.jpg" />
+      <Content Include="wwwroot\media\jzclezuy\favicon.png" />
+      <Content Include="wwwroot\media\jzjnni0z\image3.jpg" />
+      <Content Include="wwwroot\media\kgmplw2w\image1.jpg" />
+      <Content Include="wwwroot\media\mmwlqcnx\solutions_hero_bg.png" />
+      <Content Include="wwwroot\media\paspgpya\image3.jpg" />
+      <Content Include="wwwroot\media\pvwp5xgn\video4.mp4" />
+      <Content Include="wwwroot\media\r1uhpheo\image3.jpg" />
+      <Content Include="wwwroot\media\r33n4fqo\image2.jpg" />
+      <Content Include="wwwroot\media\rchfhtp5\video1.mp4" />
+      <Content Include="wwwroot\media\t4ad44ja\image2.jpg" />
+      <Content Include="wwwroot\media\tbignl23\image2.jpg" />
+      <Content Include="wwwroot\media\wkxh4xrf\video5.mp4" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="wwwroot\media\2ddnkspt\close_btn.svg" />
+      <None Include="wwwroot\media\2ysnq0qq\coin.svg" />
+      <None Include="wwwroot\media\32ziu4se\instagram.svg" />
+      <None Include="wwwroot\media\4m4mstta\network-rawdata.svg" />
+      <None Include="wwwroot\media\5cek4xqv\facebook-1.svg" />
+      <None Include="wwwroot\media\a0rdqlif\geo-alt.svg" />
+      <None Include="wwwroot\media\bociouyg\facebook-1.svg" />
+      <None Include="wwwroot\media\boxfjipl\twitter-x.svg" />
+      <None Include="wwwroot\media\dagfuk0v\flow-data.svg" />
+      <None Include="wwwroot\media\g02fi0rt\youtube.svg" />
+      <None Include="wwwroot\media\g33bnr2c\bar-chart.svg" />
+      <None Include="wwwroot\media\gbfhxvre\0-circle.svg" />
+      <None Include="wwwroot\media\hlfjewmj\youtube.svg" />
+      <None Include="wwwroot\media\icqnqf0v\log-files.svg" />
+      <None Include="wwwroot\media\iueix4sb\message.svg" />
+      <None Include="wwwroot\media\kn5lb3xx\geo-alt.svg" />
+      <None Include="wwwroot\media\l5glbsoy\location.svg" />
+      <None Include="wwwroot\media\lnuhxebe\briefcase-fill.svg" />
+      <None Include="wwwroot\media\luzcd252\x-lg.svg" />
+      <None Include="wwwroot\media\o3ule3bt\instagram.svg" />
+      <None Include="wwwroot\media\p00mqits\x.svg" />
+      <None Include="wwwroot\media\pcbnqpnm\ai-icon.svg" />
+      <None Include="wwwroot\media\pklam5zx\bullseye.svg" />
+      <None Include="wwwroot\media\tl2aph0n\telephone.svg" />
+      <None Include="wwwroot\media\uwqkh2md\envelope-at.svg" />
+      <None Include="wwwroot\media\v3tnupnj\facebook.svg" />
+      <None Include="wwwroot\media\vzopiwqy\telephone.svg" />
+      <None Include="wwwroot\media\wkangw4b\envelope-at.svg" />
+      <None Include="wwwroot\media\wkidga45\twitter-x.svg" />
+      <None Include="wwwroot\media\xdrkmwhs\linkedin.svg" />
+      <None Include="wwwroot\media\xz1mtw4a\linkedin.svg" />
+    </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Umbraco.Cms"/>
-        <PackageReference Include="Umbraco.Cms.DevelopmentMode.Backoffice"/>
+        <PackageReference Include="Umbraco.Cms" />
+        <PackageReference Include="Umbraco.Cms.DevelopmentMode.Backoffice" />
     </ItemGroup>
 
     <ItemGroup>
         <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
-        <PackageReference Include="Microsoft.ICU.ICU4C.Runtime"/>
-        <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))"/>
+        <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" />
+        <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
     </ItemGroup>
 
 
