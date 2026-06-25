@@ -16,104 +16,83 @@
     var footerNavigationSecondColumn = commonComponent?
         .Value<IEnumerable<Link>>("footerNavigation2");
 
-    var address = commonComponent?.Value("address");
-    var telephone = commonComponent?.Value("telephone");
-    var email = commonComponent?.Value("email");
-
     var socialMedias = commonComponent?
         .Value<BlockListModel>("socialMedia");
 }
 
-<footer class="footer-section py-5 bg-dark text-white mt-auto">
+<!-- start footer -->
+<footer class="footer-demo bg-dark pb-4 sm-pb-50px" style="background-image: url(/assets/img/demo-footer-pattern.svg)">
     <div class="container">
-        <div class="row g-4 justify-content-between">
-
-            <div class="col-lg-2 mb-4 mb-lg-0">              
-                <a class="navbar-brand d-flex align-items-center" href="/">
-                    <span class="logo-text text-white mb-0">consistec</span>
-                </a>
-            </div>
-
-            @if (footerNavigationFirstColumn != null)
-            {
-                <div class="col-6 col-md-4 col-lg-2 mb-4 mb-lg-0">
-                    <ul class="list-unstyled footer-links mb-0">
-                        @foreach (var footerNav in footerNavigationFirstColumn)
-                        {
-                            <li class="mb-2">
-                                <a href="@footerNav.Url"
-                                   target="@footerNav.Target"
-                                   class="text-white-50 text-decoration-none small transition">
-                                    @footerNav.Name
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
-
-            @if (footerNavigationSecondColumn != null)
-            {
-                <div class="col-6 col-md-4 col-lg-2 mb-4 mb-lg-0">
-                    <ul class="list-unstyled footer-links mb-0">
-                        @foreach (var footerNav in footerNavigationSecondColumn)
-                        {
-                            <li class="mb-2">
-                                <a href="@footerNav.Url"
-                                   target="@footerNav.Target"
-                                   class="text-white-50 text-decoration-none small transition">
-                                    @footerNav.Name
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
-
-            <div class="col-md-6 col-lg-2 mb-4 mb-lg-0 text-white-50 small">
-                @Html.Raw(address)
-            </div>
-
-            <div class="col-md-6 col-lg-2 mb-4 mb-lg-0">
-                <div class="mb-2">
-                    <span class="fw-bold me-2 opacity-75 small">T</span>
-                    <a href="tel:@telephone"
-                       class="text-white-50 text-decoration-none small">
-                        @telephone
-                    </a>
-                </div>
-
-                <div>
-                    <span class="fw-bold me-2 opacity-75 small">M</span>
-                    <a href="mailto:@email"
-                       class="text-white-50 text-decoration-none small">
-                        @email
-                    </a>
-                </div>
-            </div>
-
-            @if (socialMedias != null)
-            {
-                <div class="col-lg-2 text-lg-end">
-                    <div class="d-flex flex-wrap gap-2 justify-content-start"
-                         style="max-width: 110px; margin-left: auto;">
-
-                        @foreach (var socialMedia in socialMedias)
-                        {
-                            <a href="@socialMedia.Content.Value("link")"
-                               target="_blank"
-                               title="@socialMedia.Content.Value("title")"
-                               class="social-icon-circle">
-
-                                <i class="bi @socialMedia.Content.Value("iconCssClass")"></i>
-
-                            </a>
-                        }
-
+        <div class="row mb-6 md-mb-30px">
+            <div class="col-xl-5 col-lg-6 md-mb-30px text-center text-lg-start">
+                <h3 class="text-white fw-600 alt-font mb-40px md-mb-30px md-w-60 sm-w-70 xs-w-100 md-mx-auto">@commonComponent.Value("footerText")</h3>
+                <div class="row">
+                    <div class="col-lg-5 col-sm-6 xs-mb-20px">
+                        <img src="/assets/img/footer-image.png">
+                    </div>
+                    <div class="col-lg-5 col-sm-6">
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-2 col-6 offset-xl-1 text-center text-lg-start">
+                <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">Useful links</span>
+                @if (footerNavigationFirstColumn != null)
+                {
+                <ul>
+                    @foreach (var footerNav in footerNavigationFirstColumn)
+                    {
+                        <li><a href="@footerNav.Url" target="@footerNav">@footerNav.Name</a></li>
+                    }
+                </ul>
+                }
+            </div>
+            @if (socialMedias != null)
+            {
+            <div class="col-lg-2 col-6 text-center text-lg-start">
+                <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">Follow Us</span>
+                @foreach (var socialMedia in socialMedias)
+                 {
+                <ul>
+                    <li><a href="@socialMedia.Content.Value("link")" target="_blank">@socialMedia.Content.Value("title")</a></li>
+                </ul>
+                }
+            </div>
             }
-
         </div>
+        
+        <div class="row">
+    <div class="col-lg-7 last-paragraph-no-margin text-center text-lg-start">
+    </div>
+
+    <div class="col-lg-5 text-center text-lg-end md-mt-15px last-paragraph-no-margin">
+        @if (footerNavigationSecondColumn != null && footerNavigationSecondColumn.Any())
+        {
+            <p class="fs-13 lh-22">
+                @{
+                    var totalLinks = footerNavigationSecondColumn.Count();
+                    var index = 0;
+                }
+
+                @foreach (var link in footerNavigationSecondColumn)
+                {
+                    index++;
+
+                    <a href="@link.Url"
+                       target="@link.Target"
+                       class="text-decoration-line-bottom text-white">
+                        @link.Name
+                    </a>
+
+                    @if (index < totalLinks)
+                    {
+                        <span> | </span>
+                    }
+                }
+            </p>
+        }
+    </div>
+</div>
+        
     </div>
 </footer>
+<!-- end footer -->

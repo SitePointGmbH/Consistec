@@ -4,22 +4,13 @@
 @using System.Text.Json
 @using Umbraco.Cms.Core.Models.Blocks;
 
-<div class="benefits-pin-container bg-light" id="benefits-pin-container">
-    <section class="benefits-section d-flex align-items-center" id="benefits-section">
+<div class="benefits-pin-container bg-light" id="benefits-pin-container" style="background-color:#e3ecf1 !important">
+    <section class="benefits-section py-5 d-flex align-items-center" id="benefits-section">
         <div class="container w-100">
-            <div class="row justify-content-center mb-3">
+            <div class="row justify-content-center mb-5">
                 <div class="col-lg-10 text-center">
-                    <h2 class="display-6 fw-bold mb-4">
-                        <span data-fancy-text='{ "opacity": [0, 1], "rotate": [10, 0], "translateX": [0, 0], "translateY": [30, 0], "delay": 100, "speed": 50, "string": ["@Model.Value("goodAnswerHeading")"], "easing": "easeOutQuad" }'>
-                        </span>
-                    </h2>
-                    <div class="fs-5 fw-bold text-dark mb-0 fancy-text-style-4">
-                        <p>
-                            <span data-fancy-text='{ "effect": "wave", "direction": "up", "speed": 40, "string": 
-                                ["@Model.Value("goodAnswerSubheading")"], "duration": 2500 }'>
-                            </span>
-                        </p>
-                    </div>
+                    <h2 class="mb-4">@Model.Value("goodAnswerHeading")</h2>
+                    <p class="fs-5 text-dark mb-0 fancy-text-style-4">@Model.Value("goodAnswerSubheading")</p>
                 </div>
             </div>
 
@@ -44,9 +35,9 @@
                                 var aosDirection = index % 2 == 0 ? "fade-right" : "fade-left";
 
                                 <div class="benefit-item mb-3" data-aos="@aosDirection">
-                                    <div class="fs-5 mb-0">
-                                        @Html.Raw(block.Content.Value("textContent"))
-                                    </div>
+                                    <p class="fs-5 mb-0">
+                                        @Html.Raw(block.Content.Value("textContent")?.ToString() .Replace("<p>", "").Replace("</p>", ""))
+                                    </p>
                                 </div>
                                 index++;
                             }
@@ -59,7 +50,7 @@
                             <div class="text-center mt-3 benefit-item" data-step="5">
                                 <a href="@ctaButton.Url"
                                        target="@ctaButton.Target"
-                                       class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
+                                       class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block xl-mb-15px md-mx-auto px-5 py-3 rounded-0 fw-normal shadow-sm transition text-white">
                                     @ctaButton.Name
                                 </a>
                             </div>

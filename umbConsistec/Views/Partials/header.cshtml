@@ -7,13 +7,17 @@
     var commonComponent = root.Children().FirstOrDefault(x => x.ContentType.Alias == "commonComponents");
     var mainNavigation = commonComponent?.Value<IEnumerable<Link>>("mainNavigation");
     var stickyNavigation = commonComponent?.Value<BlockListModel>("stickyNavigation");
+    var callToAction = commonComponent?.Value<Umbraco.Cms.Core.Models.Link>("callToAction");
 }
 
 <nav class="navbar navbar-expand-lg fixed-top py-3 header-nav blur-reveal shadow-sm">
     <div class="container-fluid px-4 px-md-5">
 
         <a class="navbar-brand d-flex align-items-center" href="/">
-            <span class="logo-text">consistec</span>
+       
+           <img src="/assets/img/Logo_Consistec.svg"
+         alt="Consistec"
+         style="height:30px;width:auto;">
         </a>
 
         <button class="navbar-toggler border-0 shadow-none"
@@ -35,7 +39,7 @@
                         var isActive = currentUrl == linkUrl;
 
                         <li class="nav-item @(isActive ? "active" : "")">
-                            <a class="nav-link menu-item px-0"
+                            <a class="nav-link menu-link menu-item px-0"
                                href="@link.Url"
                                target="@link.Target">
                                 @link.Name
@@ -46,21 +50,44 @@
             }
 
         </div>
+        <div class="col-auto col-lg-2 text-end lg-ps-0 xs-pe-0 ms-4"> 
+            @if (callToAction != null ){
+                <div class="header-icon">  
+                    <div class="header-button">
+                        <a href="@callToAction.Url" target="@callToAction.Target" class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block xl-mb-15px md-mx-auto px-3 py-3 rounded-0 fw-normal shadow-sm transition text-white">
+                            <span>
+                                <span class="btn-double-text" data-text="unverbindlich">@callToAction.Name</span>
+                                <span><i class="bi bi-arrow-right-circle-fill"></i></span>
+                            </span> 
+                        </a> 
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </nav>
 
 @if (stickyNavigation != null)
 {
-    <div class="sticky-badge">
-        @foreach (var link in stickyNavigation)
-        {
-            var menuImage = link.Content.Value<IPublishedContent>("menuImage");
-            <a href="@link.Content.Value("menuLink")" title="@link.Content.Value("menuTitle")">
-                <i class="bi f-bold @link.Content.Value("iconCssClass")"></i>
+    var items = stickyNavigation.ToList();
+
+    foreach (var link in items.Take(1))
+    {
+        <div class="buy-theme alt-font">
+            <a href="@link.Content.Value("menuLink")" target="_blank">
+                <i class="bi @link.Content.Value("iconCssClass")"></i>
+                <span>@link.Content.Value("menuTitle")</span>
             </a>
-        }
-        <a class="cancle-button">
-            <i class="bi bi-x-lg"></i>
-        </a>
-    </div>
+        </div>
+    }
+
+    foreach (var link in items.Skip(1).Take(1))
+    {
+        <div class="all-demo alt-font">
+            <a href="@link.Content.Value("menuLink")">
+                <i class="bi @link.Content.Value("iconCssClass")"></i>
+                <span>@link.Content.Value("menuTitle")</span>
+            </a>
+        </div>
+    }
 }

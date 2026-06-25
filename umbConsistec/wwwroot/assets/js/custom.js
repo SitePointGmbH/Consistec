@@ -147,45 +147,70 @@ function initHeroLogic() {
         }, 5000);
     }
 }
-
 function initStackingLayers() {
-
     const wrapper = document.getElementById('third-section');
 
     if (!wrapper || window.innerWidth < 992) return;
 
-    const sections = wrapper.querySelectorAll('.p-section');
+    const sections = wrapper.querySelectorAll('.stack-section');
 
     window.addEventListener('scroll', () => {
-
         const vh = window.innerHeight;
 
         sections.forEach((sec, idx) => {
+            if (idx >= sections.length - 1) return;
 
-            const rect = sec.getBoundingClientRect();
+            const nextRect = sections[idx + 1].getBoundingClientRect();
 
-            if (rect.top <= 0 && idx < sections.length - 1) {
+            const prog = Math.min(
+                1,
+                Math.max(0, (vh - nextRect.top) / vh)
+            );
 
-                const prog = Math.min(
-                    1,
-                    Math.max(
-                        0,
-                        (vh - sections[idx + 1].getBoundingClientRect().top) / vh
-                    )
-                );
-
-                // No scale() — prevents browser from rasterizing/blurring text
-                sec.style.transform = `translateY(${-prog * 80}px)`;
-                sec.style.opacity = '1';
-
-            } else if (rect.top > 0) {
-
-                sec.style.transform = 'translateY(0)';
-                sec.style.opacity = '1';
-            }
+            sec.style.transform = 'translateY(0)';
+            sec.style.opacity = '1';
+            sec.style.filter = 'blur(0)';
         });
     });
 }
+//function initStackingLayers() {
+
+//    const wrapper = document.getElementById('third-section');
+
+//    if (!wrapper || window.innerWidth < 992) return;
+
+//    const sections = wrapper.querySelectorAll('.p-section');
+
+//    window.addEventListener('scroll', () => {
+
+//        const vh = window.innerHeight;
+
+//        sections.forEach((sec, idx) => {
+
+//            const rect = sec.getBoundingClientRect();
+
+//            if (rect.top <= 0 && idx < sections.length - 1) {
+
+//                const prog = Math.min(
+//                    1,
+//                    Math.max(
+//                        0,
+//                        (vh - sections[idx + 1].getBoundingClientRect().top) / vh
+//                    )
+//                );
+
+//                // No scale() — prevents browser from rasterizing/blurring text
+//                sec.style.transform = `translateY(${-prog * 80}px)`;
+//                sec.style.opacity = '1';
+
+//            } else if (rect.top > 0) {
+
+//                sec.style.transform = 'translateY(0)';
+//                sec.style.opacity = '1';
+//            }
+//        });
+//    });
+//}
 
 function initRoadmapScrub() {
     const pin = document.getElementById('roadmap-pin-container');
@@ -197,7 +222,7 @@ function initRoadmapScrub() {
     // Desktop logic
     window.addEventListener('scroll', () => {
         if (window.innerWidth <= 1024) return; // Skip desktop logic on mobile
-        
+
         const rect = pin.getBoundingClientRect();
         const scrollDistance = rect.height - window.innerHeight;
         const currentScroll = -rect.top;
@@ -224,7 +249,7 @@ function initRoadmapScrub() {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
             } else {
-                entry.target.classList.remove('active'); 
+                entry.target.classList.remove('active');
             }
         });
     }, {

@@ -355,7 +355,7 @@
   }
 
   #ecotel-section .position-absolute.top-50.start-50.translate-middle.z-3 {
-    width: 90% !important;
+/*    width: 90% !important;*/
   }
 
   /* Converting Industry grid list to single column to let German text flow */

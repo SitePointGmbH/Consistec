@@ -5,40 +5,43 @@
 @using Umbraco.Cms.Core.Models.Blocks;
 
 <!-- Case Studies -->
-<section class="py-10 bg-white position-relative overflow-hidden" id="case-studies">
+<section class="py-5 bg-white position-relative overflow-hidden" id="case-studies">
     <!-- Animated Particle Background Canvas -->
     <div id="particle-style" class="position-absolute top-0 start-0 w-100 h-100"
-        style="opacity: 0.6; background-color: #dee2e6;"></div>
+         style="opacity: 0.6; background-color: #e3ecf1;"></div>
     @{
         var caseStudiesBlocks = Model.Value<BlockGridModel>("caseStudiesBlock");
         var caseStudiesCtaLink = Model.Value<Link>("caseStudiesCta");
-    <div class="container position-relative" style="z-index: 1;">
-        <h2 class="display-6 fw-light mb-4 blur-reveal text-dark">@Model.Value("caseStudiesHeading")</h2>
+    <div class="container py-5 position-relative" style="z-index: 1;">
+        <h2 class="mb-5 blur-reveal text-dark">@Model.Value("caseStudiesHeading")</h2>
         <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-1 
-                justify-content-center transition-inner-all g-4">
+                justify-content-center transition-inner-all">
             @foreach (var block in caseStudiesBlocks)
             {
                 var content = block.Content;
                 var imgBox = content.Value<IPublishedContent>("image");
                 var iconImageBox = content.Value<IPublishedContent>("iconImage");
                 var linkBlock = content.Value<Link>("link");
-            <div class="col interactive-banner-style-02 ">
+            <div class="col interactive-banner-style-02 md-mb-30px ">
                 <div class="h-100 text-center position-relative border-radius-6px box-shadow-quadruple-large
                     overflow-hidden">
                     <figure class="m-0">
                         <a href="#" class="position-relative d-block">
-                            <img src="@imgBox?.Url()" alt="" />                               
+                            <img src="@imgBox?.Url()" alt="" /> 
+                            <div class="label position-absolute right-20px top-20px bg-base-color fw-600 text-white text-uppercase border-radius-30px ps-15px pe-15px fs-11 ls-05px custom_profile_btn_color">
+                                Creativity
+                            </div>
                         </a>
                         <figcaption class="w-100 position-absolute bottom-0px bg-white custom_profile_intro">
-                            <div class="position-relative z-index-2 p-40px border-bottom border-dark-opacity">
+                                    <div class="position-relative z-index-2 p-40px pt-25px pb-15px border-bottom border-dark-opacity">
 
                                <img src="@iconImageBox?.Url()" alt="" class="features-icon d-block">
                                 <a href="#" class="fw-600 d-inline-block mb-5px text-dark-gray fs-18">
                                     @content.Value("heading")
                                 </a>
-                                <div class="w-80 lg-w-100 fs-16 mx-auto mb-15px lg-mb-10px text-light-opacity">
-                                    <p>@content.Value("description")</p>
-                                </div>
+                                <p class="w-80 lg-w-100 fs-16 mx-auto mb-15px lg-mb-10px text-light-opacity">
+                                    @Html.Raw(block.Content.Value("description")?.ToString().Replace("<p>", "").Replace("</p>", ""))
+                                </p>
                             </div>
                             @if (linkBlock != null){
                             <a href="@linkBlock.Url"
@@ -58,12 +61,11 @@
             }
         </div>
         <div class="text-center mt-5 pt-4 blur-reveal delay-2">
-            <div class="text-danger small fw-bold mb-4">
+            <div class="text-danger small mb-4">
                 @Model.Value("caseStudiesBottomText")
             </div>
-            @if (caseStudiesCtaLink != null) { 
-            <a href="@caseStudiesCtaLink.Url" class="btn btn-large btn-gradient-pink-orange text-white 
-                rounded-0">@caseStudiesCtaLink.Name</a>
+            @if (caseStudiesCtaLink != null) {              
+                <a href="@caseStudiesCtaLink.Url" class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block xl-mb-15px md-mx-auto px-5 py-3 rounded-0 fw-normal shadow-sm transition text-white">@caseStudiesCtaLink.Name</a>
             }
         </div>
     </div>

@@ -7,84 +7,8 @@
 <section class="py-10 position-relative overflow-hidden" id="testimonials"
     style="background-color: #ffffff;background-position: left top;background-repeat: no-repeat;">
 
-    <div id="particles-style-02" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;"
-        data-particle="true" data-particle-options='{
-    "particles":{
-        "number":{
-            "value":35,
-            "density":{
-                "enable":true,
-                "value_area":1843.9238699953512
-            }
-        },
-        "color":{
-            "value":"#dee2e6"
-        },
-                        "particles":{
-            "number":{
-                "value":35,
-                "density":{
-                    "enable":true,
-                    "value_area":1843.9238699953512
-                }
-            },
-            "color":{
-                "value":"#dee2e6"
-            },
-            "shape":{
-                "type":"circle"
-            },
-            "opacity":{
-                "value":0.4,
-                "random":true
-            },
-            "size":{
-                "value":5,
-                "random":true
-            },
-            "line_linked":{
-                "enable":false
-            },
-            "move":{
-                "enable":true,
-                "speed":6,
-                "direction":"none",
-                "out_mode":"out"
-            }
-        }
-    },
-    "interactivity":{
-        "detect_on":"window",
-        "events":{
-            "onhover":{
-                "enable":true,
-                "mode":"bubble"
-            },
-            "onclick":{
-                "enable":true,
-                "mode":"push"
-            },
-            "resize":true
-        },
-        "modes":{
-            "bubble":{
-                "distance":400,
-                "size":40,
-                "duration":2,
-                "opacity":8,
-                "speed":3
-            },
-            "push":{
-                "particles_nb":4
-            }
-        }
-    },
-    "retina_detect":true
-}'>
-    </div>
-
     <div class="container position-relative z-2">
-    <h2 class="display-5 fw-light text-dark mb-10 text-center">@Model.Value("testimonialsHeading")</h2>
+        <h2 class="display-5 text-dark mb-5 text-center">@Model.Value("testimonialsHeading")</h2>
         @{
             var testimonialsBlocks = Model.Value<BlockGridModel>("testimonialsContent");
         <div class="row g-4 blur-reveal">
@@ -109,7 +33,7 @@
                             <i class="bi bi-play-circle display-4 text-white opacity-75"></i>
                         </div>
                     </div>
-                        <h6 class="fw-bold mb-0">@content.Value("memberName")</h6>
+                        <h6 class="mb-0">@content.Value("memberName")</h6>
                         <small class="text-muted d-block mb-3">@content.Value("positionCompany")</small>
                     <div class="small text-muted mb-0">
                             @content.Value("description")
