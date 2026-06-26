@@ -87,7 +87,7 @@ a,
         color: #ffffff
     }
 
-.all-demo i {
+.call i {
     font-size: 20px;
     vertical-align: middle;
     position: relative;
@@ -95,7 +95,7 @@ a,
     color: #ffffff
 }
 
-.buy-theme:hover, .all-demo:hover {
+.buy-theme:hover, .call:hover {
     transition-timing-function: ease-in-out;
     -moz-transition-timing-function: ease-in-out;
     -webkit-transition-timing-function: ease-in-out;
@@ -108,27 +108,27 @@ a,
     background: #e03978
 }
 
-.all-demo:hover {
+.call:hover {
     background: #ee5d46
 }
 
-.buy-theme span, .all-demo span {
+.buy-theme span, .call span {
     padding: 0 9px;
     position: relative;
     top: 0;
     opacity: 0
 }
 
-.buy-theme:hover span, .all-demo:hover span {
+.buy-theme:hover span, .call:hover span {
     opacity: 1;
     color: #fff
 }
 
-.buy-theme:hover i, .all-demo:hover i {
+.buy-theme:hover i, .call:hover i {
     color: #fff
 }
 
-.buy-theme a, .all-demo a {
+.buy-theme a, .call a {
     color: #232323;
     font-size: 13px;
     text-transform: uppercase;
@@ -138,7 +138,7 @@ a,
     font-weight: 500
 }
 
-.all-demo {
+.call {
     transition-timing-function: ease-in-out;
     -moz-transition-timing-function: ease-in-out;
     -webkit-transition-timing-function: ease-in-out;
@@ -512,7 +512,7 @@ a,
         top: -1px;
         color: #ffffff;
     }
-.all-demo {
+.call {
     transition-timing-function: ease-in-out;
     -moz-transition-timing-function: ease-in-out;
     -webkit-transition-timing-function: ease-in-out;
@@ -528,7 +528,7 @@ a,
     z-index: 1000;
     z-index: 99;
 }
-    .buy-theme a, .all-demo a {
+    .buy-theme a, .call a {
         color: rgb(231 59 36) !important;
         opacity: 1;
         font-size: 13px;
@@ -539,11 +539,11 @@ a,
         font-weight: 500;
     }
 
-    .all-demo:hover {
+    .call:hover {
         background: #ee5d46;
     }
 
-    .buy-theme:hover, .all-demo:hover {
+    .buy-theme:hover, .call:hover {
         transition-timing-function: ease-in-out;
         -moz-transition-timing-function: ease-in-out;
         -webkit-transition-timing-function: ease-in-out;
@@ -555,19 +555,19 @@ a,
         right: 0px;
         background: #e03978;
     }
-    .buy-theme span, .all-demo span {
+    .buy-theme span, .call span {
         padding: 0 9px;
         position: relative;
         top: 0;
         opacity Opacity of an element's text, where 1 is opaque and 0 is entirely transparent. Widely available across major browsers (Baseline since January 2018) Learn more Don't show : 0;
     }
 
-        .buy-theme:hover span, .all-demo:hover span {
+        .buy-theme:hover span, .call:hover span {
             opacity: 1;
             color: #fff;
         }
 
-    .all-demo i {
+    .call i {
         font-size: 20px;
         vertical-align: middle;
         position: relative;
@@ -575,11 +575,11 @@ a,
         color: #ffffff;
     }
 
-    .buy-theme:hover i, .all-demo:hover i {
+    .buy-theme:hover i, .call:hover i {
         color: #fff;
     }
 
-    .all-demo:hover {
+    .call:hover {
         background: #ee5d46;
     }
 
