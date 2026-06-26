@@ -1,4 +1,4 @@
-@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @using Umbraco.Cms.Core.Models
 @using System.Text.Json
@@ -6,6 +6,8 @@
 
 @{
     var parallaxBackgroundImage = Model.Value<IPublishedContent>("parallaxBackgroundImage");
+    var dynamicVideos = Model.Value<IEnumerable<BlockListItem>>("videoGallery");
+    var videoIndex = 0;
 }
 
 <section id="ecotel-section" class="ecotel-fullwidth-section"
@@ -22,33 +24,44 @@
 
                         <div class="carousel-inner">
 
-                            @for (int i = 1; i <= 6; i++)
+                            @if (dynamicVideos != null && dynamicVideos.Any())
                             {
-                                <div class="carousel-item @(i == 1 ? "active" : "") position-relative"
-                                     style="height:450px; cursor:pointer;">
+                                foreach (var item in dynamicVideos)
+                                {
+                                    videoIndex++;
 
-                                    <video class="ecotel-video w-100 h-100 object-fit-cover position-absolute top-0 start-0"
-                                           src="/assets/video/ecotel_section_videos/video@(i).mp4"
-                                           poster="/assets/img/ecotel_section_images/image@(i).jpg"
-                                           loop
-                                           muted
-                                           playsinline>
-                                    </video>
+                                    var posterVideo = item.Content.Value<IPublishedContent>("uploadVideo");
+                                    var posterImage = item.Content.Value<IPublishedContent>("posterImage");
 
-                                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+                                    <div class="carousel-item @(videoIndex == 1 ? "active" : "") position-relative"
+                                         style="height:450px; cursor:pointer;">
 
-                                    <div class="position-absolute top-50 start-50 translate-middle text-center text-white z-2">
-                                        <h3 class="mb-1 fw-normal display-6">Animation oder Grafiken</h3>
-                                        <p class="mb-0 fs-5">(Video / Interaction)</p>
+                                        @if (posterVideo != null)
+                                        {
+                                            <video class="ecotel-video w-100 h-100 object-fit-cover position-absolute top-0 start-0"
+                                                   src="@posterVideo.Url()"
+                                                   poster="@posterImage?.Url()"
+                                                   loop
+                                                   muted
+                                                   playsinline>
+                                            </video>
+                                        }
+
+                                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+
+                                        <div class="position-absolute top-50 start-50 translate-middle text-center text-white z-2">
+                                            <h3 class="mb-1 fw-normal display-6">Animation oder Grafiken</h3>
+                                            <p class="mb-0 fs-5">(Video / Interaction)</p>
+                                        </div>
+
+                                        <button type="button"
+                                                class="ecotel-play-btn position-absolute top-50 start-50 translate-middle btn rounded-circle border border-3 border-white text-white z-3 d-flex align-items-center justify-content-center pe-none"
+                                                style="width:70px;height:70px;background-color:rgba(0,0,0,.35);">
+                                            <i class="bi bi-play-fill fs-1"></i>
+                                        </button>
+
                                     </div>
-
-                                    <button type="button"
-                                            class="ecotel-play-btn position-absolute top-50 start-50 translate-middle btn rounded-circle border border-3 border-white text-white z-3 d-flex align-items-center justify-content-center pe-none"
-                                            style="width:70px;height:70px;background-color:rgba(0,0,0,.35);">
-                                        <i class="bi bi-play-fill fs-1"></i>
-                                    </button>
-
-                                </div>
+                                }
                             }
 
                         </div>
@@ -66,7 +79,7 @@
                         </button>
 
                         <div class="position-absolute bottom-0 end-0 text-white fs-5 z-3 p-3">
-                            <span id="currentVideoSlide">1</span> / 6
+                            <span id="currentVideoSlide">1</span> / @dynamicVideos.Count()
                         </div>
 
                     </div>

@@ -256,31 +256,33 @@ a,
 }
 
 .purple-box {
-  width: 300px;
-  height: 150px;
-  background-color: #4b248c;
+    height: 150px;
+    color: #50248c !important;
+    font-weight: 700;
+    width: 365px;
+    background-color: #fff;
+    border-radius: unset !important;
 }
 
 .arrow {
-  margin-top: 40px;
-  width: 2px;
-  height: 80px;
-  background-color: #4b248c;
-  position: relative;
-  overflow: visible;
-  /* ADD THIS */
+    margin: 40px auto;
+    width: 2px;
+    height: 80px;
+    background-color: #fff;
+    position: relative;
+    overflow: visible;
 }
 
-.arrow::after {
-  content: "";
-  position: absolute;
-  bottom: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 16px solid #4b248c;
-}
+    .arrow::after {
+        content: "";
+        position: absolute;
+        bottom: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 16px solid #fff;
+    }
 
 /* =====================================================
            ANALYSIS SECTION
@@ -288,38 +290,37 @@ a,
 
 .analysis-item {
   text-align: center;
+  border:1px solid #fff;
 }
 
 .analysis-title {
-  min-height: 90px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  font-size: 30px;
-  font-weight: 300;
-  line-height: 1.25;
-  color: #666;
-  margin-bottom: 30px;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 1.25;
+    color: #fff;
+    margin-bottom: 30px;
 }
 
 .analysis-box {
-  width: 100%;
-  max-width: 300px;
-  height: 170px;
-  margin: auto;
-  background: #fff;
-  border: 2px solid #cfcfcf;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+    width: 100%;
+    max-width: 300px;
+    height: 170px;
+    margin: auto;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
 .analysis-text {
-  font-size: 22px;
-  line-height: 1.35;
-  color: #666;
+    font-size: 22px;
+    line-height: 1.35;
+    color: #b13357;
 }
 
 .ai-icon {
@@ -340,7 +341,7 @@ a,
 .big-arrow {
   width: 4px;
   height: 90px;
-  background: #777;
+  background: #fff;
   position: relative;
 }
 
@@ -352,7 +353,7 @@ a,
   transform: translateX(-50%);
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
-  border-top: 22px solid #777;
+  border-top: 22px solid #fff;
 }
 
 /* =====================================================
@@ -400,12 +401,9 @@ a,
 
 .benefit-box {
   width: 100%;
-  min-height: 250px;
+  min-height: 155px;
   flex-grow: 1;
   background: #fff;
-  border: 3px solid var(--consistec-red);
-  border-radius: 18px;
-  display: flex;
   align-items: center;
   justify-content: center;
   padding: 30px;
@@ -419,22 +417,19 @@ a,
 }
 
 .benefit-text {
-  font-size: 20px;
-  line-height: 1.35;
-  color: #666;
+    font-size: 16px;
+    line-height: 1.35;
+    color: #e83b23;
 }
 
-.check {
-  width: 70px;
-  height: 70px;
-  margin-top: 35px;
-  flex-shrink: 0;
-  background: var(--consistec-red);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.check-icon {
+    margin-bottom: 18px;
 }
+
+    .check-icon img {
+        width: 28px;
+        height: auto;
+    }
 
 .check svg {
   width: 36px;
@@ -693,16 +688,34 @@ a,
 .stacking-wrapper {
     position: relative;
 }
+.step-section {
+    background: linear-gradient(180deg,#4d248d 0%,#8b2b7d 100%);
+    padding: 70px 0;
+    color: #fff;
+}
 
-.p-section {
-    position: sticky;
-    top: 0;
-  
+.step2-section {
+    background: linear-gradient(180deg, #7b2c73 0%, #b13357 100%);
+    padding: 70px 0;
+}
+
+.step3-section {
+    background: linear-gradient(180deg,#bf2f45 0%,#ff3a1f 100%);
+    padding: 70px 0;
+}
+.regular-section {
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-/*    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.6s ease;*/
+}
+.p-section {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .features-icon {
