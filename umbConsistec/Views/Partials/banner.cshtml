@@ -9,7 +9,7 @@
     var bg = Model.Value<IPublishedContent>("bannerImage", fallback: Fallback.ToLanguage);
     var bannerTextLines = Model.Value<IEnumerable<string>>("bannerTextLines", fallback: Fallback.ToLanguage);
     <section id="home"
-    class="hero-section d-flex align-items-end position-relative min-vh-100 bg-light border-bottom" style="min-height: 75vh !important">
+    class="hero-section d-flex align-items-center position-relative min-vh-100 bg-light border-bottom" style="min-height: 75vh !important">
         <!-- Hero Background Carousel -->
         <div class="hero-bg-carousel">
             <div class="hero-bg-slide active" style="background-image: url('@bg?.Url()'); background-size:cover"></div>
