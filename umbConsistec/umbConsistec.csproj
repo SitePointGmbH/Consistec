@@ -4,6 +4,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <CompressionEnabled>false</CompressionEnabled> <!-- Disable compression. E.g. for umbraco backoffice files. These files should be precompressed by node and not let dotnet handle it -->
+        <UserSecretsId>1f42f86f-cd9b-4c73-8d39-f7269d2d572b</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
       <Content Include="wwwroot\media\01ghhv2x\image4.jpg" />
