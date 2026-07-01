@@ -54,7 +54,7 @@
 
                                         @if (image != null)
                                         {
-                                            <img src="@image.Url()" alt="@heading" class="@(!hasPurpleBox ? "rounded-3" : "") img-fluid" />
+                                            <img src="@image.Url()" alt="@heading" class="@(!hasPurpleBox ? "rounded-3" : "") img-fluid max-h-100" style="max-height:100%" />
                                         }
                                         else if (block.Content.HasValue("binaryText"))
                                         {
