@@ -3348,7 +3348,6 @@
     var stackLastScroll = 0;
     function stackAnimation() {
         windowScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-		console.log(stackLastScroll);
         $('.stack-box').each(function () {
             if ($(window).width() > 1199) {
                 var _this = $(this);
@@ -3388,6 +3387,51 @@
     $(window).scroll(function () {
         stackAnimation();
     });
+
+    /* ===================================
+     Stacking layers - fade each sticky panel out as the next slides over it
+     ====================================== */
+
+    function stackingLayersFade() {
+        $('.stacking-wrapper').each(function () {
+            var panels = $(this).find('.p-section');
+            panels.each(function (i) {
+                var $current = $(this);
+                // The last panel never gets covered, so it always stays fully visible.
+                if (i >= panels.length - 1) {
+                    $current.css('opacity', 1);
+                    return;
+                }
+                var currentRect = this.getBoundingClientRect();
+                var nextRect = panels.get(i + 1).getBoundingClientRect();
+                var currentHeight = currentRect.height;
+                if (!currentHeight) {
+                    $current.css('opacity', 1);
+                    return;
+                }
+                // As the next (sticky) panel slides up over this one, its top edge moves from
+                // this panel's bottom edge up to this panel's top edge. Express that as a 0..1
+                // fraction of this panel's height: 0 = not covered yet, 1 = fully covered.
+                var progress = (currentRect.bottom - nextRect.top) / currentHeight;
+                if (progress < 0) progress = 0;
+                if (progress > 1) progress = 1;
+                $current.css('opacity', 1 - progress);
+            });
+        });
+    }
+
+    var stackingFadeTicking = false;
+    function requestStackingLayersFade() {
+        if (stackingFadeTicking) return;
+        stackingFadeTicking = true;
+        window.requestAnimationFrame(function () {
+            stackingLayersFade();
+            stackingFadeTicking = false;
+        });
+    }
+    $(window).on('scroll resize', requestStackingLayersFade);
+    $(window).on('load', stackingLayersFade);
+    stackingLayersFade();
 
     /* ===================================
      Image tilt 3d effect using atropos
