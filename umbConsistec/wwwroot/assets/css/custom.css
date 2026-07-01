@@ -689,13 +689,13 @@ a,
     position: relative;
 }
 .step-section {
-    background: linear-gradient(180deg,#4d248d 0%,#8b2b7d 100%);
+    background: linear-gradient(180deg,#4d248d 0%,#7b2c73 100%);
     padding: 70px 0;
     color: #fff;
 }
 
 .step2-section {
-    background: linear-gradient(180deg, #7b2c73 0%, #b13357 100%);
+    background: linear-gradient(180deg, #7b2c73 0%, #bf2f45 100%);
     padding: 70px 0;
 }
 
