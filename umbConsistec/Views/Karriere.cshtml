@@ -1,0 +1,13 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Karriere>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	
+	Layout = "master.cshtml";
+}
+<partial name="PageHeader" />
+<section class="py-10 bg-white">
+	<div class="container">
+		@Model.IntroText
+	</div>
+</section>

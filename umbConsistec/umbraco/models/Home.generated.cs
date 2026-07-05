@@ -384,6 +384,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string SubHeadline => global::Umbraco.Cms.Web.Common.PublishedModels.HeaderBanner.GetSubHeadline(this, _publishedValueFallback);
 
 		///<summary>
+		/// Text Color
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("textColor")]
+		public virtual string TextColor => global::Umbraco.Cms.Web.Common.PublishedModels.HeaderBanner.GetTextColor(this, _publishedValueFallback);
+
+		///<summary>
 		/// Page Meta Description: A brief summary of the page content. This appears under the title in search engine results to encourage clicks (aim for 150-160 characters)
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]

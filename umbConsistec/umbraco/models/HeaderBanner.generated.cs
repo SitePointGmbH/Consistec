@@ -36,6 +36,11 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		string SubHeadline { get; }
+
+		/// <summary>Text Color</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string TextColor { get; }
 	}
 
 	/// <summary>Header Banner</summary>
@@ -107,5 +112,18 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		public static string GetSubHeadline(IHeaderBanner that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "subHeadline");
+
+		///<summary>
+		/// Text Color
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("textColor")]
+		public virtual string TextColor => GetTextColor(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Text Color</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetTextColor(IHeaderBanner that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "textColor");
 	}
 }

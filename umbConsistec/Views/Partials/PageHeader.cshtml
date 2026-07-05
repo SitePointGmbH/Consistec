@@ -2,6 +2,7 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
 @{
     var subHeadline = (Model.HasValue("subHeadline")) ? Model.Value<string>("subHeadline") : "caplon<sup>©</sup>";
+    var textColor = (Model.HasValue("textColor")) ? Model.Value<string>("textColor") : "white";
 }
 
 @if (Model.HasValue("bannerTextLines", fallback: Fallback.ToLanguage))
@@ -27,13 +28,13 @@
                     }'>
 
                     <!-- Top Brand Tag -->
-                    <h2 class="fw-light text-white fancy-text-style-4 pb-0 mb-5"
+                    <h2 class="fw-light text-@textColor fancy-text-style-4 pb-0 mb-5"
                         style="font-size: 2.5rem;">
                         @Html.Raw(subHeadline)
                     </h2>
 
                     <!-- Dynamic Wave Rotator -->
-                    <h1 class="display-4 fw-light text-white fancy-text-style-4 mb-0 pb-0"
+                    <h1 class="display-4 fw-light text-@textColor fancy-text-style-4 mb-0 pb-0"
                         style="line-height: 0.95;">
 
                         <span data-fancy-text='{
