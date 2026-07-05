@@ -35,9 +35,10 @@
                 </div>
             </div>
             <div class="col-lg-2 col-6 offset-xl-1 text-center text-lg-start">
+                @if (footerNavigationFirstColumn != null && footerNavigationFirstColumn.Count() > 0)
+               {
                 <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">Useful links</span>
-                @if (footerNavigationFirstColumn != null)
-                {
+              
                 <ul>
                     @foreach (var footerNav in footerNavigationFirstColumn)
                     {

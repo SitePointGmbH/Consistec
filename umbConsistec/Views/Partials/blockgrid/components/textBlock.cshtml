@@ -1,3 +1,16 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<TextBlock,GridContentSetting>>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
-<div class="rich-text @Model.Settings?.CustomCssClass" style="text-align:@Model.Settings?.Alignment">@Model.Content.TextContent</div>
+@{
+    var buttonLink = Model.Content.Value<Umbraco.Cms.Core.Models.Link>("ctaButton");
+}
+
+<div class="rich-text @Model.Settings?.CustomCssClass" style="text-align:@Model.Settings?.Alignment">@Model.Content.TextContent
+    @if (buttonLink != null)
+    {
+        <a href="@buttonLink.Url"
+           target="@buttonLink.Target"
+           class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
+            @buttonLink.Name
+        </a>
+    }
+    </div>

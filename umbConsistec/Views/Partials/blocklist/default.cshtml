@@ -5,7 +5,7 @@
         return;
     }
 }
-<div class="umb-block-list">
+
     @foreach (var block in Model)
     {
         if (block?.ContentKey == null)
@@ -17,4 +17,3 @@
 
         @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, block)
     }
-</div>

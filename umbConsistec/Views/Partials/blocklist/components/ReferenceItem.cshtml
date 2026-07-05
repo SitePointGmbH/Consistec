@@ -1,0 +1,18 @@
+@using Microsoft.EntityFrameworkCore.Infrastructure
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem<ReferenceItem>>
+
+<!-- start testimonial item -->
+<div class="swiper-slide bg-white border-radius-4px">
+    <div class="position-relative ps-13 pe-13 md-ps-10 md-pe-10 sm-ps-7 sm-pe-7 pt-20 pb-10 lg-pt-22 md-pt-20 sm-pt-15">
+        <img alt="" src="@Model.Content?.Logo?.Url()" class="absolute-middle-center top-0px w-250px p-20px xs-w-150px border border-color-white box-shadow-extra-large border-8 bg-white">
+        <div class="testimonials-content fs-22 sm-fs-18 md-fs-20 fw-500">
+            <p class="mb-25px">@Model.Content.Quote</p>
+        </div>
+        <div class="testimonials-author fs-18 mb-5px fw-600 d-inline-block">@Model.Content.Author</div>
+        <div class="testimonials-position fs-15 lh-20">
+            @Model.Content.Position<br/>
+            @Model.Content.Company
+        </div> 
+    </div>
+</div>
+<!-- end testimonial item -->

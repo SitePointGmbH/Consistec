@@ -39,6 +39,7 @@ Table of contents
 :root {
   --alt-font: "Plus Jakarta Sans", sans-serif;
   --primary-font: "Inter", sans-serif;
+  --swiper-theme-color: #df377c;
 }
 /* ===================================
     02. CSS color variable
@@ -7258,6 +7259,7 @@ header.sticky .navbar.disable-fixed {
   transition: 0.3s;
   color: var(--white);
 }
+
 .navbar .navbar-nav .nav-link .label {
   display: inline-block;
   padding: 1px 11px;

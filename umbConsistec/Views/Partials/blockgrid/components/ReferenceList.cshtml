@@ -1,0 +1,16 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ReferenceList>>
+
+<div class="col-12 text-center" data-anime='{ "rotateX": [-40, 0], "opacity": [0,1], "duration": 1200, "delay": 100, "staggervalue": 150, "easing": "easeOutQuad" }'>
+                        <div class="swiper swiper-horizontal-3d pt-8 pb-5 lg-pt-10 lg-pb-10 md-pt-12 sm-pt-15 sm-pb-11 swiper-pagination-bottom testimonials-style-04" data-slider-options='{ "loop": true, "slidesPerView": 1,"centeredSlides":true,"effect":"coverflow","coverflowEffect":{"rotate":0,"stretch":100,"depth":150,"modifier":1.5,"slideShadows":true}, "navigation": { "nextEl": ".swiper-button-next-nav.slider-navigation-style-04", "prevEl": ".swiper-button-previous-nav.slider-navigation-style-04" }, "autoplay": { "delay": 5000, "disableOnInteraction": false }, "pagination": { "el": ".swiper-pagination-04", "clickable": true, "dynamicBullets": true }, "breakpoints": { "768": { "slidesPerView": 2 } } }'>
+                            <div class="swiper-wrapper">
+                                @await Html.GetBlockListHtmlAsync(Model.Content.References)
+                            </div>
+                            <!-- start slider pagination -->
+                             <div class="swiper-pagination slider-four-slide-pagination-1 swiper-pagination-style-4 swiper-pagination-clickable swiper-pagination-bullets"></div>
+                            <!-- end slider pagination -->
+                            <!-- start slider navigation --> 
+                            <div class="swiper-button-previous-nav swiper-button-prev icon-extra-medium slider-navigation-style-04 rounded-circle"><i class="icon feather icon-feather-arrow-left"></i></div>
+                                 <div class="swiper-button-next-nav swiper-button-next icon-extra-medium slider-navigation-style-04 rounded-circle"><i class="icon feather icon-feather-arrow-right"></i></div>
+                            <!-- end slider navigation -->
+                        </div>
+                    </div>

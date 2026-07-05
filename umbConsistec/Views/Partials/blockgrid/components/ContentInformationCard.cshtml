@@ -3,6 +3,7 @@
 @{
     var sectionHeader = Model.Content.Value<string>("sectionHeader");
     var richTextContent = Model.Content.Value<string>("richTextContent");
+    var buttonLink = Model.Content.Value<Umbraco.Cms.Core.Models.Link>("ctaButton");
 }
   
 <div class="interactive-about-card h-100 bg-white border rounded-3 p-4 shadow-sm hover-lift d-flex flex-column">
@@ -12,5 +13,13 @@
 
     <div class="card-body-content flex-grow-1">
         @Html.Raw(richTextContent)
+        @if (buttonLink != null)
+        {
+            <a href="@buttonLink.Url"
+               target="@buttonLink.Target"
+               class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
+                @buttonLink.Name
+            </a>
+        }
     </div>
 </div>

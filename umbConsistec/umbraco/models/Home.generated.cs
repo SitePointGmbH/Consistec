@@ -58,6 +58,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel Answers => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "answers");
 
 		///<summary>
+		/// Background-Image
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("backgroundImage")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops BackgroundImage => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "backgroundImage");
+
+		///<summary>
 		/// Background Image
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
@@ -162,6 +170,20 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string GoodAnswerSubheading => this.Value<string>(_publishedValueFallback, "goodAnswerSubheading");
 
 		///<summary>
+		/// is Visible
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[ImplementPropertyType("isVisible")]
+		public virtual bool IsVisible => this.Value<bool>(_publishedValueFallback, "isVisible");
+
+		///<summary>
+		/// is Visible
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[ImplementPropertyType("isVisibleCS")]
+		public virtual bool IsVisibleCS => this.Value<bool>(_publishedValueFallback, "isVisibleCS");
+
+		///<summary>
 		/// Key Benefits
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
@@ -200,6 +222,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("parallaxHeading")]
 		public virtual string ParallaxHeading => this.Value<string>(_publishedValueFallback, "parallaxHeading");
+
+		///<summary>
+		/// Partner-Logos
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("partnerLogos")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops PartnerLogos => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "partnerLogos");
 
 		///<summary>
 		/// Right Side Content
@@ -312,6 +342,22 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("testimonialsHeading")]
 		public virtual string TestimonialsHeading => this.Value<string>(_publishedValueFallback, "testimonialsHeading");
+
+		///<summary>
+		/// Video Gallery
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("videoGallery")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel VideoGallery => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "videoGallery");
+
+		///<summary>
+		/// Video Script: alternativ zum direkten Video-Upload für Videolyzer Einbindung
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("videoScript")]
+		public virtual string VideoScript => this.Value<string>(_publishedValueFallback, "videoScript");
 
 		///<summary>
 		/// Banner Image: Select the main background image to display behind the banner text.
