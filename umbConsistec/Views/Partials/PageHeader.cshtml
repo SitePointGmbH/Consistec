@@ -1,5 +1,8 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@{
+    var subHeadline = (Model.HasValue("subHeadline")) ? Model.Value<string>("subHeadline") : "caplon<sup>©</sup>";
+}
 
 @if (Model.HasValue("bannerTextLines", fallback: Fallback.ToLanguage))
 {
@@ -26,7 +29,7 @@
                     <!-- Top Brand Tag -->
                     <h2 class="fw-light text-white fancy-text-style-4 pb-0 mb-5"
                         style="font-size: 2.5rem;">
-                        caplon©
+                        @Html.Raw(subHeadline) @Model.Value("subHeadline") 
                     </h2>
 
                     <!-- Dynamic Wave Rotator -->
