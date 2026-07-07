@@ -68,6 +68,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="SEOChecker" />
         <PackageReference Include="Umbraco.Cms" />
         <PackageReference Include="Umbraco.Cms.DevelopmentMode.Backoffice" />
     </ItemGroup>
