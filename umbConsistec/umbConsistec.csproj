@@ -87,9 +87,9 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
+        <!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto
         <RazorCompileOnBuild>false</RazorCompileOnBuild>
-        <RazorCompileOnPublish>false</RazorCompileOnPublish>
+        <RazorCompileOnPublish>false</RazorCompileOnPublish> -->
     </PropertyGroup>
 
 </Project>
