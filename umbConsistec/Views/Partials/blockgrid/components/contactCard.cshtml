@@ -1,0 +1,34 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContactCard>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    ContactPerson cp = (ContactPerson) Model.Content?.Contact;
+}
+
+<div class="solution-card border p-2 bg-light h-100 transition shadow-sm hover-lift d-flex flex-column">
+    <div class="person-card">
+        <div class="person-card__image">
+            <img src="@cp?.Image?.Url()" alt="@cp.Name">
+        </div>
+
+        <div class="person-card__content">
+            <h3 class="person-card__name">@cp.Name</h3>
+
+            <div class="person-card__position">
+                @cp.Position
+            </div>
+
+            <div class="person-card__department">
+                @cp.Abteilung
+            </div>
+
+            <div class="person-card__topics">
+                
+                @await Html.GetBlockListHtmlAsync(cp.KeyValues)
+                
+            </div>
+        </div>
+    </div>
+    <div class="p-2 pt-4">
+        @cp.Kurzprofil
+    </div>
+</div>

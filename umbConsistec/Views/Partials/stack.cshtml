@@ -10,10 +10,11 @@
 <section class="regular-section" style="background-size:cover; background-image: url(@bgImage)">
     <div class="container">
         <div class="row g-5 align-items-start mb-5">
+            <div class="col-12">
+                <h2 class="display-5">@Model.Value("stackTitle")</h2>
+                @Model.Value("introText")
+            </div>
             <div class="col-lg-5">
-                <img class="position-absolute left-40px z-index-minus-1 animation-rotation d-none d-lg-flex"
-                        src="assets/img/image1.png" alt="" style="top: -150px;">
-                <h2 class="display-5  mb-5">@Model.Value("stackTitle")</h2>
                 <div class="industry-grid-mockup">
                     @Html.Raw(Model.Value("leftSideContent")?.ToString().Replace("<p>", "").Replace("</p>", ""))
                 </div>
@@ -31,7 +32,7 @@
 <div class="stacking-wrapper" id="third-section">
     <section class="p-section stack-section sec-intro step-section" id="p-sec-2">
         <div class="container">
-            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">STEP 1</span>
+            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">Datenquellen</span>
             <div class="row justify-content-center text-center gx-lg-5">
                 @{
                     var dataSources = Model.Value<BlockListModel>("dataSources");
@@ -78,7 +79,7 @@
 
     <section class="step2-section p-section stack-section sec-event bg-white" id="p-sec-3">
         <div class="container">
-            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center mb-5">STEP 2</span>
+            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center mb-5">Event-Layer</span>
             <div class="row justify-content-center text-center gy-5 gx-xl-5 ">
                 @{
                     var securityAnalyticsLayers = Model.Value<BlockListModel>("securityAnalyticsLayers");
@@ -123,7 +124,7 @@
 
     <section class="step3-section p-section stack-section sec-analysis" id="p-sec-4"">
         <div class="container">
-            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">STEP 3</span>
+            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">Nutzen</span>
 			
             <div class="text-center pt-5">
                 <div class="row justify-content-center text-center gy-5">

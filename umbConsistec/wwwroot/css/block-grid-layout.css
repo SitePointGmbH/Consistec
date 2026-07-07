@@ -146,3 +146,33 @@
 .faq-title {
     margin-bottom: 0 !important;
 }
+
+@media (min-width: 768px) {
+    .block-vertical-center .umb-block-grid__area-container {
+        align-items: stretch;
+    }
+
+    .block-vertical-center .umb-block-grid__area {
+        display: flex;
+    }
+
+    .block-vertical-center .umb-block-grid__layout-container {
+        display: flex;
+        width: 100%;
+    }
+
+    .block-vertical-center .umb-block-grid__layout-item {
+        display: flex;
+        width: 100%;
+    }
+
+    .block-vertical-center .umb-block-grid__area[data-area-alias="right"] .px-3 {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .block-vertical-center .umb-block-grid__area[data-area-alias="right"] .rich-text {
+        width: 100%;
+    }
+}

@@ -10,6 +10,14 @@ body {
     --bs-font-sans-serif: "Ubuntu", sans-serif !important;*/
 }
 
+.logo
+{height:30px;width:auto;}
+
+@media (max-width: 767px)
+{
+    .logo {height:20px}
+}
+
 /* --- Spacing --- */
 .py-10 {
   padding-top: 2.5rem !important;
@@ -1662,4 +1670,84 @@ a,
   .step-indicator {
     margin: auto;
   }
+}
+
+
+.person-card {
+    display: flex;
+    max-width: 760px;
+    color: #111;
+}
+
+.person-card__image {
+    flex: 0 0 230px;
+}
+
+.person-card__image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.person-card__content {
+    flex: 1;
+    padding: 22px 28px;
+}
+
+.person-card__name {
+    margin: 0 0 8px;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.person-card__position {
+    color: #ff3b1f;
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.person-card__department {
+    margin-bottom: 22px;
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.person-card__topics {
+    display: flex;
+    flex-direction: column;
+}
+
+.person-card__topic {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 14px 0;
+    border-bottom: 1px solid #d8d8d0;
+}
+
+.person-card__topic:last-child {
+    border-bottom: none;
+}
+
+.person-card__icon {
+    width: 36px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.person-card__icon img {
+    max-width: 34px;
+    max-height: 34px;
+    display: block;
+}
+
+.person-card__topic-text {
+    font-size: 17px;
+    line-height: 1.3;
 }

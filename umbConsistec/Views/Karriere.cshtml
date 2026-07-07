@@ -1,4 +1,5 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using Microsoft.Identity.Client.Kerberos
+@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Karriere>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
@@ -6,8 +7,91 @@
 	Layout = "master.cshtml";
 }
 <partial name="PageHeader" />
+<div class=" page-wrapper">
 <section class="py-10 bg-white">
 	<div class="container">
-		@Model.IntroText
+		<div class="row justify-content-center">
+			<div class="col-8 align-self-center">
+				@Model.IntroText
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 align-self-center">
+				@Html.Raw(Model.VideoScript)
+			</div>
+		</div>
 	</div>
 </section>
+
+@foreach (KarriereKategorie kkat in Model.Children<KarriereKategorie>())
+{
+	  <!-- Jobs -->
+    <section class="py-5 bg-white position-relative overflow-hidden" style="background-color: @kkat.BackgroundColor !important;">
+        @{
+           
+        <div class="container py-5 position-relative" style="z-index: 1;">
+            <h2>@kkat.Name</h2>
+            @kkat.IntroText
+
+            <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 
+                justify-content-center transition-inner-all">
+                @foreach (Job job in kkat.Children<Job>())
+                {
+
+                    <div class="col interactive-banner-style-02 md-mb-30px ">
+                        <div class="h-100 text-center position-relative border-radius-6px box-shadow-quadruple-large
+                    overflow-hidden">
+                            <figure class="m-0">
+                                <a class="position-relative d-block">
+                                    <img src="@job.Image?.Url()" alt=""/>
+                                </a>
+                                <figcaption class="w-100 position-absolute bottom-0px bg-white custom_profile_intro">
+                                    <div class="position-relative z-index-2 p-40px pt-25px pb-15px border-bottom border-dark-opacity">
+
+                                        <a href="#" class="fw-600 d-inline-block mb-5px text-dark-gray fs-18">
+                                            @job.Name
+                                        </a>
+                                        <p class="w-80 lg-w-100 fs-16 mx-auto mb-15px lg-mb-10px text-light-opacity">
+                                            @Html.Raw(job.TeaserText)
+                                        </p>
+                                    </div>
+
+                                    <a href="mailto:contact@consistec.de?subject=Bewerbung für @job.Name"
+                                       class="btn btn-link btn-hover-animation-switch btn-medium fw-700 text-dark-gray text-uppercase p-20px z-index-1">
+                                        <span>
+                                            <span class="btn-text">jetzt bewerben</span>
+                                            <span class="btn-icon"><i class="bi bi-arrow-right"></i></span>
+                                            <span class="btn-icon"><i class="bi bi-arrow-right"></i></span>
+                                        </span>
+                                    </a>
+
+                                    <div class="box-overlay bg-base-color"></div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>}
+    </section>
+}
+
+<section class="py-10 bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8 align-self-center">
+                <h2>Lernen Sie uns kennen!</h2>
+                <p>
+                    Wie ist es, im consistec-Team zu arbeiten, wie wir so ticken, was unsere Werte sind und wie wir gemeinsam erfolgreich sind, erfährst du hier.
+                </p>
+                <p>
+                    <a href="/ueber uns/" class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
+                        über uns
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>

@@ -11,13 +11,12 @@
 }
 
 <nav class="navbar navbar-expand-lg fixed-top py-3 header-nav blur-reveal shadow-sm">
-    <div class="container-fluid px-4 px-md-5">
+    <div class="container-fluid px-2 px-md-5">
 
         <a class="navbar-brand d-flex align-items-center" href="/">
        
            <img src="/assets/img/Logo_Consistec.svg"
-         alt="Consistec"
-         style="height:30px;width:auto;">
+         alt="Consistec" class="logo">
         </a>
 
         <button class="navbar-toggler border-0 shadow-none"
@@ -50,13 +49,14 @@
             }
 
         </div>
-        <div class="col-auto col-lg-2 text-end lg-ps-0 xs-pe-0 ms-4"> 
-            @if (callToAction != null ){
-                <div class="header-icon">  
+        <div class="col-auto col-lg-2 text-end lg-ps-0 xs-pe-0 ms-4 d-flex align-items-center justify-content-end">
+        @if (callToAction != null ){
+                <div class="header-icon d-flex align-items-center">
                     <div class="header-button">
-                        <a href="@callToAction.Url" target="@callToAction.Target" class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block xl-mb-15px md-mx-auto px-3 py-3 rounded-0 fw-normal shadow-sm transition text-white">
+                        <a href="@callToAction.Url" target="@callToAction.Target" class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block 
+ md-mx-auto px-3 py-3 rounded-0 fw-normal shadow-sm transition text-white">
                             <span>
-                                <span class="btn-double-text" data-text="unverbindlich">@callToAction.Name</span>
+                                <span class="btn-double-text">@Html.Raw(callToAction.Name)</span>
                                 <span><i class="bi bi-arrow-right-circle-fill"></i></span>
                             </span> 
                         </a> 

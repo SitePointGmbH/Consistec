@@ -170,6 +170,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string GoodAnswerSubheading => this.Value<string>(_publishedValueFallback, "goodAnswerSubheading");
 
 		///<summary>
+		/// Introtext
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("introtext")]
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Introtext => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "introtext");
+
+		///<summary>
 		/// is Visible
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.3.3+ade77ad")]

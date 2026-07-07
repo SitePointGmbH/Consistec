@@ -1,0 +1,15 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem<IconTextList>>
+@{
+    IconTextList itl = (IconTextList)Model.Content;
+}
+<div class="person-card__topic">
+    <div class="person-card__icon">
+        <img src="@itl.Icon.Url()" alt="@itl.Text">
+    </div>
+    <div class="person-card__topic-text">
+        @itl.Text
+    </div>
+</div>
+
+
+

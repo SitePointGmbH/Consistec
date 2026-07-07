@@ -4,6 +4,7 @@
     var buttonLink = Model.Content.Value<Umbraco.Cms.Core.Models.Link>("ctaButton");
 }
 
+<div class="px-3 px-md-0">
 <div class="rich-text @Model.Settings?.CustomCssClass" style="text-align:@Model.Settings?.Alignment">@Model.Content.TextContent
     @if (buttonLink != null)
     {
@@ -13,4 +14,5 @@
             @buttonLink.Name
         </a>
     }
-    </div>
+</div>
+</div>

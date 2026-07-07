@@ -1,10 +1,12 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<Images,GridContentSetting>>
+@using Microsoft.IdentityModel.Abstractions
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
     var image = Model.Content.Image;
+    var hideBox = (Model.Content.HideBox) ? "" : "p-4 bg-white shadow border rounded-4";
     if (image is not null)
     {
-        <div style="text-align:@Model.Settings?.Alignment" class="p-4 bg-white shadow border rounded-4 @Model.Settings?.CustomCssClass">
+        <div style="text-align:@Model.Settings?.Alignment" class="@hideBox @Model.Settings?.CustomCssClass">
             <img class="image img-fluid" src="@image.Url()" title="@image.Name" alt="@image.Name" />
         </div>
     }
