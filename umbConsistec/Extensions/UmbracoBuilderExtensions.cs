@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.StaticFiles;
 using umbConsistec.Middleware;
-using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
+
 namespace umbConsistec.Extensions;
 
 public static class UmbracoBuilderExtensions

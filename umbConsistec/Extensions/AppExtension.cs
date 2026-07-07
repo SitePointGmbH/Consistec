@@ -4,11 +4,18 @@ public static class AppExtension
 {
     public static WebApplication AddCspConfig(this WebApplication app)
     {
+   
         app.UseCsp(options => options
             .DefaultSources(s => s.None())
             .BaseUris(s => s.Self())
             .FrameAncestors(s => s.None())
             .MediaSources(s => s.Self())
+            .ImageSources(s => s
+                .Self()
+                .CustomSources(
+                    "data:",
+                    "blob:",
+                    "https://news-dashboard.umbraco.com"))
             .ScriptSources(s => s
                 .Self()
                 .UnsafeInline()
@@ -24,10 +31,12 @@ public static class AppExtension
             .ConnectSources(s => s
                 .Self())
             .FrameSources(s => s
-                .Self())
+                .Self()
+                .CustomSources(
+                    "data:",
+                    "https://marketplace.umbraco.com"))
             .ObjectSources(s => s.None())
             .FormActions(s => s.Self())
-            .UpgradeInsecureRequests()
             .BlockAllMixedContent()
         );
 
