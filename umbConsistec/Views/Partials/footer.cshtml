@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-6 offset-xl-1 text-center text-lg-start">
+            <div class="col-lg-2 col-12 offset-xl-1 text-center text-lg-start">
                 @if (footerNavigationFirstColumn != null && footerNavigationFirstColumn.Count() > 0)
                {
                 <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">Useful links</span>
@@ -49,7 +49,7 @@
             </div>
             @if (socialMedias != null)
             {
-            <div class="col-lg-2 col-6 text-center text-lg-start">
+            <div class="col-lg-2 col-12 text-center text-lg-start">
                 <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">Follow Us</span>
                 @foreach (var socialMedia in socialMedias)
                  {
@@ -66,14 +66,17 @@
     </div>
 
     <div class="col-lg-5 text-center text-lg-end md-mt-15px last-paragraph-no-margin">
+        <p class="fs-13 lh-22">
+        <a id="openConsentSettings" class="text-decoration-line-bottom text-white cursor-pointer">
+            Cookie-Einstellungen
+        </a>
+        <span> | </span>
+        
         @if (footerNavigationSecondColumn != null && footerNavigationSecondColumn.Any())
         {
-            <p class="fs-13 lh-22">
-                @{
                     var totalLinks = footerNavigationSecondColumn.Count();
                     var index = 0;
-                }
-
+                
                 @foreach (var link in footerNavigationSecondColumn)
                 {
                     index++;
@@ -89,8 +92,8 @@
                         <span> | </span>
                     }
                 }
-            </p>
         }
+        </p>
     </div>
 </div>
         

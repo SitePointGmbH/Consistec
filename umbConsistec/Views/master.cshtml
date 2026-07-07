@@ -41,6 +41,258 @@
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/vendors.min.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Matomo -->
+<script>
+	var u = 'https://matomo2.consistec.de/';
+</script>
+<!-- End Matomo Code -->
+
+<!-- Consent Banner -->
+<div class="consent-banner" id="consentBanner" hidden>
+	<div class="consent-banner__content">
+		<h3>Cookie-Einstellungen</h3>
+		<p>
+			Wir verwenden technisch notwendige Funktionen, damit diese Website korrekt funktioniert.
+			Zusätzlich können Sie der anonymisierten Statistik zustimmen, damit wir unser Angebot verbessern können.
+		</p>
+
+		<div class="consent-banner__actions">
+			<button type="button" class="btn-consent btn-consent--secondary" id="openConsentModal">
+				Konfigurieren
+			</button>
+
+			<button type="button" class="btn-consent btn-consent--secondary" id="acceptNecessaryOnly">
+				Nur notwendige
+			</button>
+
+			<button type="button" class="btn-consent btn-consent--primary" id="acceptAllCookies">
+				Alle akzeptieren
+			</button>
+		</div>
+	</div>
+</div>
+
+<!-- Consent Modal -->
+<div class="consent-modal" id="consentModal" hidden>
+	<div class="consent-modal__overlay" id="closeConsentModal"></div>
+
+	<div class="consent-modal__box" role="dialog" aria-modal="true" aria-labelledby="consentModalTitle">
+		<h3 id="consentModalTitle">Cookie-Einstellungen</h3>
+
+		<div class="consent-option">
+			<label class="consent-option__label">
+				<input type="checkbox" checked disabled>
+				<span>Technisch notwendige Cookies</span>
+			</label>
+			<p>
+				Diese sind erforderlich, damit die Website funktioniert, zum Beispiel für Sicherheit,
+				Seitennavigation oder gespeicherte Einstellungen. Sie können nicht deaktiviert werden.
+			</p>
+		</div>
+
+		<div class="consent-option">
+			<label class="consent-option__label">
+				<input type="checkbox" id="statisticsConsent">
+				<span>Statistiken</span>
+			</label>
+			<p>
+				Mit Ihrer Zustimmung erfassen wir anonymisierte Nutzungsdaten mit Matomo.
+				Dadurch verstehen wir besser, welche Inhalte genutzt werden und können die Website verbessern.
+			</p>
+		</div>
+
+		<div class="consent-modal__actions">
+			<button type="button" class="btn-consent btn-consent--secondary" id="saveNecessaryOnly">
+				Nur notwendige speichern
+			</button>
+
+			<button type="button" class="btn-consent btn-consent--primary" id="saveConsentSettings">
+				Auswahl speichern
+			</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	(function () {
+		const STORAGE_KEY = 'site_consent_settings';
+
+		const consentBanner = document.getElementById('consentBanner');
+		const consentModal = document.getElementById('consentModal');
+		const statisticsConsent = document.getElementById('statisticsConsent');
+
+		const openConsentSettings = document.getElementById('openConsentSettings');
+		const openConsentModal = document.getElementById('openConsentModal');
+		const closeConsentModal = document.getElementById('closeConsentModal');
+
+		const acceptAllCookies = document.getElementById('acceptAllCookies');
+		const acceptNecessaryOnly = document.getElementById('acceptNecessaryOnly');
+		const saveConsentSettings = document.getElementById('saveConsentSettings');
+		const saveNecessaryOnly = document.getElementById('saveNecessaryOnly');
+
+		function getConsent() {
+			try {
+				return JSON.parse(localStorage.getItem(STORAGE_KEY));
+			} catch (e) {
+				return null;
+			}
+		}
+
+		function setConsent(settings) {
+			const oldConsent = getConsent();
+
+			const consent = {
+				necessary: true,
+				statistics: Boolean(settings.statistics),
+				updatedAt: new Date().toISOString()
+			};
+
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+
+			hideBanner();
+			hideModal();
+
+			// Falls Statistik vorher aktiv war und jetzt deaktiviert wurde:
+			// Seite neu laden, damit das bereits geladene Matomo-Script nicht weiterläuft.
+			if (oldConsent && oldConsent.statistics && !consent.statistics) {
+				location.reload();
+				return;
+			}
+
+			if (consent.statistics) {
+				loadMatomo();
+			}
+		}
+
+		function showBanner() {
+			if (consentBanner) {
+				consentBanner.hidden = false;
+			}
+		}
+
+		function hideBanner() {
+			if (consentBanner) {
+				consentBanner.hidden = true;
+			}
+		}
+
+		function showModal() {
+			const consent = getConsent();
+
+			if (statisticsConsent) {
+				statisticsConsent.checked = Boolean(consent && consent.statistics);
+			}
+
+			if (consentModal) {
+				consentModal.hidden = false;
+			}
+		}
+
+		function hideModal() {
+			if (consentModal) {
+				consentModal.hidden = true;
+			}
+		}
+
+		function loadMatomo() {
+			if (window.__matomoLoaded) {
+				return;
+			}
+
+			window.__matomoLoaded = true;
+
+			var _paq = window._paq = window._paq || [];
+
+			_paq.push(['setDoNotTrack', true]);
+			_paq.push(['disableCookies']);
+			_paq.push(['trackPageView']);
+			_paq.push(['enableLinkTracking']);
+
+			(function () {
+				var u = 'https://matomo2.consistec.de/';
+
+				_paq.push(['setTrackerUrl', u + 'matomo.php']);
+				_paq.push(['setSiteId', '1']);
+
+				var d = document;
+				var g = d.createElement('script');
+				var s = d.getElementsByTagName('script')[0];
+
+				g.async = true;
+				g.src = u + 'matomo.js';
+
+				s.parentNode.insertBefore(g, s);
+			})();
+		}
+
+		function initConsent() {
+			const consent = getConsent();
+
+			// Noch keine Auswahl getroffen → Banner anzeigen
+			if (!consent) {
+				showBanner();
+				return;
+			}
+
+			// Auswahl vorhanden → ggf. Matomo laden
+			if (consent.statistics) {
+				loadMatomo();
+			}
+		}
+
+		if (openConsentSettings) {
+			openConsentSettings.addEventListener('click', showModal);
+		}
+
+		if (openConsentModal) {
+			openConsentModal.addEventListener('click', showModal);
+		}
+
+		if (closeConsentModal) {
+			closeConsentModal.addEventListener('click', hideModal);
+		}
+
+		if (acceptAllCookies) {
+			acceptAllCookies.addEventListener('click', function () {
+				setConsent({
+					statistics: true
+				});
+			});
+		}
+
+		if (acceptNecessaryOnly) {
+			acceptNecessaryOnly.addEventListener('click', function () {
+				setConsent({
+					statistics: false
+				});
+			});
+		}
+
+		if (saveConsentSettings) {
+			saveConsentSettings.addEventListener('click', function () {
+				setConsent({
+					statistics: statisticsConsent && statisticsConsent.checked
+				});
+			});
+		}
+
+		if (saveNecessaryOnly) {
+			saveNecessaryOnly.addEventListener('click', function () {
+				if (statisticsConsent) {
+					statisticsConsent.checked = false;
+				}
+
+				setConsent({
+					statistics: false
+				});
+			});
+		}
+
+		initConsent();
+	})();
+</script>
+
 </body>
 
 </html>
