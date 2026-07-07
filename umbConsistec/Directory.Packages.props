@@ -4,8 +4,10 @@
     <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Microsoft.OpenApi" Version="3.8.0" />
     <PackageVersion Include="NWebsec.AspNetCore.Middleware" Version="3.0.0" />
     <PackageVersion Include="SEOChecker" Version="17.0.4" />
+    <PackageVersion Include="SQLitePCLRaw.lib.e_sqlite3" Version="3.53.3" />
     <PackageVersion Include="Umbraco.Cms" Version="17.5.3" />
     <PackageVersion Include="Umbraco.Cms.DevelopmentMode.Backoffice" Version="17.3.3" />
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />

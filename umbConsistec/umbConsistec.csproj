@@ -68,8 +68,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.OpenApi" />
         <PackageReference Include="NWebsec.AspNetCore.Middleware" />
         <PackageReference Include="SEOChecker" />
+        <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
         <PackageReference Include="Umbraco.Cms" />
         <PackageReference Include="Umbraco.Cms.DevelopmentMode.Backoffice" />
     </ItemGroup>
