@@ -1,6 +1,9 @@
+using umbConsistec.Extensions;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.CreateUmbracoBuilder()
+    .AddMiddleWares()
     .AddBackOffice()
     .AddWebsite()
     .AddComposers()
@@ -8,6 +11,16 @@ builder.CreateUmbracoBuilder()
 
 WebApplication app = builder.Build();
 
+if (builder.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseHsts();
+}
+
+app.AddCspConfig();
 
 await app.BootUmbracoAsync();
 
