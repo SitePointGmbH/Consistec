@@ -13,7 +13,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
         ForwardedHeaders.XForwardedProto |
         ForwardedHeaders.XForwardedHost;
 
-    options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("172.28.0.0"), 16));
+    options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("192.168.68.0"), 24));
 });
 
 
