@@ -12,7 +12,7 @@
 
     <section class="hero-section d-flex align-items-center position-relative border-bottom"
              style="min-height: 60vh;
-        @(bg != null ? $"background-image:url({bg.Url()}); background-repeat:no-repeat; background-position:center; background-size:cover;" : "")">
+        @(bg != null ? $"background-image:url({bg.GetCropUrl(width: 2200, furtherOptions: "&format=webp")}); background-repeat:no-repeat; background-position:center; background-size:cover;" : "")">
 
         <div class="container">
             <div class="row justify-content-center align-items-center">

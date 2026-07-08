@@ -60,6 +60,16 @@ h2 {
     font-weight: 500 !important;
 }
 
+h3 {
+    font-size: 1.25rem !important;
+    font-weight: 500 !important;
+}
+
+h4 {
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+}
+
 a,
 .navbar .navbar-nav .nav-item:hover .nav-link,
 .navbar .navbar-nav .nav-item .nav-link.active {
@@ -508,7 +518,7 @@ a,
     -o-transition-duration: .2s;
     position: fixed;
     top: 130px;
-    right: -125px;
+    right: -195px;
     background: #e03978;
     z-index: 1000;
     z-index: 99;
@@ -532,7 +542,7 @@ a,
     -o-transition-duration: .2s;
     position: fixed;
     top: 190px;
-    right: -78px;
+    right: -135px;
     background: #ee5d46;
     z-index: 1000;
     z-index: 99;
@@ -542,7 +552,7 @@ a,
         opacity: 1;
         font-size: 13px;
         text-transform: uppercase;
-        padding: 5px 10px;
+        padding: 7px 10px 4px 10px;
         display: block;
         text-decoration: none;
         font-weight: 500;

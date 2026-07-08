@@ -2,11 +2,13 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @using Umbraco.Cms.Core.Models
 @using System.Text.Json
+@using HtmlAgilityPack
 @using Umbraco.Cms.Core.Models.Blocks;
 
 @{
     var sectionPosterImage = Model.Value<IPublishedContent>("sectionPosterImage");
     var sectionPosterVideo = Model.Value<IPublishedContent>("sectionPosterVideo");
+    var videoScript = Model.Value<string>("videoScript");
 }
 
 <section class="py-10 py-lg-5 bg-white" id="second-section">
@@ -24,14 +26,21 @@
     <div class="container">
         <div class="row g-5 align-items-center">
             <div class="col-lg-7 blur-reveal">
-                <div class="video-container ratio ratio-16x9 rounded-2 shadow-sm bg-dark overflow-hidden position-relative cursor-pointer">
-                    <video id="scrollVideo"
-                        class="w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-0"
-                        src="@sectionPosterVideo?.Url()"
-                        poster="@sectionPosterImage?.Url()" loop muted playsinline>
-                    </video>
+                @if (!String.IsNullOrEmpty(videoScript))
+                {
+                    @Html.Raw(videoScript)
+                }
+                else
+                {
+                    <div class="video-container ratio ratio-16x9 rounded-2 shadow-sm bg-dark overflow-hidden position-relative cursor-pointer">
+                        <video id="scrollVideo"
+                               class="w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-0"
+                               src="@sectionPosterVideo?.Url()"
+                               poster="@sectionPosterImage?.Url()" loop muted playsinline>
+                        </video>
 
-                </div>
+                    </div>
+                }
             </div>
             <div class="col-lg-5 blur-reveal delay-1">
                 <div class="ps-lg-4">
