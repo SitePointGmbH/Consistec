@@ -368,6 +368,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string VideoScript => this.Value<string>(_publishedValueFallback, "videoScript");
 
 		///<summary>
+		/// WarumGrid
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("warumGrid")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel WarumGrid => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel>(_publishedValueFallback, "warumGrid");
+
+		///<summary>
 		/// Banner Image: Select the main background image to display behind the banner text.
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]

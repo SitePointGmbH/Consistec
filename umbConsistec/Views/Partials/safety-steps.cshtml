@@ -48,6 +48,11 @@
     </section>
 </div>
 
+<section class="py-10 bg-white page-wrapper">
+    @await Html.GetBlockGridHtmlAsync(Model.Value<BlockGridModel>("warumGrid"))
+</section>
+
+
 <div class="container">
     <h2 class="mt-5 blur-reveal text-dark">Unsere Partner für mehr digitale Souveränität und umfassende Services rund um caplon©.</h2>
     <div class="row position-relative clients-style-08 py-5" data-anime='{ "translateX": [0, 0], "opacity": [0,1], "duration": 800, "delay":100, "staggervalue": 150, "easing": "easeOutQuad" }'>
