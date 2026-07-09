@@ -5,11 +5,14 @@
     var image = Model.Content.Image;
     var hideBox = (Model.Content.HideBox) ? "" : "p-4 bg-white shadow border rounded-4";
     var position = (Model.Content.CenterImage) ? "justify-image-center-center" : "";
+    var positionWrapper = (Model.Content.CenterImage) ? "d-flex w-100 h-100" : "";
     
     if (image is not null)
     {
+        <div class="@positionWrapper">
         <div style="text-align:@Model.Settings?.Alignment;" class="@hideBox @position @Model.Settings?.CustomCssClass">
             <img class="image img-fluid" src="@image.Url()" title="@image.Name" alt="@image.Name" />
+        </div>
         </div>
     }
 }

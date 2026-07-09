@@ -97,7 +97,6 @@
 .umb-block-grid__layout-container,
 .umb-block-grid__layout-item {
     height: 100%;
-    display: flex;
 }
 
 
