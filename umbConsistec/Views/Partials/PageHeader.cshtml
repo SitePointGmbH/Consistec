@@ -10,8 +10,8 @@
     var bg = Model.Value<IPublishedContent>("bannerImage", fallback: Fallback.ToLanguage);
     var bannerTextLines = Model.Value<IEnumerable<string>>("bannerTextLines",fallback: Fallback.ToLanguage);
 
-    <section class="hero-section d-flex align-items-center position-relative border-bottom"
-             style="min-height: 60vh;
+    <section class="hero-section d-flex align-items-center position-relative border-bottom-none"
+             style="min-height: 60vh; border-bottom: none !important;
         @(bg != null ? $"background-image:url({bg.GetCropUrl(width: 2200, furtherOptions: "&format=webp")}); background-repeat:no-repeat; background-position:center; background-size:cover;" : "")">
 
         <div class="container">
@@ -53,5 +53,7 @@
                 </div>
             </div>
         </div>
+        
+        <div class="stripe"></div>
     </section>
 }
