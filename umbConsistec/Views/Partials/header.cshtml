@@ -27,26 +27,10 @@
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            @if (mainNavigation != null)
-            {
-                var currentUrl = Context.Request.Path.ToString().ToLower();
-
                 <ul class="navbar-nav gap-2 gap-lg-3 align-items-lg-center mt-lg-0">
-                    @foreach (var link in mainNavigation)
-                    {
-                        var linkUrl = link.Url?.ToLower();
-                        var isActive = currentUrl == linkUrl;
-
-                        <li class="nav-item @(isActive ? "active" : "")">
-                            <a class="nav-link menu-link menu-item px-0"
-                               href="@link.Url"
-                               target="@link.Target">
-                                @link.Name
-                            </a>
-                        </li>
-                    }
+                    @await Html.GetBlockListHtmlAsync(commonComponent.Value<BlockListModel>("mainNavigationWithDropdown"))
                 </ul>
-            }
+            
 
         </div>
         <div class="col-auto col-lg-2 text-end lg-ps-0 xs-pe-0 ms-4 d-flex align-items-center justify-content-end">

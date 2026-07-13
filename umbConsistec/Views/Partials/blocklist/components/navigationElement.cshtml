@@ -1,0 +1,29 @@
+@using Umbraco.Cms.Core.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem<NavigationElement>>
+@{
+    var currentUrl = Context.Request.Path.ToString().ToLower();
+    var navigation = Model.Content?.Navigation;
+    var linkUrl = navigation?.Url?.ToLower();
+    var isActive = currentUrl == linkUrl;
+    string dropdown = (Model.Content?.Subnavigation?.Count() > 0) ? "dropdown simple-dropdown" : "";
+}
+
+<li class="nav-item @(isActive ? "active" : "")  @dropdown">
+    <a class="nav-link menu-link menu-item px-0"
+       href="@navigation?.Url"
+       target="@navigation?.Target">
+        @navigation?.Name
+    </a>
+
+    @if (!String.IsNullOrEmpty(dropdown))
+    {
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+            @foreach (Link link in Model.Content?.Subnavigation ?? [])
+            {
+                <li>
+                    <a href="@link.Url" target="@link.Target">@link.Name</a>
+                </li>
+            }
+        </ul>
+    }
+</li>

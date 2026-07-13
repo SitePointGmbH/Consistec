@@ -518,7 +518,7 @@ a,
     -o-transition-duration: .2s;
     position: fixed;
     top: 130px;
-    right: -195px;
+    right: -185px;
     background: #e03978;
     z-index: 1000;
     z-index: 99;
@@ -542,7 +542,7 @@ a,
     -o-transition-duration: .2s;
     position: fixed;
     top: 190px;
-    right: -135px;
+    right: -131px;
     background: #ee5d46;
     z-index: 1000;
     z-index: 99;
@@ -1914,4 +1914,34 @@ a,
 .border-bottom-none
 {
     border-bottom: 0px solid #fff !important;
+}
+
+li p
+{
+    margin-bottom: 0px !important;
+}
+
+.rich-text ul li
+{
+   list-style: disc !important;    
+}
+
+.hero-section h2
+{
+    margin-bottom:20px !important;
+    font-size: 2rem !important;
+}
+
+.feature-box .feature-box-icon i
+{
+    font-size: 5rem !important;
+}
+
+.bg-base-color {
+    background-color: #e73b24 !important;
+}
+
+.feature-box:hover i
+{
+    color: #ffffff !important;
 }

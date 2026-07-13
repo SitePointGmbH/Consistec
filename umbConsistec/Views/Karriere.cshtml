@@ -38,24 +38,23 @@
                 @foreach (Job job in kkat.Children<Job>())
                 {
 
-                    <div class="col interactive-banner-style-02 md-mb-30px ">
+                    <div class="col interactive-banner-style-02 mb-30px ">
                         <div class="h-100 text-center position-relative border-radius-6px box-shadow-quadruple-large
                     overflow-hidden">
                             <figure class="m-0">
                                 <a class="position-relative d-block">
                                     <img src="@job.Image?.Url()" alt=""/>
                                 </a>
-                                <figcaption class="w-100 position-absolute bottom-0px bg-white custom_profile_intro">
-                                    <div class="position-relative z-index-2 p-40px pt-25px pb-15px border-bottom border-dark-opacity">
+                                <div class="position-relative z-index-2 p-40px pt-25px pb-15px">
 
-                                        <a href="#" class="fw-600 d-inline-block mb-5px text-dark-gray fs-18">
-                                            @job.Name
-                                        </a>
-                                        <p class="w-80 lg-w-100 fs-16 mx-auto mb-15px lg-mb-10px text-light-opacity">
-                                            @Html.Raw(job.TeaserText)
-                                        </p>
-                                    </div>
-
+                                    <a href="#" class="fw-600 d-inline-block mb-5px text-dark-gray fs-18">
+                                        @job.Name
+                                    </a>
+                                    <p class="w-80 lg-w-100 fs-16 mx-auto mb-15px lg-mb-10px text-light-opacity">
+                                        @Html.Raw(job.TeaserText)
+                                    </p>
+                                </div>
+                                <figcaption class="w-100 position-absolute bottom-0px bg-white custom_profile_intro border-top border-dark-opacity">
                                     <a href="@job.Url()"
                                        class="btn btn-link btn-hover-animation-switch btn-medium fw-700 text-dark-gray text-uppercase p-20px z-index-1">
                                         <span>

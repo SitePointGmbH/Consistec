@@ -1,0 +1,18 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<DownloadBox>>
+
+<div class="feature-box box-shadow-bottom">
+    <div class="box-move-bottom-top pt-18 pb-18 ps-15 pe-15 transition-inner-all">
+        <div class="feature-box-icon feature-box-icon-rounded light-hover w-120px h-120px rounded-circle mb-25px box-shadow-medium mx-auto">
+            <i class="bi bi-cloud-download-fill"></i>
+            <div class="feature-box-icon-hover bg-base-color rounded-circle"></div>
+        </div>
+        <div class="feature-box-content last-paragraph-no-margin overflow-hidden">
+            <span class="d-inline-block fw-500 fs-18">@Model.Content?.Title</span>
+            <p class="w-90 m-auto">@Html.Raw(Model.Content?.Description)</p>
+            <div class="move-bottom-top mt-15px">
+                <a href="@Model.Content?.File?.Url()" class="hover-link btn btn-link btn-medium ls-05px">Download starten</a>
+            </div> 
+        </div>
+    </div>
+    <div class="feature-box-overlay border-radius-6px"></div>
+</div>
