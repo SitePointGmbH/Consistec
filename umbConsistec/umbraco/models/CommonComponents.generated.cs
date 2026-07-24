@@ -90,12 +90,20 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string FooterText => this.Value<string>(_publishedValueFallback, "footerText");
 
 		///<summary>
-		/// Main Navigation
+		/// Logos Folder: Zertifikate oder Logos, die im Footer durchsliden. Bitte einen Ordner wählen, in dem sich die Logos befinden
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("mainNavigation")]
-		public virtual global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.Link> MainNavigation => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.Link>>(_publishedValueFallback, "mainNavigation");
+		[ImplementPropertyType("logosFolder")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops LogosFolder => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "logosFolder");
+
+		///<summary>
+		/// Main Logo
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("mainLogo")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops MainLogo => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "mainLogo");
 
 		///<summary>
 		/// Main Navigation

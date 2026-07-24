@@ -7,6 +7,12 @@
 @{
     bool isVisible = Model.Value<bool>("isVisibleCS");
 }
+
+<section class="py-10 bg-white page-wrapper">
+    @await Html.GetBlockGridHtmlAsync(Model.Value<BlockGridModel>("warumGrid"))
+</section>
+
+
 @if (isVisible)
 {
     <!-- Case Studies -->
@@ -16,7 +22,7 @@
              style="opacity: 0.6; background-color: #e3ecf1;"></div>
         @{
             var caseStudiesBlocks = Model.Value<BlockGridModel>("caseStudiesBlock");
-            var caseStudiesCtaLink = Model.Value<Link>("caseStudiesCta");
+            
             <div class="container py-5 position-relative" style="z-index: 1;">
                 <h2 class="mb-5 blur-reveal text-dark">@Model.Value("caseStudiesHeading")</h2>
                 <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-1 
@@ -67,15 +73,7 @@
                         </div>
                     }
                 </div>
-                <div class="text-center mt-5 pt-4 blur-reveal delay-2">
-                    <div class="text-danger small mb-4">
-                        @Model.Value("caseStudiesBottomText")
-                    </div>
-                    @if (caseStudiesCtaLink != null)
-                    {
-                        <a href="@caseStudiesCtaLink.Url" class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block xl-mb-15px md-mx-auto px-5 py-3 rounded-0 fw-normal shadow-sm transition text-white">@caseStudiesCtaLink.Name</a>
-                    }
-                </div>
-            </div>}
+            </div>
+        }
     </section>
 }

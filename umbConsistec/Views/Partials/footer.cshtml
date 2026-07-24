@@ -18,6 +18,12 @@
 
     var socialMedias = commonComponent?
         .Value<BlockListModel>("socialMedia");
+    
+    var mainLogoUrl = commonComponent?
+        .Value<IPublishedContent>("mainLogo")?.Url();
+    
+    var logosFolder = commonComponent.Value<IPublishedContent>("logosFolder");
+    
 }
 
 <!-- start footer -->
@@ -28,28 +34,39 @@
                 <h3 class="text-white fw-600 alt-font mb-40px md-mb-30px md-w-60 sm-w-70 xs-w-100 md-mx-auto">@commonComponent.Value("footerText")</h3>
                 <div class="row">
                     <div class="col-lg-5 col-sm-6 xs-mb-20px">
-                        <img src="/assets/img/footer-image.png">
+                        <img src="@mainLogoUrl">
                     </div>
                     <div class="col-lg-5 col-sm-6">
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-2 col-12 offset-xl-1 text-center text-lg-start">
-                @if (footerNavigationFirstColumn != null && footerNavigationFirstColumn.Count() > 0)
-               {
-                <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">Useful links</span>
-              
-                <ul>
-                    @foreach (var footerNav in footerNavigationFirstColumn)
-                    {
-                        <li><a href="@footerNav.Url" target="@footerNav">@footerNav.Name</a></li>
-                    }
-                </ul>
+                @if (logosFolder != null && logosFolder.Children().Count() > 0)
+                {
+                    
+                    <div class="row mt-5 position-relative" data-anime='{ "translateX": [0, 0], "opacity": [0,1], "duration": 800, "delay":100, "staggervalue": 150, "easing": "easeOutQuad" }'>
+                        <div class="col swiper text-center" 
+                             data-slider-options='{ "slidesPerView": 2, "spaceBetween":0, "speed": 3000, "loop": true, "pagination": { "el": ".slider-four-slide-pagination-2", "clickable": false }, 
+"allowTouchMove": false, "autoplay": { "delay":0, "disableOnInteraction": false, "pauseOnMouseEnter": false}, "navigation": { "nextEl": ".slider-four-slide-next-2", "prevEl": ".slider-four-slide-prev-2" }, 
+"keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 3 }, "768": { "slidesPerView": 3 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }'>
+                            <div class="swiper-wrapper marquee-slide">
+
+                                @foreach (IPublishedContent logo in logosFolder?.Children() ?? [])
+                                {
+                                    <!-- start client item -->
+                                    <div class="swiper-slide d-flex align-items-center justify-content-center">
+                                        <div class="px-3 d-flex align-items-center justify-content-center">
+                                            <img src="@logo.Url()" alt="@logo.Name"  />
+                                        </div>
+                                    </div>
+                                    <!-- end client item -->
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    
                 }
             </div>
-            @if (socialMedias != null)
-            {
-            <div class="col-lg-2 col-12 text-center text-lg-start">
+            
+            <div class="col-lg-4 col-12 text-center">
                 <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">Follow Us</span>
                 @foreach (var socialMedia in socialMedias)
                  {
@@ -57,46 +74,36 @@
                     <li><a href="@socialMedia.Content.Value("link")" target="_blank">@socialMedia.Content.Value("title")</a></li>
                 </ul>
                 }
-            </div>
-            }
-        </div>
-        
-        <div class="row">
-    <div class="col-lg-7 last-paragraph-no-margin text-center text-lg-start">
-    </div>
-
-    <div class="col-lg-5 text-center text-lg-end md-mt-15px last-paragraph-no-margin">
-        <p class="fs-13 lh-22">
-        <a id="openConsentSettings" class="text-decoration-line-bottom text-white cursor-pointer">
-            Cookie-Einstellungen
-        </a>
-        <span> | </span>
-        
-        @if (footerNavigationSecondColumn != null && footerNavigationSecondColumn.Any())
-        {
-                    var totalLinks = footerNavigationSecondColumn.Count();
-                    var index = 0;
-                
-                @foreach (var link in footerNavigationSecondColumn)
-                {
-                    index++;
-
-                    <a href="@link.Url"
-                       target="@link.Target"
-                       class="text-decoration-line-bottom text-white">
-                        @link.Name
+                <p class="fs-13 lh-22 pt-5 text-center">
+                    <a id="openConsentSettings" class="text-decoration-line-bottom text-white cursor-pointer">
+                        Cookie-Einstellungen
                     </a>
+                    <span> | </span>
 
-                    @if (index < totalLinks)
+                    @if (footerNavigationSecondColumn != null && footerNavigationSecondColumn.Any())
                     {
-                        <span> | </span>
+                        var totalLinks = footerNavigationSecondColumn.Count();
+                        var index = 0;
+
+                        @foreach (var link in footerNavigationSecondColumn)
+                        {
+                            index++;
+
+                            <a href="@link.Url"
+                               target="@link.Target"
+                               class="text-decoration-line-bottom text-white">
+                                @link.Name
+                            </a>
+
+                            @if (index < totalLinks)
+                            {
+                                <span> | </span>
+                            }
+                        }
                     }
-                }
-        }
-        </p>
-    </div>
-</div>
-        
+                </p>
+            </div>
+        </div>
     </div>
 </footer>
 <!-- end footer -->

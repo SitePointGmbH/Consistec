@@ -50,6 +50,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		// properties
 
 		///<summary>
+		/// Alt Tag Description: Alt-Tag für beide Bilder zur SEO-Optimierung
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("altTagDescription")]
+		public virtual string AltTagDescription => this.Value<string>(_publishedValueFallback, "altTagDescription");
+
+		///<summary>
 		/// Answers
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
@@ -122,7 +130,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string CaseStudiesBottomText => this.Value<string>(_publishedValueFallback, "caseStudiesBottomText");
 
 		///<summary>
-		/// Case Studies CTA
+		/// CTA Button
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
@@ -168,6 +176,22 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("goodAnswerSubheading")]
 		public virtual string GoodAnswerSubheading => this.Value<string>(_publishedValueFallback, "goodAnswerSubheading");
+
+		///<summary>
+		/// Image Desktop: größer als 768px
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("imageDesktop")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops ImageDesktop => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "imageDesktop");
+
+		///<summary>
+		/// Image Mobile: bis 768px
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("imageMobile")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops ImageMobile => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "imageMobile");
 
 		///<summary>
 		/// Introtext
@@ -230,14 +254,6 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("parallaxHeading")]
 		public virtual string ParallaxHeading => this.Value<string>(_publishedValueFallback, "parallaxHeading");
-
-		///<summary>
-		/// Partner-Logos
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("partnerLogos")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops PartnerLogos => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "partnerLogos");
 
 		///<summary>
 		/// Right Side Content
@@ -350,6 +366,13 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("testimonialsHeading")]
 		public virtual string TestimonialsHeading => this.Value<string>(_publishedValueFallback, "testimonialsHeading");
+
+		///<summary>
+		/// Use Full Width
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[ImplementPropertyType("useFullWidth")]
+		public virtual bool UseFullWidth => this.Value<bool>(_publishedValueFallback, "useFullWidth");
 
 		///<summary>
 		/// Video Gallery

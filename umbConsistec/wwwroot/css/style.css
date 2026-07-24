@@ -414,8 +414,8 @@ b, strong {
   line-height: 11.875rem;
 }
 .fs-200 {
-  font-size: 12.5rem;
-  line-height: 12.5rem;
+  font-size: 12.5rem !important;
+  line-height: 12.5rem !important;
 }
 .fs-225 {
   font-size: 14.063rem;
@@ -19597,7 +19597,4 @@ footer .footer-navbar .nav-item:last-child a {
 }
 .footer-demo a:hover {
   color: #fff;
-}
-.footer-demo img {
-  max-height: 55px !important;
 }

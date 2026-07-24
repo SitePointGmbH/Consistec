@@ -1,7 +1,7 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
 @{
-    var subHeadline = (Model.HasValue("subHeadline")) ? Model.Value<string>("subHeadline") : "caplon<sup>©</sup>";
+    var subHeadline = (Model.HasValue("subHeadline")) ? Model.Value<string>("subHeadline") : "";
     var textColor = (Model.HasValue("textColor")) ? Model.Value<string>("textColor") : "white";
 }
 

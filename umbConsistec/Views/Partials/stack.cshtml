@@ -5,6 +5,9 @@
 @using Umbraco.Cms.Core.Models.Blocks;
 @{
     var bgImage = Model.Value<IPublishedContent>("backgroundImage")?.Url();
+    var fullwidthStack = (Model.Value<bool>("useFullWidth")) ? "" : "container";
+    var imageDesktopUrl = (Model.HasValue("imageDesktop")) ? Model.Value<IPublishedContent>("imageDesktop")?.GetCropUrl(width: 2200, furtherOptions: "&format=webp") : "";
+    var imageMobileUrl = (Model.HasValue("imageMobile")) ? Model.Value<IPublishedContent>("imageMobile")?.GetCropUrl(width: 768, furtherOptions: "&format=webp") : "";
 }
 
 <section class="regular-section" style="background-size:cover; background-image: url(@bgImage)">
@@ -29,6 +32,27 @@
         </div>
     </div>
 </section>
+
+@*
+@if (!String.IsNullOrEmpty(imageDesktopUrl))
+{
+    <section class="desktop-stacking d-none d-md-block pb-3">
+        <div class="@fullwidthStack text-center">
+            <img src="@imageDesktopUrl" alt="@Model.Value("altTagDescription")" class="w-100" />
+        </div>
+    </section>
+}
+
+@if (!String.IsNullOrEmpty(imageMobileUrl))
+{
+    <section class="mobile-stacking d-md-none pb-3">
+        <div class="@fullwidthStack text-center">
+            <img src="@imageMobileUrl" alt="@Model.Value("altTagDescription")" class="w-100" />
+        </div>
+    </section>
+}
+*@
+
 <div class="stacking-wrapper" id="third-section">
     <section class="p-section stack-section sec-intro step-section" id="p-sec-2">
         <div class="container">
@@ -122,7 +146,7 @@
 
     </section>
 
-    <section class="step3-section p-section stack-section sec-analysis" id="p-sec-4"">
+    <section class="step3-section p-section stack-section sec-analysis" id="p-sec-4">
         <div class="container">
             <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">Nutzen</span>
 			

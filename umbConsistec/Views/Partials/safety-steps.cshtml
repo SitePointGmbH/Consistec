@@ -5,6 +5,7 @@
 @using Umbraco.Cms.Core.Models.Blocks;
 @{
     var partnerLogos = Model.Value<IPublishedContent>("partnerLogos");
+    var caseStudiesCtaLink = Model.Value<Link>("caseStudiesCta");
 }
 <div class="roadmap-pin-container bg-light" id="roadmap-pin-container" style="background:#e3ecf1 !important">
     <section class="roadmap-section pb-0" id="roadmap">
@@ -44,14 +45,16 @@
                     </div>
                 }
             </div>
+
+            <div class="text-center mt-5 pt-4 blur-reveal delay-2">
+                @if (caseStudiesCtaLink != null)
+                {
+                    <a href="@caseStudiesCtaLink.Url" class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block xl-mb-15px md-mx-auto px-5 py-3 rounded-0 fw-normal shadow-sm transition text-white">@caseStudiesCtaLink.Name</a>
+                }
+            </div>
         </div>
     </section>
 </div>
-
-<section class="py-10 bg-white page-wrapper">
-    @await Html.GetBlockGridHtmlAsync(Model.Value<BlockGridModel>("warumGrid"))
-</section>
-
 @*
 <div class="container">
     <h2 class="mt-5 blur-reveal text-dark">Unsere Partner für mehr digitale Souveränität und umfassende Services rund um caplon©.</h2>
