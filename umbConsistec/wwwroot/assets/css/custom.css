@@ -1103,7 +1103,6 @@ a,
 
 /* --- Roadmap Scrub --- */
 .roadmap-pin-container {
-    height: 350vh;
     /* Controlled height for a slower scroll experience */
     position: relative;
     background: #e3ecf1 !important;

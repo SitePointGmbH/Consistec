@@ -219,47 +219,46 @@ function initRoadmapScrub() {
 
     if (!pin || steps.length === 0) return;
 
-    // Desktop logic
-    window.addEventListener('scroll', () => {
-        if (window.innerWidth <= 1024) return; // Skip desktop logic on mobile
+    const totalDuration = 2400; // ms – Gesamtdauer der Animation, anpassbar
+    let hasPlayed = false;
 
-        const rect = pin.getBoundingClientRect();
-        const scrollDistance = rect.height - window.innerHeight;
-        const currentScroll = -rect.top;
+    function playAnimation() {
+        if (hasPlayed) return;
+        hasPlayed = true;
 
-        if (currentScroll >= 0 && currentScroll <= scrollDistance) {
-            let prog = (currentScroll / scrollDistance) * 100;
-            prog = Math.max(0, Math.min(100, prog));
-
-            if (bar) bar.style.width = `${prog}%`;
-
-            steps.forEach((s, i) => {
-                s.classList.toggle(
-                    'active',
-                    prog >= ((i + 0.1) / steps.length) * 100
-                );
+        // Weicher Füll-Effekt über CSS-Transition
+        if (bar) {
+            bar.style.width = '0%'; // Ausgangszustand sicherstellen
+            bar.style.transition = `width ${totalDuration}ms ease`;
+            requestAnimationFrame(() => {
+                bar.style.width = '100%';
             });
         }
-    });
 
-    // Mobile logic: IntersectionObserver
+        // Steps nacheinander aktivieren, zeitlich über die Gesamtdauer verteilt
+        steps.forEach((step, i) => {
+            const delay = (totalDuration / steps.length) * (i + 0.5);
+            setTimeout(() => step.classList.add('active'), delay);
+        });
+    }
+
     const observer = new IntersectionObserver((entries) => {
-        if (window.innerWidth > 1024) return; // Skip mobile logic on desktop
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            } else {
-                entry.target.classList.remove('active');
+                playAnimation();
+                observer.unobserve(entry.target); // nur einmal abspielen
             }
         });
     }, {
         root: null,
-        rootMargin: '-30% 0px -30% 0px', // Triggers when item reaches the middle 40% of the screen
+        rootMargin: '0px 0px -30% 0px', // löst aus, sobald das Element ins untere 70%-Fenster des Viewports kommt
         threshold: 0
     });
 
-    steps.forEach(step => observer.observe(step));
+    observer.observe(pin);
 }
+
+document.addEventListener('DOMContentLoaded', initRoadmapScrub);
 
 function initScrollReveal() {
 
