@@ -51,23 +51,22 @@
 <!-- Consent Banner -->
 <div class="consent-banner" id="consentBanner" hidden>
 	<div class="consent-banner__content">
-		<h3>Cookie-Einstellungen</h3>
+		<h3>@Umbraco.GetDictionaryValue("Cookie-Einstellungen")</h3>
 		<p>
-			Wir verwenden technisch notwendige Funktionen, damit diese Website korrekt funktioniert.
-			Zusätzlich können Sie der anonymisierten Statistik zustimmen, damit wir unser Angebot verbessern können.
+			@Umbraco.GetDictionaryValue("Cookie-Einstellungen Text")
 		</p>
 
 		<div class="consent-banner__actions">
 			<button type="button" class="btn-consent btn-consent--secondary" id="openConsentModal">
-				Konfigurieren
+				@Umbraco.GetDictionaryValue("Konfigurieren")
 			</button>
 
 			<button type="button" class="btn-consent btn-consent--secondary" id="acceptNecessaryOnly">
-				Nur notwendige
+				@Umbraco.GetDictionaryValue("Nur notwendige")
 			</button>
 
 			<button type="button" class="btn-consent btn-consent--primary" id="acceptAllCookies">
-				Alle akzeptieren
+				@Umbraco.GetDictionaryValue("Alle akzeptieren")
 			</button>
 		</div>
 	</div>
@@ -78,37 +77,35 @@
 	<div class="consent-modal__overlay" id="closeConsentModal"></div>
 
 	<div class="consent-modal__box" role="dialog" aria-modal="true" aria-labelledby="consentModalTitle">
-		<h3 id="consentModalTitle">Cookie-Einstellungen</h3>
+		<h3 id="consentModalTitle">@Umbraco.GetDictionaryValue("Cookie-Einstellungen")</h3>
 
 		<div class="consent-option">
 			<label class="consent-option__label">
 				<input type="checkbox" checked disabled>
-				<span>Technisch notwendige Cookies</span>
+				<span>@Umbraco.GetDictionaryValue("Technisch notwendige Cookies")</span>
 			</label>
 			<p>
-				Diese sind erforderlich, damit die Website funktioniert, zum Beispiel für Sicherheit,
-				Seitennavigation oder gespeicherte Einstellungen. Sie können nicht deaktiviert werden.
+				@Umbraco.GetDictionaryValue("Technisch notwendige Cookies Text")
 			</p>
 		</div>
 
 		<div class="consent-option">
 			<label class="consent-option__label">
 				<input type="checkbox" id="statisticsConsent">
-				<span>Statistiken</span>
+				<span>@Umbraco.GetDictionaryValue("Statistiken")</span>
 			</label>
 			<p>
-				Mit Ihrer Zustimmung erfassen wir anonymisierte Nutzungsdaten mit Matomo.
-				Dadurch verstehen wir besser, welche Inhalte genutzt werden und können die Website verbessern.
+				@Umbraco.GetDictionaryValue("Statistiken Text")
 			</p>
 		</div>
 
 		<div class="consent-modal__actions">
 			<button type="button" class="btn-consent btn-consent--secondary" id="saveNecessaryOnly">
-				Nur notwendige speichern
+				@Umbraco.GetDictionaryValue("Nur notwendige speichern")
 			</button>
 
 			<button type="button" class="btn-consent btn-consent--primary" id="saveConsentSettings">
-				Auswahl speichern
+				@Umbraco.GetDictionaryValue("Auswahl speichern")
 			</button>
 		</div>
 	</div>

@@ -1,3 +1,5 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
 <!-- Video Modal Popup -->
 <div class="modal fade" id="videoModalPopup" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -9,7 +11,7 @@
                     <source src="" type="video/mp4">
                 </video>
                 <button type="button" class="btn btn-large btn-gradient-pink-orange text-white rounded-0"
-                    data-bs-dismiss="modal">Schließen</button>
+                    data-bs-dismiss="modal">@Umbraco.GetDictionaryValue("Schließen")</button>
             </div>
         </div>
     </div>

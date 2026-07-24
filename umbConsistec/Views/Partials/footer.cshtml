@@ -67,7 +67,9 @@
             </div>
             
             <div class="col-xl-4 col-lg-4 col-12 text-center">
-                <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">Follow Us</span>
+                <span class="alt-font fs-14 fw-600 text-uppercase text-white ls-1px d-block mb-5px">
+@Umbraco.GetDictionaryValue("Follow Us")
+                </span>
                 @foreach (var socialMedia in socialMedias)
                  {
                 <ul>

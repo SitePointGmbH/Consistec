@@ -58,7 +58,7 @@
                                     <a href="@job.Url()"
                                        class="btn btn-link btn-hover-animation-switch btn-medium fw-700 text-dark-gray text-uppercase p-20px z-index-1">
                                         <span>
-                                            <span class="btn-text">jetzt bewerben</span>
+                                            <span class="btn-text">@Umbraco.GetDictionaryValue("jetzt bewerben")</span>
                                             <span class="btn-icon"><i class="bi bi-arrow-right"></i></span>
                                             <span class="btn-icon"><i class="bi bi-arrow-right"></i></span>
                                         </span>
@@ -79,13 +79,13 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8 align-self-center">
-                <h2>Lernen Sie uns kennen!</h2>
+                <h2>@Umbraco.GetDictionaryValue("Lerne uns kennen")</h2>
                 <p>
-                    Wie ist es, im consistec-Team zu arbeiten, wie wir so ticken, was unsere Werte sind und wie wir gemeinsam erfolgreich sind, erfährst du hier.
+                    @Umbraco.GetDictionaryValue("Lerne uns kennen Text")
                 </p>
                 <p>
-                    <a href="/ueber uns/" class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
-                        über uns
+                    <a href="@Umbraco.GetDictionaryValue("Lerne uns kennen Url")" class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
+                        @Umbraco.GetDictionaryValue("Lerne uns kennen Link")
                     </a>
                 </p>
             </div>
