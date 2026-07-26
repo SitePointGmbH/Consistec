@@ -50,14 +50,6 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		// properties
 
 		///<summary>
-		/// Alt Tag Description: Alt-Tag für beide Bilder zur SEO-Optimierung
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("altTagDescription")]
-		public virtual string AltTagDescription => this.Value<string>(_publishedValueFallback, "altTagDescription");
-
-		///<summary>
 		/// Answers
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
@@ -178,28 +170,36 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string GoodAnswerSubheading => this.Value<string>(_publishedValueFallback, "goodAnswerSubheading");
 
 		///<summary>
-		/// Image Desktop: größer als 768px
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("imageDesktop")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops ImageDesktop => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "imageDesktop");
-
-		///<summary>
-		/// Image Mobile: bis 768px
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("imageMobile")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops ImageMobile => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "imageMobile");
-
-		///<summary>
 		/// Introtext
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("introtext")]
 		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Introtext => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "introtext");
+
+		///<summary>
+		/// Introtext Stack 1
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("introtextStack1")]
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString IntrotextStack1 => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "introtextStack1");
+
+		///<summary>
+		/// Introtext Stack 2
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("introtextStack2")]
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString IntrotextStack2 => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "introtextStack2");
+
+		///<summary>
+		/// Introtext Stack 3
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("introtextStack3")]
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString IntrotextStack3 => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "introtextStack3");
 
 		///<summary>
 		/// is Visible
@@ -336,6 +336,30 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string SlidingText => this.Value<string>(_publishedValueFallback, "slidingText");
 
 		///<summary>
+		/// Small Text Stack 1
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("smallTextStack1")]
+		public virtual string SmallTextStack1 => this.Value<string>(_publishedValueFallback, "smallTextStack1");
+
+		///<summary>
+		/// Small Text Stack 2
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("smallTextStack2")]
+		public virtual string SmallTextStack2 => this.Value<string>(_publishedValueFallback, "smallTextStack2");
+
+		///<summary>
+		/// Small Text Stack 3
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("smallTextStack3")]
+		public virtual string SmallTextStack3 => this.Value<string>(_publishedValueFallback, "smallTextStack3");
+
+		///<summary>
 		/// Stack Title
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
@@ -366,13 +390,6 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("testimonialsHeading")]
 		public virtual string TestimonialsHeading => this.Value<string>(_publishedValueFallback, "testimonialsHeading");
-
-		///<summary>
-		/// Use Full Width
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
-		[ImplementPropertyType("useFullWidth")]
-		public virtual bool UseFullWidth => this.Value<bool>(_publishedValueFallback, "useFullWidth");
 
 		///<summary>
 		/// Video Gallery
@@ -413,6 +430,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("bannerTextLines")]
 		public virtual global::System.Collections.Generic.IEnumerable<string> BannerTextLines => global::Umbraco.Cms.Web.Common.PublishedModels.HeaderBanner.GetBannerTextLines(this, _publishedValueFallback);
+
+		///<summary>
+		/// Sticky Navigation
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("stickyNavigation")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel StickyNavigation => global::Umbraco.Cms.Web.Common.PublishedModels.HeaderBanner.GetStickyNavigation(this, _publishedValueFallback);
 
 		///<summary>
 		/// Sub Headline: Kleiner Text über Haupttext

@@ -4079,21 +4079,22 @@ const section = document.querySelector('#adler-section');
 
 window.addEventListener('scroll', () => {
 
-    const rect = section.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    if(section != undefined && section != null) {
+        const rect = section.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
 
-    // Detect when section enters viewport
-    if (rect.top < windowHeight && rect.bottom > 0) {
+        // Detect when section enters viewport
+        if (rect.top < windowHeight && rect.bottom > 0) {
 
-        // Scroll progress inside viewport
-        const progress = 1 - (rect.bottom / (windowHeight + rect.height));
+            // Scroll progress inside viewport
+            const progress = 1 - (rect.bottom / (windowHeight + rect.height));
 
-        // Zoom calculation
-        const scale = 1 + (progress * 0.25);
+            // Zoom calculation
+            const scale = 1 + (progress * 0.25);
 
-        zoomVideo.style.transform = `scale(${scale})`;
+            zoomVideo.style.transform = `scale(${scale})`;
+        }
     }
-
 });
 
 
@@ -4101,7 +4102,9 @@ window.addEventListener('scroll', () => {
 const ecotelSection = document.getElementById('ecotel-section');
 
 window.addEventListener('scroll', () => {
-    const rect = ecotelSection.getBoundingClientRect();
+    if(ecotelSection != undefined && ecotelSection != null) {
+
+        const rect = ecotelSection.getBoundingClientRect();
     const windowHeight = window.innerHeight;
 
     if (rect.top < windowHeight && rect.bottom > 0) {
@@ -4115,6 +4118,7 @@ window.addEventListener('scroll', () => {
             '--parallax-transform',
             `scale(${scale})`
         );
+    }
     }
 });
 

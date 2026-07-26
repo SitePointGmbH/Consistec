@@ -519,6 +519,7 @@ a,
     position: fixed;
     top: 130px;
     right: -185px;
+    width:225px;
     background: #e03978;
     z-index: 1000;
     z-index: 99;
@@ -542,10 +543,12 @@ a,
     -o-transition-duration: .2s;
     position: fixed;
     top: 190px;
-    right: -131px;
+    right: -185px;
+    width: 225px;
     background: #ee5d46;
     z-index: 1000;
     z-index: 99;
+    font-size: 20px;
 }
     .buy-theme a, .call a {
         color: rgb(231 59 36) !important;
@@ -1943,4 +1946,18 @@ li p
 .feature-box:hover i
 {
     color: #ffffff !important;
+}
+
+.accordion-header {
+    cursor: pointer;
+}
+
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-icon {
+    transition: transform 0.2s ease;
 }

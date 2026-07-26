@@ -10,7 +10,7 @@
     var imageMobileUrl = (Model.HasValue("imageMobile")) ? Model.Value<IPublishedContent>("imageMobile")?.GetCropUrl(width: 768, furtherOptions: "&format=webp") : "";
 }
 
-<section class="regular-section" style="background-size:cover; background-image: url(@bgImage)">
+<section class="regular-section pb-0 mb-0" style="background-size:cover; background-image: url(@bgImage)">
     <div class="container">
         <div class="row g-5 align-items-start mb-5">
             <div class="col-12">
@@ -53,11 +53,32 @@
 }
 *@
 
-<div class="stacking-wrapper" id="third-section">
+<div class="stacking-wrapper py-1" id="third-section">
     <section class="p-section stack-section sec-intro step-section" id="p-sec-2">
         <div class="container">
-        <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">
-        @Umbraco.GetDictionaryValue("Datenquellen")</span>
+            <div class="accordion-single">
+                <div class="accordion-header d-flex align-items-center justify-content-between"
+                     role="button"
+                     onclick="toggleAccordion(this)">
+                   
+            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">
+                <span class="h-50px w-50px border border-color-transparent-dark-very-light fs-15 fw-500 d-flex
+ align-items-center justify-content-center border-radius-100 me-2">01</span>
+                <div class="d-flex flex-column">
+                <div>@Umbraco.GetDictionaryValue("Datenquellen")</div>
+                <small class="ms-2 d-block fs-12">@Model.Value("smallTextStack1")</small>
+                </div>
+            </span>
+                    
+                    <i class="bi bi-chevron-down accordion-icon"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class=" p-5">
+                        @Model.Value("introtextStack1")
+                    </div>
+                </div>
+            </div>
+
             <div class="row justify-content-center text-center gx-lg-5">
                 @{
                     var dataSources = Model.Value<BlockListModel>("dataSources");
@@ -75,24 +96,25 @@
                             <div class="col-lg-4 col-md-4 col-10 text-white mt-5">
                                 <div class="d-flex flex-column align-items-center border border-white">
                                     <h2 class="my-5 mt-sm-0 mb-5 flow-heading">@Html.Raw(heading?.Replace("\n", "<br>"))</h2>
-                        
+
                                     <div class="@(hasPurpleBox ? "purple-box" : "") d-flex align-items-center justify-content-center">
 
                                         @if (image != null)
                                         {
-                                            <img src="@image.Url()" alt="@heading" class="@(!hasPurpleBox ? "rounded-3" : "") img-fluid max-h-100" style="max-height:100%" />
+                                            <img src="@image.Url()" alt="@heading" class="@(!hasPurpleBox ? "rounded-3" : "") img-fluid max-h-100" style="max-height:100%"/>
                                         }
                                         else if (block.Content.HasValue("binaryText"))
                                         {
                                             <div class="text-white small lh-lg text-center" style="color:#50248c !important;">
-                                                @Html.Raw( block.Content.Value("binaryText")? .ToString().Replace("<p>", "") .Replace("</p>", "")
+                                                @Html.Raw(block.Content.Value("binaryText")?.ToString().Replace("<p>", "").Replace("</p>", "")
                                                 )
                                             </div>
                                         }
 
                                     </div>
-                                    
-								</div><div class="arrow"></div>
+
+                                </div>
+                                <div class="arrow"></div>
                             </div>
                             index++;
                         }
@@ -104,8 +126,31 @@
 
     <section class="step2-section p-section stack-section sec-event bg-white" id="p-sec-3">
         <div class="container">
-            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center mb-5">@Umbraco.GetDictionaryValue("Event-Layer")</span>
-            <div class="row justify-content-center text-center gy-5 gx-xl-5 ">
+            <div class="accordion-single">
+                <div class="accordion-header d-flex align-items-center justify-content-between"
+                     role="button"
+                     onclick="toggleAccordion(this)">
+                   
+                    <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">
+                        <span class="h-50px w-50px border border-color-transparent-dark-very-light fs-15 fw-500 d-flex
+ align-items-center justify-content-center border-radius-100 me-2">02</span>
+                        <div class="d-flex flex-column">
+                            <div> @Umbraco.GetDictionaryValue("Event-Layer")</div>
+                            <small class="ms-2 d-block fs-12">@Model.Value("smallTextStack2")</small>
+                        </div>
+                    </span>
+
+                    <i class="bi bi-chevron-down accordion-icon white text-white"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="p-5 text-white">
+                        @Model.Value("introtextStack2")
+                    </div>
+                </div>
+            </div>
+            
+           
+            <div class="row justify-content-center text-center gy-5 gx-xl-5 mt-1">
                 @{
                     var securityAnalyticsLayers = Model.Value<BlockListModel>("securityAnalyticsLayers");
                     if (securityAnalyticsLayers != null)
@@ -149,10 +194,30 @@
 
     <section class="step3-section p-section stack-section sec-analysis" id="p-sec-4">
         <div class="container">
-            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">
-@Umbraco.GetDictionaryValue("Nutzen")
-            </span>
-			
+            <div class="accordion-single">
+                <div class="accordion-header d-flex align-items-center justify-content-between"
+                     role="button"
+                     onclick="toggleAccordion(this)">
+                   
+                    <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">
+                        <span class="h-50px w-50px border border-color-transparent-dark-very-light fs-15 fw-500 d-flex
+ align-items-center justify-content-center border-radius-100 me-2">03</span>
+                        <div class="d-flex flex-column">
+                            <div> @Umbraco.GetDictionaryValue("Nutzen")</div>
+                            <small class="ms-2 d-block fs-12">@Model.Value("smallTextStack3")</small>
+                        </div>
+                    </span>
+
+                    <i class="bi bi-chevron-down accordion-icon text-white white"></i>
+                </div>
+                <div class="accordion-body">
+                    <div class="p-5 text-white">
+                        @Model.Value("introtextStack3")
+                    </div>
+                </div>
+            </div>
+
+
             <div class="text-center pt-5">
                 <div class="row justify-content-center text-center gy-5">
                     @{

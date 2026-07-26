@@ -6,7 +6,8 @@
     var root = Model.Root();
     var commonComponent = root.Children().FirstOrDefault(x => x.ContentType.Alias == "commonComponents");
     var mainNavigation = commonComponent?.Value<IEnumerable<Link>>("mainNavigation");
-    var stickyNavigation = commonComponent?.Value<BlockListModel>("stickyNavigation");
+    var stickyNavigation = (Model.HasValue("stickyNavigation") && Model.Value<BlockListModel>("stickyNavigation").Count() > 0) ? 
+        Model.Value<BlockListModel>("stickyNavigation") : commonComponent?.Value<BlockListModel>("stickyNavigation");
     var callToAction = commonComponent?.Value<Umbraco.Cms.Core.Models.Link>("callToAction");
 }
 

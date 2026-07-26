@@ -735,3 +735,20 @@ document.addEventListener(
     'DOMContentLoaded',
     initApp
 );
+
+function toggleAccordion(header) {
+    const body = header.nextElementSibling;
+    const icon = header.querySelector('.accordion-icon');
+    const isOpen = body.classList.contains('open');
+
+    if (isOpen) {
+        body.style.maxHeight = null;
+        body.classList.remove('open');
+    } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        body.classList.add('open');
+    }
+
+    icon.classList.toggle('bi-chevron-down', isOpen);
+    icon.classList.toggle('bi-chevron-up', !isOpen);
+}
