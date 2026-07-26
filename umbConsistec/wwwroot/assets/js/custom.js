@@ -752,3 +752,14 @@ function toggleAccordion(header) {
     icon.classList.toggle('bi-chevron-down', isOpen);
     icon.classList.toggle('bi-chevron-up', !isOpen);
 }
+
+document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+        const li = toggle.closest('.simple-dropdown');
+        const menu = li.querySelector('.dropdown-menu');
+
+        menu.classList.toggle('show');
+        toggle.classList.toggle('show');
+        toggle.setAttribute('aria-expanded', isOpen);
+    });
+});

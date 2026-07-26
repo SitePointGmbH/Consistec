@@ -6,6 +6,10 @@
     var linkUrl = navigation?.Url?.ToLower();
     var isActive = currentUrl == linkUrl;
     string dropdown = (Model.Content?.Subnavigation?.Count() > 0) ? "dropdown simple-dropdown" : "";
+    // Generate a random number  
+    Random random = new Random();  
+// Any random integer   
+    int num = random.Next();  
 }
 
 <li class="nav-item @(isActive ? "active" : "")  @dropdown">
@@ -17,7 +21,9 @@
 
     @if (!String.IsNullOrEmpty(dropdown))
     {
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+        <i class="fa-solid fa-angle-down dropdown-toggle" id="navbarDropdownMenuLink_@num" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                   
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink_@num">
             @foreach (Link link in Model.Content?.Subnavigation ?? [])
             {
                 <li>
