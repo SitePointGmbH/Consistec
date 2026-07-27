@@ -10,24 +10,14 @@
     var imageMobileUrl = (Model.HasValue("imageMobile")) ? Model.Value<IPublishedContent>("imageMobile")?.GetCropUrl(width: 768, furtherOptions: "&format=webp") : "";
 }
 
-<section class="regular-section pb-0 mb-0" style="background-size:cover; background-image: url(@bgImage)">
+<section class="regular-section pb-0 mb-0" style="
+    background: linear-gradient(180deg,rgba(255, 255, 255, 1) 0%, rgba(175, 166, 189, 1) 14%, rgba(77, 36, 140, 1) 100%);
+    ">
     <div class="container">
         <div class="row g-5 align-items-start mb-5">
-            <div class="col-12">
+            <div class="col-12 text-white">
                 <h2 class="display-5">@Model.Value("stackTitle")</h2>
                 @Model.Value("introText")
-            </div>
-            <div class="col-lg-5">
-                <div class="industry-grid-mockup">
-                    @Html.Raw(Model.Value("leftSideContent")?.ToString().Replace("<p>", "").Replace("</p>", ""))
-                </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="ps-lg-5">
-                    <div>
-                        @Model.Value("rightSideContent")
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -53,7 +43,7 @@
 }
 *@
 
-<div class="stacking-wrapper py-1" id="third-section">
+<div class="stacking-wrapper py-0" id="third-section">
     <section class="p-section stack-section sec-intro step-section" id="p-sec-2">
         <div class="container">
             <div class="accordion-single">
@@ -61,19 +51,19 @@
                      role="button"
                      onclick="toggleAccordion(this)">
                    
-            <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">
-                <span class="h-50px w-50px border border-color-transparent-dark-very-light fs-15 fw-500 d-flex
+                    <span class="fw-700 fs-22 text-white d-flex align-items-center justify-content-center">
+                        <span class="h-50px w-50px border border-color-transparent-dark-very-light fs-15 fw-500 d-flex
  align-items-center justify-content-center border-radius-100 me-2">01</span>
-                <div class="d-flex flex-column">
-                <div>@Umbraco.GetDictionaryValue("Datenquellen")</div>
-                <small class="ms-2 d-block fs-12">@Model.Value("smallTextStack1")</small>
-                </div>
-            </span>
+                        <div class="d-flex flex-column">
+                            <div>@Umbraco.GetDictionaryValue("Datenquellen")</div>
+                            <small class="ms-2 d-block fs-12">@Model.Value("smallTextStack1")</small>
+                        </div>
+                    </span>
                     
-                    <i class="bi bi-chevron-down accordion-icon"></i>
+                    <i class="bi bi-chevron-up accordion-icon d-none"></i>
                 </div>
-                <div class="accordion-body-custom">
-                    <div class=" p-5">
+                <div class="accordion-body-custom open">
+                    <div class="p-5 pb-0">
                         @Model.Value("introtextStack1")
                     </div>
                 </div>
@@ -140,10 +130,10 @@
                         </div>
                     </span>
 
-                    <i class="bi bi-chevron-down accordion-icon white text-white"></i>
+                    <i class="bi bi-chevron-up accordion-icon white text-white d-none"></i>
                 </div>
-                <div class="accordion-body-custom">
-                    <div class="p-5 text-white">
+                <div class="accordion-body-custom open">
+                    <div class="p-5 pb-0 text-white">
                         @Model.Value("introtextStack2")
                     </div>
                 </div>
@@ -208,10 +198,10 @@
                         </div>
                     </span>
 
-                    <i class="bi bi-chevron-down accordion-icon text-white white"></i>
+                    <i class="bi bi-chevron-up accordion-icon text-white white d-none"></i>
                 </div>
-                <div class="accordion-body-custom">
-                    <div class="p-5 text-white">
+                <div class="accordion-body-custom open">
+                    <div class="p-5 pb-0 text-white">
                         @Model.Value("introtextStack3")
                     </div>
                 </div>
@@ -246,3 +236,10 @@
         </div>
     </section>
 </div>
+
+<section class="pt-0 mb-t" style="
+    background: linear-gradient(180deg,rgba(251, 57, 33, 1) 68%, rgba(255, 255, 255, 1) 100%);">
+    <div class="text-white">
+    @await Html.GetBlockGridHtmlAsync(Model.Value<BlockGridModel>("outro"))
+    </div>
+</section>

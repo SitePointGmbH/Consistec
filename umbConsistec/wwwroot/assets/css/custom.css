@@ -278,7 +278,7 @@ a,
     height: 150px;
     color: #50248c !important;
     font-weight: 700;
-    width: 365px;
+    width: 100%;
     background-color: #fff;
     border-radius: unset !important;
 }
@@ -1970,11 +1970,22 @@ li p
 }
 
 .accordion-body-custom {
-    max-height: 0;
+    max-height: initial;
     overflow: hidden;
     transition: max-height 0.3s ease;
 }
 
 .accordion-icon {
     transition: transform 0.2s ease;
+}
+
+.white li {
+    color:white;
+    list-style: disc;
+}
+
+.footerLogoBanner
+{
+    padding: 25px 0px;
+    background-color: rgb(242, 243, 247);
 }

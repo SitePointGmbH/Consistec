@@ -26,7 +26,41 @@
     
 }
 
+<!-- Footer Logo Banner -->
+@if (logosFolder != null && logosFolder.Children().Count() > 0)
+{
+    <div class="footerLogoBanner">
+        <div class="container-fluid">
+            <div class="m-auto">
+                <div class="row position-relative" data-anime='{ "translateX": [0, 0], "opacity": [0,1], "duration": 800, "delay":100, "staggervalue": 150, "easing": "easeOutQuad" }'>
+                    <div class="col swiper text-center"
+                         data-slider-options='{ "slidesPerView": 2, "spaceBetween":0, "speed": 3000, "loop": true, "pagination": { "el": ".slider-four-slide-pagination-2", "clickable": false }, 
+"allowTouchMove": false, "autoplay": { "delay":0, "disableOnInteraction": false, "pauseOnMouseEnter": false}, "navigation": { "nextEl": ".slider-four-slide-next-2", "prevEl": ".slider-four-slide-prev-2" }, 
+"keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 5 }, "768": { "slidesPerView": 4 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }'>
+                        <div class="swiper-wrapper marquee-slide">
+
+                            @foreach (IPublishedContent logo in logosFolder?.Children() ?? [])
+                            {
+                                <!-- start client item -->
+                                <div class="swiper-slide d-flex align-items-center justify-content-center">
+                                    <div class="px-1 d-flex align-items-center justify-content-center">
+                                        <img src="@logo.Url()" alt="@logo.Name" style="max-width: 100px"/>
+                                    </div>
+                                </div>
+                                <!-- end client item -->
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
 <!-- start footer -->
+
 <footer class="footer-demo bg-dark pb-4 sm-pb-50px" style="background-image: url(/assets/img/demo-footer-pattern.svg)">
     <div class="container">
         <div class="row mb-6 md-mb-30px">
@@ -39,31 +73,6 @@
                     <div class="col-lg-5 col-sm-6">
                     </div>
                 </div>
-                @if (logosFolder != null && logosFolder.Children().Count() > 0)
-                {
-                    
-                    <div class="row mt-5 position-relative" data-anime='{ "translateX": [0, 0], "opacity": [0,1], "duration": 800, "delay":100, "staggervalue": 150, "easing": "easeOutQuad" }'>
-                        <div class="col swiper text-center" 
-                             data-slider-options='{ "slidesPerView": 2, "spaceBetween":0, "speed": 3000, "loop": true, "pagination": { "el": ".slider-four-slide-pagination-2", "clickable": false }, 
-"allowTouchMove": false, "autoplay": { "delay":0, "disableOnInteraction": false, "pauseOnMouseEnter": false}, "navigation": { "nextEl": ".slider-four-slide-next-2", "prevEl": ".slider-four-slide-prev-2" }, 
-"keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 5 }, "768": { "slidesPerView": 4 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }'>
-                            <div class="swiper-wrapper marquee-slide">
-
-                                @foreach (IPublishedContent logo in logosFolder?.Children() ?? [])
-                                {
-                                    <!-- start client item -->
-                                    <div class="swiper-slide d-flex align-items-center justify-content-center">
-                                        <div class="px-1 d-flex align-items-center justify-content-center">
-                                            <img src="@logo.Url()" alt="@logo.Name" style="max-width: 100px"  />
-                                        </div>
-                                    </div>
-                                    <!-- end client item -->
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    
-                }
             </div>
             
             <div class="col-xl-4 col-lg-4 col-12 text-center">

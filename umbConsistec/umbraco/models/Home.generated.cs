@@ -224,12 +224,12 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::System.Collections.Generic.IEnumerable<string> KeyBenefits => this.Value<global::System.Collections.Generic.IEnumerable<string>>(_publishedValueFallback, "keyBenefits");
 
 		///<summary>
-		/// Left Side Content
+		/// Outro
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("leftSideContent")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString LeftSideContent => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "leftSideContent");
+		[ImplementPropertyType("outro")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel Outro => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel>(_publishedValueFallback, "outro");
 
 		///<summary>
 		/// Background Image
@@ -254,14 +254,6 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("parallaxHeading")]
 		public virtual string ParallaxHeading => this.Value<string>(_publishedValueFallback, "parallaxHeading");
-
-		///<summary>
-		/// Right Side Content
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.5.3+a9649da")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("rightSideContent")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString RightSideContent => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "rightSideContent");
 
 		///<summary>
 		/// Safety Steps

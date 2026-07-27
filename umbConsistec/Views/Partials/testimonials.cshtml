@@ -17,21 +17,26 @@
                 var content = block.Content;
                 var posterImage = content.Value<IPublishedContent>("posterImage");
                 var videoBox = content.Value<IPublishedContent>("video");
+                var dataModal = (content.HasValue("video") && videoBox != null) ? "data-bs-toggle=\"modal\" data-bs-target=\"#videoModalPopup\"" : "";
             <div class="col-lg col-md-4 col-sm-6">
                 <div class="testimonial-v-card">
                     <div class="ratio-9-16-container mb-4 cursor-pointer video-trigger border bg-light shadow-sm position-relative overflow-hidden"
-                        data-bs-toggle="modal" data-bs-target="#videoModalPopup">
+                       @Html.Raw(dataModal)>
                         <video class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover z-0"
                             src="@videoBox?.Url()"
                             poster="@posterImage?.Url()" loop muted
                             playsinline></video>
-                        <div
-                            class="video-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-25 transition z-1">
-                        </div>
-                        <div
-                            class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center z-2 pointer-events-none">
-                            <i class="bi bi-play-circle display-4 text-white opacity-75"></i>
-                        </div>
+                       @if (content.HasValue("video") && videoBox != null)
+                        {
+                            <div
+                                class="video-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-25 transition z-1">
+                            </div>
+
+                            <div
+                                class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center z-2 pointer-events-none">
+                                <i class="bi bi-play-circle display-4 text-white opacity-75"></i>
+                            </div>
+                        }
                     </div>
                         <h6 class="mb-0">@content.Value("memberName")</h6>
                         <small class="text-muted d-block mb-3">@content.Value("positionCompany")</small>
