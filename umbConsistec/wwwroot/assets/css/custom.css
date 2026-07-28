@@ -1989,3 +1989,8 @@ li p
     padding: 25px 0px;
     background-color: rgb(242, 243, 247);
 }
+
+.footerLogoBanner img
+{
+    padding:0px 20px !important;
+}
