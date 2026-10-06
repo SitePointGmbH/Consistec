@@ -33,9 +33,9 @@ Table of contents
 */
 
 :root {
-  --alt-font: "Ubuntu", sans-serif;
-  --primary-font: "Ubuntu", sans-serif;
-  --swiper-theme-color: #df377c;
+    --alt-font: 'Plus Jakarta Sans', sans-serif;
+    --primary-font: "Ubuntu", sans-serif;
+    --swiper-theme-color: #df377c;
 }
 /* ===================================
     02. CSS color variable
@@ -83,7 +83,7 @@ Table of contents
     03. Reset
 ====================================== */
 .alt-font {
-  font-family: var(--alt-font);
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 .primary-font {
   font-family: var(--primary-font) !important;
@@ -588,7 +588,7 @@ b, strong {
   color: var(--black);
 }
 .text-dark-gray, .btn-link.text-dark-gray, a.text-dark-gray-hover:hover {
-  color: var(--dark-gray);
+  color: var(--dark-gray) !important;
 }
 .text-medium-gray, .btn-link.text-medium-gray, a.text-medium-gray-hover:hover {
   color: var(--medium-gray);
@@ -1576,34 +1576,34 @@ input:focus, select:focus, textarea:focus, .form-control:focus {
   opacity: 1;
 }
 .swiper-light-pagination .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  margin: 0 15px !important;
-  display: inline-block;
-  vertical-align: middle;
-  background-color: var(--white);
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  outline: none;
-  opacity: 0.5;
+    width: 8px;
+    height: 8px;
+    margin: 0 15px !important;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #202428;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    outline: none;
+    opacity: 0.5;
 }
-.swiper-light-pagination .swiper-pagination-bullet:before {
-  content: "";
-  width: 30px;
-  height: 30px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background: transparent;
-  display: inline-block;
-  border-radius: 50%;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  opacity: 0;
-}
+    .swiper-light-pagination .swiper-pagination-bullet:before {
+        content: "";
+        width: 30px;
+        height: 30px;
+        border: 2px solid #202428;
+        background: #202428;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        opacity: 0;
+    }
 .swiper-light-pagination .swiper-pagination-bullet:hover {
   background-color: var(--white);
   opacity: 1;
@@ -9274,11 +9274,11 @@ button:focus {
 }
 /* Page title style */
 .page-title-double-large h1 {
-  font-size: 3.6rem;
+  font-size: 3.6rem !important;
   line-height: 3.3rem;
 }
 .page-title-double-large h2 {
-  font-size: 17px;
+  font-size: 17px !important;
   line-height: 26px;
 }
 .page-title-extra-large h1 {
@@ -19597,4 +19597,11 @@ footer .footer-navbar .nav-item:last-child a {
 }
 .footer-demo a:hover {
   color: #fff;
+}
+
+.swiper-button-prev {
+    left: -60px !important;
+}
+.bg-transparents {
+    background-color: #202428 !important;
 }

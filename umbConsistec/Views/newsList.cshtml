@@ -1,0 +1,128 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "master.cshtml";
+        
+    var root = Model.Root();
+    var allpost = Model.Children().Where(a => a.ContentType.Alias != Model.ContentType.Alias).OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate).ToList();
+    
+    int pageSize = 16;
+    int currentPage = 1;
+
+    if (!string.IsNullOrEmpty(Context.Request.Query["page"]))
+    {
+        int.TryParse(Context.Request.Query["page"], out currentPage);
+        if (currentPage < 1)
+        {
+            currentPage = 1;
+        }
+    }
+
+    int totalItems = allpost.Count;
+    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+    var pagedItems = allpost
+        .Skip((currentPage - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
+}
+
+    <!-- start page title -->
+    <section class="pb-0 top-space-margin">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 col-xl-6 col-lg-8 text-center position-relative page-title-double-large">
+                    <div class="d-flex flex-column justify-content-center extra-very-small-screen">
+                        <h1 class="text-dark-gray alt-font ls-minus-1px fw-700">@Model.Value("title")</h1>
+                        <h2 class="text-dark-gray d-inline-block fw-400 ls-0px w-80 xs-w-100 mx-auto">@Model.Value("textTeaser")</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end page title -->
+    <!-- start section -->
+    <section class="pt-0 ps-11 pe-11 xl-ps-2 xl-pe-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    @if(pagedItems.Any())
+                    {
+                        <ul class="blog-grid blog-wrapper grid-loading grid grid-4col xl-grid-4col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large">
+                            <li class="grid-sizer"></li>
+                            <!-- start blog item -->
+                            @foreach(var item in pagedItems)
+                            {
+                                var image = item.Value<IPublishedContent>("previewImage");
+                                var title = item.Value<string>("heading");
+                                var rawSummary = item.Value<string>("teaserText")?.Replace("<p>", "")?.Replace("</p>", "");
+                                var summary = rawSummary != null && rawSummary.Length > 50 ? rawSummary.Substring(0, 50) + "..." : rawSummary;
+                                var date = item.HasValue("newsDate") ? item.Value<DateTime>("newsDate") : item.CreateDate;
+                                var author = item.Value<string>("author");   
+                                var url = item.Url();
+
+
+                            <li class="grid-item">
+                                <div class="card border-0 border-radius-4px box-shadow-extra-large box-shadow-extra-large-hover">
+                                    <div class="blog-image">
+                                        <a href="@url" class="d-block"><img src="@(image?.Url())" alt="" /></a>
+                                    </div>
+                                    <div class="card-body p-12">
+                                    <a href="@url" class=" text-decoration-none card-title mb-15px fw-600 fs-17 lh-26 text-dark-gray text-dark-gray-hover d-inline-block">@title</a>
+                                        @Html.Raw(summary)
+                                        <div class="author d-flex justify-content-center align-items-center position-relative overflow-hidden fs-14 text-uppercase">
+                                            <div class="me-auto">
+                                                <span class="blog-date fw-500 d-inline-block">@date.ToString("dd MMMM yyyy")</span>
+                                                <div class="d-inline-block author-name">By <a href="@url" class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom fw-600 text-decoration-none">@author</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- end blog item -->
+                            }
+                        </ul>
+                    }
+                </div>
+
+
+            @if (totalPages > 1)
+            {
+                <div class="col-12 mt-4 d-flex justify-content-center">
+                    <ul class="pagination pagination-style-01 fs-13 fw-500 mb-0">
+
+                        <!-- Previous -->
+                        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                            <a class="page-link"
+                            href="?page=@(currentPage - 1)"
+                            aria-label="Previous">
+                                <i class="feather icon-feather-arrow-left fs-18 d-xs-none"></i>
+                            </a>
+                        </li>
+
+                        <!-- Page Numbers -->
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(i == currentPage ? "active" : "")">
+                                <a class="page-link" href="?page=@i">
+                                    @i.ToString("00")
+                                </a>
+                            </li>
+                        }
+
+                        <!-- Next -->
+                        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                            <a class="page-link"
+                            href="?page=@(currentPage + 1)"
+                            aria-label="Next">
+                                <i class="feather icon-feather-arrow-right fs-18 d-xs-none"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            }
+            </div>
+        </div>
+    </section>
+    <!-- end section -->

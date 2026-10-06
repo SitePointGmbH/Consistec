@@ -1,0 +1,63 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.News>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "master.cshtml";
+
+	var bannerImage = Model.Value<IPublishedContent>("bannerImage");
+	
+	var blogCategory = Model.Value<string>("category");
+	var heading = Model.Value<string>("heading");
+	var date = Model.HasValue("newsDate") ? Model.Value<DateTime>("newsDate") : Model.CreateDate;	
+	var author = Model.Value<string>("author");	
+}
+<!-- start section -->
+    <section class="one-fourth-screen bg-dark-gray ipad-top-space-margin sm-mb-50px"
+        data-parallax-background-ratio="0.5"
+        style="@(bannerImage != null ? $"background-image: url({bannerImage.Url()})" : "")"></section>
+    <!-- end section -->
+    <!-- start section -->
+    <section class="p-0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 overlap-section text-center">
+                    <div class="p-10 box-shadow-extra-large border-radius-4px bg-white text-center">
+                        @if (!string.IsNullOrEmpty(blogCategory))
+                        {
+                            <a href="javascript:void(0)"
+                                class="text-decoration-none bg-solitude-blue text-uppercase fs-13 ps-25px pe-25px alt-font fw-500 text-base-color lh-40 sm-lh-55 border-radius-100px d-inline-block mb-3 sm-mb-15px">@blogCategory</a>
+                        }
+
+                        @if (!string.IsNullOrEmpty(heading))
+                        {
+                            <h1 class="alt-font text-dark-gray fw-600 ls-minus-1px mb-15px">@heading</h1>
+                        }
+                        
+                        <div class="lg-20px sm-mb-0">
+                            @if (!string.IsNullOrEmpty(author))
+                            {
+                                <span>By <a href="javascript:void(0)" class="text-dark-gray text-decoration-none">@author</a></span> 
+                            }
+                            @if (date != DateTime.MinValue)
+                            {
+                                @(!string.IsNullOrEmpty(author) ? " on " : "")
+                                <a href="javascript:void(0)" class="text-dark-gray text-decoration-none">@date.ToString("dd MMMM yyyy")</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end section -->
+    <!-- start section -->
+    <section class="pb-0 pt-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9 dropcap-style-01 py-5"
+                    data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
+                    @await Html.GetBlockGridHtmlAsync(Model.Content)
+                    </div>
+                </div>
+            </div>
+    </section>
+

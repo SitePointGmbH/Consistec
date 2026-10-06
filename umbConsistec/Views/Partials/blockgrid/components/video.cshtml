@@ -1,0 +1,24 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentModels.Video, Umbraco.Cms.Core.Models.PublishedContent.IPublishedElement>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var posterUrl = Model.Content.PosterImage != null ? Model.Content.PosterImage.Url() : "https://placehold.co/1190x750";
+    var videoUrl = Model.Content.UploadVideo != null ? Model.Content.UploadVideo.Url() : "#";
+}
+
+<div class="col-12 position-relative" data-anime='{ "translateY": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
+    <img src="@posterUrl" alt="" class="w-100 h-auto">
+    <a href="#video-popup-@Model.Content.Key.ToString("N")" class="text-center bg-base-color rounded-circle video-icon-box video-icon-large modal-popup slide-up-animation absolute-middle-center">
+        <span>
+            <span class="video-icon bg-base-color">
+                <i class="fa-solid fa-play text-white"></i>
+                <span class="video-icon-sonar">
+                    <span class="video-icon-sonar-bfr bg-base-color"></span>
+                </span>
+            </span>
+        </span>
+    </a>
+</div>
+
+<div id="video-popup-@Model.Content.Key.ToString("N")" class="mfp-hide mx-auto" style="max-width: 900px;">
+    <video controls class="w-100 h-auto rounded-3 shadow" src="@videoUrl" poster="@posterUrl"></video>
+</div>

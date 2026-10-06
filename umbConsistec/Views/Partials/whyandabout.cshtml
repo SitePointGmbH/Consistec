@@ -22,6 +22,148 @@
         </div>
     </div>
 </section>
+<!-- start section -->
+@{
+    var news = Model.HasValue("newsPicker") ? Model.Value<IEnumerable<IPublishedContent>>("newsPicker").OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate) : null;
+}
+@if (news != null && news.Count() >= 4)
+{
+    <section class="bg-very-light-gray" style="background-color:#f5f5f5">
+    <div class="container">
+
+        <div class="row justify-content-center mb-2">
+            <div class="col-xxl-5 col-xl-6 col-lg-8 col-md-10 text-center">
+                <h1 class="fw-600 text-dark ls-minus-1px md-ls-0px mb-5">
+                  @Model.Value("title")
+                </h1>
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-12 position-relative swiper-light-pagination">
+
+                <div class="swiper" data-slider-options='{
+                    "slidesPerView": 1,
+                    "spaceBetween": 30,
+                    "loop": true,
+                    "autoplay": {
+                    "delay": 1600,
+                    "disableOnInteraction": false
+                    },
+                    "pagination": {
+                    "el": ".swiper-pagination-bullets-03",
+                    "clickable": true,
+                    "dynamicBullets": false
+                    },
+                    "navigation": {
+                    "nextEl": ".slider-one-slide-next-02",
+                    "prevEl": ".slider-one-slide-prev-02"
+                    },
+                    "keyboard": {
+                    "enabled": true,
+                    "onlyInViewport": true
+                    },
+                    "breakpoints": {
+                    "992": {
+                    "slidesPerView": 4
+                    },
+                    "768": {
+                    "slidesPerView": 3
+                    },
+                    "480": {
+                    "slidesPerView": 2
+                    },
+                    "320": {
+                    "slidesPerView": 1
+                    }
+                    },
+                    "effect": "slide"
+                    }'>
+
+                    <ul class="swiper-wrapper list-unstyled mb-0 blog-grid">
+
+                        <!-- start carousel item 1 -->
+                            @foreach(var item in news){
+                                var image = item.Value<IPublishedContent>("previewImage");
+                                var title = item.Value<string>("heading");
+                                var rawSummary = item.Value<string>("teaserText")?.Replace("<p>", "")?.Replace("</p>", "");
+                                var summary = rawSummary != null && rawSummary.Length > 50 ? rawSummary.Substring(0, 50) + "..." : rawSummary;
+                                var date = item.HasValue("newsDate") ? item.Value<DateTime>("newsDate") : item.CreateDate;
+                                var author = item.Value<string>("author");   
+                                var url = item.Url();
+                                <li class="swiper-slide grid-item">
+
+                                <div class="card border-0 border-radius-4px box-shadow-extra-large box-shadow-extra-large-hover">
+
+                                    <div class="blog-image">
+                                        <a href="@url" class="d-block">
+                                            <img src="@image.Url()" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="card-body p-12">
+
+                                        <a href="@url"
+                                            class="card-title mb-15px fw-600 fs-17 lh-26 text-dark-gray text-dark-gray-hover d-inline-block text-decoration-none">
+                                            @title
+                                        </a>
+                                        @Html.Raw(summary)
+                                        <div class="author d-flex justify-content-center align-items-center position-relative overflow-hidden fs-14 text-uppercase">
+
+                                            <div class="me-auto">
+                                                <span class="blog-date fw-500 d-inline-block">
+                                                    @date.ToString("dd MMMM yyyy")
+                                                </span>
+
+                                                <div class="d-inline-block author-name">
+                                                    By
+                                                    <a href="@url"
+                                                        class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom fw-600 text-decoration-none">
+                                                       @author
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        }
+                        <!-- end carousel item 1 -->
+
+                    </ul>
+
+                </div>
+
+                <!-- start slider navigation -->
+                <div class="slider-one-slide-prev-02 bg-transparents border border-2 border-color-transparent-white-very-light h-50px w-50px swiper-button-prev slider-navigation-style-03 d-none d-lg-flex">
+                    <i class="fa-solid fa-arrow-left text-white"></i>
+                </div>
+
+                <div class="slider-one-slide-next-02 bg-transparents border border-2 border-color-transparent-white-very-light h-50px w-50px swiper-button-next slider-navigation-style-03 d-none d-lg-flex">
+                    <i class="fa-solid fa-arrow-right text-white"></i>
+                </div>
+                <!-- end slider navigation -->
+                <!-- start slider pagination -->
+                <div class="swiper-pagination swiper-pagination-bullets-03 swiper-pagination-style-01 swiper-pagination-clickable swiper-pagination-bullets position-static mt-40px sm-mt-25px">
+                </div>
+                <!-- end slider pagination -->
+
+            </div>
+        </div>
+        <div class="text-center mt-5 pt-4 blur-reveal delay-2 is-visible">
+            @{
+                var newsCall2Action = Model.Value<Umbraco.Cms.Core.Models.Link>("newsCall2Action");
+            }
+            @if (newsCall2Action != null)
+            {
+                <a href="@newsCall2Action.Url" target="@newsCall2Action.Target" class="btn btn-large btn-gradient-pink-orange d-table d-lg-inline-block xl-mb-15px md-mx-auto px-5 py-3 rounded-0 fw-normal shadow-sm transition text-white">@newsCall2Action.Name</a>
+            }
+        </div>
+    </div>
+</section>
+}
+<!-- end section -->
 <section class="py-5 bg-grey" style="background-color:#f5f5f5">
     <div class="container">
         <div class="row g-5 align-items-center">
