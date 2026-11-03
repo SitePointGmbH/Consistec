@@ -24,7 +24,7 @@
 </section>
 <!-- start section -->
 @{
-    var news = Model.Root().Descendants<News>().OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate);
+    var news = Model.Root().Descendants<News>().OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate).Take(10);
 }
 @if (news != null && news.Count() >= 4)
 {
