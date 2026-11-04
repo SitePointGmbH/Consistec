@@ -24,9 +24,13 @@
 </section>
 <!-- start section -->
 @{
-    var news = Model.HasValue("newsPicker") ? Model.Value<IEnumerable<IPublishedContent>>("newsPicker").OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate) : null;
+    var news = (Model.Value<IEnumerable<IPublishedContent>>("newsPicker") ?? Enumerable.Empty<IPublishedContent>())
+        .Where(item => item.ContentType.Alias == News.ModelTypeAlias)
+        .OrderByDescending(item => item.HasValue("newsDate") ? item.Value<DateTime>("newsDate") : item.CreateDate)
+        .Take(10)
+        .ToList();
 }
-@if (news != null && news.Count() >= 4)
+@if (news.Count >= 4)
 {
     <section class="bg-very-light-gray" style="background-color:#f5f5f5">
     <div class="container">
@@ -95,11 +99,14 @@
 
                                 <div class="card border-0 border-radius-4px box-shadow-extra-large box-shadow-extra-large-hover">
 
-                                    <div class="blog-image">
-                                        <a href="@url" class="d-block">
-                                            <img src="@image.Url()" alt="">
-                                        </a>
-                                    </div>
+                                    @if (image != null)
+                                    {
+                                        <div class="blog-image">
+                                            <a href="@url" class="d-block">
+                                                <img src="@image.Url()" alt="">
+                                            </a>
+                                        </div>
+                                    }
 
                                     <div class="card-body p-12">
 

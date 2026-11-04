@@ -3,8 +3,7 @@
 @{
 	Layout = "master.cshtml";
         
-    var root = Model.Root();
-    var allpost = Model.Children().Where(a => a.ContentType.Alias != Model.ContentType.Alias).OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate).ToList();
+    var allpost = Model.Children().Where(a => a.ContentType.Alias == News.ModelTypeAlias).OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate).ToList();
     
     int pageSize = 16;
     int currentPage = 1;
@@ -20,6 +19,7 @@
 
     int totalItems = allpost.Count;
     int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+    currentPage = Math.Clamp(currentPage, 1, Math.Max(1, totalPages));
 
     var pagedItems = allpost
         .Skip((currentPage - 1) * pageSize)
@@ -64,9 +64,12 @@
 
                             <li class="grid-item">
                                 <div class="card border-0 border-radius-4px box-shadow-extra-large box-shadow-extra-large-hover">
-                                    <div class="blog-image">
-                                        <a href="@url" class="d-block"><img src="@(image?.Url())" alt="" /></a>
-                                    </div>
+                                    @if (image != null)
+                                    {
+                                        <div class="blog-image">
+                                            <a href="@url" class="d-block"><img src="@image.Url()" alt="" /></a>
+                                        </div>
+                                    }
                                     <div class="card-body p-12">
                                     <a href="@url" class=" text-decoration-none card-title mb-15px fw-600 fs-17 lh-26 text-dark-gray text-dark-gray-hover d-inline-block">@title</a>
                                         @Html.Raw(summary)
