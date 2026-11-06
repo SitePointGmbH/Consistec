@@ -73,11 +73,13 @@
                                     }
                                     <div class="card-body news-body p-12">
                                     <a href="@url" class=" text-decoration-none card-title mb-15px fw-600 fs-17 lh-26 text-dark-gray text-dark-gray-hover d-inline-block">@title</a>
-                                        @Html.Raw(summary)
+                                    <p class="previewtext">
+                                    @Html.Raw(summary)
+                                    </p>
                                         <div class="author d-flex justify-content-center align-items-center position-relative overflow-hidden fs-14 text-uppercase">
                                             <div class="me-auto">
                                                 <span class="blog-date fw-500 d-inline-block">@date.ToString("dd MMMM yyyy")</span>
-                                                @*<div class="d-inline-block author-name">By <a href="@url" class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom fw-600 text-decoration-none">@author</a></div>*@
+                                                <div class="d-inline-block author-name"><a href="@url" class="fs-10 text-dark-gray text-dark-gray-hover text-decoration-line-bottom fw-600 text-decoration-none">@author</a></div>
                                             </div>
                                         </div>
                                     </div>
