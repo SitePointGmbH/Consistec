@@ -1,3 +1,4 @@
+@using Umbraco.Cms.Core.Models
 @using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
@@ -53,7 +54,7 @@
                             <!-- start blog item -->
                             @foreach(var item in pagedItems)
                             {
-                                var image = item.Value<IPublishedContent>("previewImage");
+                                var image = item.Value<MediaWithCrops>("previewImage");
                                 var title = item.Value<string>("heading");
                                 var rawSummary = item.Value<string>("teaserText")?.Replace("<p>", "")?.Replace("</p>", "");
                                 var summary = rawSummary != null && rawSummary.Length > 50 ? rawSummary.Substring(0, 50) + "..." : rawSummary;
@@ -67,16 +68,16 @@
                                     @if (image != null)
                                     {
                                         <div class="blog-image">
-                                            <a href="@url" class="d-block"><img src="@image.Url()" alt="" /></a>
+                                            <a href="@url" class="d-block"><img src="@image.GetCropUrl("newsPreview")" alt="" /></a>
                                         </div>
                                     }
-                                    <div class="card-body p-12">
+                                    <div class="card-body news-body p-12">
                                     <a href="@url" class=" text-decoration-none card-title mb-15px fw-600 fs-17 lh-26 text-dark-gray text-dark-gray-hover d-inline-block">@title</a>
                                         @Html.Raw(summary)
                                         <div class="author d-flex justify-content-center align-items-center position-relative overflow-hidden fs-14 text-uppercase">
                                             <div class="me-auto">
                                                 <span class="blog-date fw-500 d-inline-block">@date.ToString("dd MMMM yyyy")</span>
-                                                <div class="d-inline-block author-name">By <a href="@url" class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom fw-600 text-decoration-none">@author</a></div>
+                                                @*<div class="d-inline-block author-name">By <a href="@url" class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom fw-600 text-decoration-none">@author</a></div>*@
                                             </div>
                                         </div>
                                     </div>

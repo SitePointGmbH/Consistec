@@ -228,6 +228,28 @@ a,
   opacity: 1;
 }
 
+@media (max-width: 767px)
+{
+    .hero-bg-slide {
+        background-size: cover;
+        background-position: -120px 73px;
+    }
+}
+
+@media (max-width: 425px)    
+{
+    .hero-rotator-container
+    {
+        top: -70px;
+        position: relative;
+    }
+    
+    .hero-rotator-container .display-4
+     {
+        font-size: 1.8rem !important;
+     }
+}
+
 /* CONTENT ABOVE CAROUSEL */
 .hero-section .container {
   position: relative;
@@ -1993,4 +2015,13 @@ li p
 .footerLogoBanner img
 {
     padding:0px 20px !important;
+}
+
+.news-body .card-title
+{
+    min-height: 55px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Zeigt maximal 3 Zeilen an */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
