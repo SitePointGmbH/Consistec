@@ -35,7 +35,7 @@
     var news = Model.Root().Descendants<News>().OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate).Take(4).ToList();
 }
 }
-@if (news.Count >= 4) @* && !Model.Value<bool>("hideNews")*@
+@if (news.Count >= 4 && !Model.Value<bool>("hideNews"))
 {
     <section class="bg-very-light-gray" style="background-color:#f5f5f5">
         
