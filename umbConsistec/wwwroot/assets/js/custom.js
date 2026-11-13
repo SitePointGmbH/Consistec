@@ -525,42 +525,29 @@ function initVideoTriggers() {
     const modalEl = document.getElementById('videoModalPopup');
     if (!modalEl) return;
 
-    const modalVideo = document.getElementById('modalVideoPlayer');
+    const modalVideo = modalEl.querySelector('#modalVideoPlayer');
+    if (!modalVideo) return;
 
-    // Listen to Bootstrap modal show event to set video source and play
-    modalEl.addEventListener('show.bs.modal', (event) => {
-        const triggerEl = event.relatedTarget;
-        if (!triggerEl) return;
+    let activeTrigger;
+    for (const trigger of document.querySelectorAll('[data-testimonial-video]')) {
+        trigger.addEventListener('click', () => {
+            if (activeTrigger) return;
+            activeTrigger = trigger;
+            modalVideo.src = trigger.dataset.testimonialVideo;
+            bootstrap.Modal.getOrCreateInstance(modalEl).show(trigger);
 
-        const videoEl = triggerEl.querySelector('video');
-        if (videoEl && videoEl.src) {
-            modalVideo.src = videoEl.src;
-            modalVideo.load();
-            modalVideo.play().catch(err => console.log("Play failed:", err));
-        }
-    });
+            // Keep play() in the tap handler; the native controls remain available if it is blocked.
+            modalVideo.play().catch(() => {});
+        });
+    }
 
-    // Stop, clear, and unload video when modal is closed
+    modalEl.addEventListener('hide.bs.modal', () => modalVideo.pause());
     modalEl.addEventListener('hidden.bs.modal', () => {
-        modalVideo.pause();
-        modalVideo.src = '';
+        modalVideo.removeAttribute('src');
         modalVideo.load();
-    });
-
-    // Custom click-to-toggle play/pause that avoids native controls conflict
-    modalVideo.addEventListener('click', (e) => {
-        const rect = modalVideo.getBoundingClientRect();
-        const clickY = e.clientY - rect.top;
-        // Native video controls bar height is typically around 45px at the bottom
-        const controlsHeight = 45;
-        if (clickY < rect.height - controlsHeight) {
-            e.preventDefault();
-            if (modalVideo.paused) {
-                modalVideo.play().catch(err => console.log("Play failed:", err));
-            } else {
-                modalVideo.pause();
-            }
-        }
+        const trigger = activeTrigger;
+        activeTrigger = undefined;
+        trigger?.focus({ preventScroll: true });
     });
 }
 

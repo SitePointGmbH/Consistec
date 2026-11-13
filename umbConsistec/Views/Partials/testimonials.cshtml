@@ -1,8 +1,8 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @using Umbraco.Cms.Core.Models
-@using System.Text.Json
-@using Umbraco.Cms.Core.Models.Blocks;
+@using System.Globalization
+@using Umbraco.Cms.Core.Models.Blocks
 
 <section class="py-4 py-md-5 position-relative overflow-hidden" id="testimonials"
     style="background-color: #ffffff;background-position: left top;background-repeat: no-repeat;">
@@ -10,32 +10,40 @@
     <div class="container position-relative z-2">
         <h2 class="display-5 text-dark py-3 mb-5 text-center">@Model.Value("testimonialsHeading")</h2>
         @{
-            var testimonialsBlocks = Model.Value<BlockGridModel>("testimonialsContent");
+            var testimonialsBlocks = Model.Value<BlockGridModel>("testimonialsContent") ?? BlockGridModel.Empty;
+            var playLabel = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "de" ? "Video abspielen" : "Play video";
         <div class="row g-4 blur-reveal">
             @foreach (var block in testimonialsBlocks)
             {
                 var content = block.Content;
                 var posterImage = content.Value<IPublishedContent>("posterImage");
                 var videoBox = content.Value<IPublishedContent>("video");
-                var dataModal = (content.HasValue("video") && videoBox != null) ? "data-bs-toggle=\"modal\" data-bs-target=\"#videoModalPopup\"" : "";
+                var posterUrl = posterImage?.Url();
+                var videoUrl = videoBox?.Url();
             <div class="col-lg col-md-4 col-sm-6">
                 <div class="testimonial-v-card">
-                    <div class="ratio-9-16-container mb-4 cursor-pointer video-trigger border bg-light shadow-sm position-relative overflow-hidden"
-                       @Html.Raw(dataModal)>
-                        <video class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover z-0"
-                            src="@videoBox?.Url()"
-                            poster="@posterImage?.Url()" loop muted
-                            playsinline></video>
-                       @if (content.HasValue("video") && videoBox != null)
+                    <div class="ratio-9-16-container mb-4 video-trigger border bg-light shadow-sm position-relative overflow-hidden">
+                        @if (!string.IsNullOrWhiteSpace(posterUrl))
+                        {
+                            <img class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover z-0"
+                                 src="@posterUrl" alt="" />
+                        }
+                        else if (!string.IsNullOrWhiteSpace(videoUrl))
+                        {
+                            <video class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover z-0 pe-none"
+                                   src="@videoUrl" preload="metadata" muted playsinline aria-hidden="true"></video>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(videoUrl))
                         {
                             <div
                                 class="video-overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-25 transition z-1">
                             </div>
 
-                            <div
-                                class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center z-2 pointer-events-none">
-                                <i class="bi bi-play-circle display-4 text-white opacity-75"></i>
-                            </div>
+                            <button type="button"
+                                class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center z-2 border-0 bg-transparent cursor-pointer"
+                                data-testimonial-video="@videoUrl" aria-label="@playLabel" aria-haspopup="dialog" aria-controls="videoModalPopup">
+                                <i class="bi bi-play-circle display-4 text-white opacity-75" aria-hidden="true"></i>
+                            </button>
                         }
                     </div>
                         <h6 class="mb-0">@content.Value("memberName")</h6>

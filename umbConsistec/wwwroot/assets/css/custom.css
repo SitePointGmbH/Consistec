@@ -837,7 +837,8 @@ a,
   width: 100%;
 }
 
-.video-trigger:hover .bi-play-circle {
+.video-trigger:hover .bi-play-circle,
+.video-trigger button:focus-visible .bi-play-circle {
   transform: scale(1.1);
   color: var(--consistec-red) !important;
   opacity: 1 !important;
