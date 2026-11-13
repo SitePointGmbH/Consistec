@@ -1,16 +1,46 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentButtonCard,GridContentSetting>>
-@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks
 
 @{
     var sectionHeader = Model.Content.Value<string>("sectionHeader");
     var richTextContent = Model.Content.Value<string>("richTextContent");
     var buttonLink = Model.Content.Value<Umbraco.Cms.Core.Models.Link>("ctaButton");
+    var (textAlignment, actionAlignment) = Model.Settings?.Alignment?.Trim().ToLowerInvariant() switch
+    {
+        "left" or "start" => ("text-start", "justify-content-start"),
+        "center" => ("text-center", "justify-content-center"),
+        "right" or "end" => ("text-end", "justify-content-end"),
+        _ => ("", "")
+    };
 }
 
-<div class="solution-card p-5 border bg-light h-100 transition shadow-sm hover-lift d-flex flex-column">
+<div class="solution-card p-5 border bg-light h-100 transition shadow-sm hover-lift d-flex flex-column @textAlignment @Model.Settings?.CustomCssClass">
     <h4 class="fw-bold mb-3"> @Html.Raw(sectionHeader)</h4>
     @Html.Raw(richTextContent)
-    <div class="d-flex align-items-center mt-auto">
+    <div class="d-flex flex-wrap align-items-center gap-3 mt-auto @actionAlignment">
+        @foreach (var block in Model.Content.PodcastLinks ?? BlockListModel.Empty)
+        {
+            if (block.Content is not PodcastLink podcast || podcast.Icon is not { } icon || podcast.PodcastUrl is not { } link)
+            {
+                continue;
+            }
+
+            var iconUrl = icon.Url();
+            var href = link.Url;
+            if (string.IsNullOrWhiteSpace(iconUrl) || iconUrl == "#" || string.IsNullOrWhiteSpace(href)
+                || (!Url.IsLocalUrl(href) && (!Uri.TryCreate(href, UriKind.Absolute, out var podcastUri)
+                    || (podcastUri.Scheme != Uri.UriSchemeHttps && podcastUri.Scheme != Uri.UriSchemeHttp))))
+            {
+                continue;
+            }
+
+            var label = string.IsNullOrWhiteSpace(link.Name) ? icon.Content.Name : link.Name;
+            <a href="@href" target="@link.Target" rel="@(link.Target == "_blank" ? "noopener" : null)"
+               aria-label="@label" title="@label"
+               class="podcast-link d-inline-flex align-items-center justify-content-center flex-shrink-0 border bg-white border-radius-4px focus-ring">
+                <img src="@iconUrl" alt="" width="36" height="36" class="object-fit-contain" />
+            </a>
+        }
         @if (buttonLink != null)
         {
             <a href="@buttonLink.Url"
@@ -21,4 +51,3 @@
         }
     </div>
 </div>
-                

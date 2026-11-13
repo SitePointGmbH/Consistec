@@ -968,6 +968,16 @@ a,
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+.solution-card .podcast-link {
+  width: 48px;
+  height: 48px;
+}
+
+.solution-card .podcast-link img {
+  width: 36px;
+  height: 36px;
+}
+
 .hover-lift:hover {
   transform: translateY(-10px);
   background-color: #fff !important;
