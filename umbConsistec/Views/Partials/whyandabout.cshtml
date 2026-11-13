@@ -9,6 +9,8 @@
     var sectionPosterImage = Model.Value<IPublishedContent>("sectionPosterImage");
     var sectionPosterVideo = Model.Value<IPublishedContent>("sectionPosterVideo");
     var videoScript = Model.Value<string>("videoScript");
+    var commonComponent = Model.Root().Children().FirstOrDefault(x => x.ContentType.Alias == "commonComponents");
+    var newsFallbackImage = commonComponent.Value<MediaWithCrops>("newsPreviewPlaceholder");
 }
 
 <section class="py-4 py-md-5 py-lg-5 bg-white" id="second-section">
@@ -32,10 +34,10 @@
         .Take(10)
         .ToList();
         *@
-    var news = Model.Root().Descendants<News>().OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate).Take(4).ToList();
+    var news = Model.Root().Descendants<News>().OrderByDescending(a => a.HasValue("newsDate") ? a.Value<DateTime>("newsDate") : a.CreateDate).Take(10).ToList();
 }
 }
-@if (news.Count >= 4 && !Model.Value<bool>("hideNews"))
+@if (news.Count >= 4) @* && !Model.Value<bool>("hideNews"))*@
 {
     <section class="bg-very-light-gray" style="background-color:#f5f5f5">
         
@@ -50,7 +52,52 @@
                 </div>
             </div>
             
-             <ul class="blog-classic blog-wrapper grid-loading grid grid-4col xl-grid-4col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+            <div class="row row-cols-1 justify-content-center mb-10 md-mb-5 xs-mb-10">
+                    <!-- start content carousal item -->
+                    <div class="col position-relative" data-anime='{ "opacity": [0,1], "duration": 800, "delay": 50, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                        <div class="swiper slider-four-slide swiper-number-navigation-style" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 30, "loop": true, "pagination": { "el": ".swiper-pagination", "clickable": true }, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "navigation": { "nextEl": ".slider-four-slide-next", "prevEl": ".slider-four-slide-prev" }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1400": { "slidesPerView": 4 }, "1200": { "slidesPerView": 3 }, "992": { "slidesPerView": 3 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }' data-swiper-number-navigation="true" data-swiper-show-progress="true">
+                            <div class="swiper-wrapper pb-5 md-pb-6">
+                                @foreach (var item in news)
+                                {
+                                    var image = (item.Value<MediaWithCrops>("previewImage") == null) ? newsFallbackImage : item.Value<MediaWithCrops>("previewImage");
+                                    var title = item.Value<string>("heading");
+                                    var rawSummary = item.Value<string>("teaserText")?.Replace("<p>", "")?.Replace("</p>", "");
+                                    var summary = rawSummary != null && rawSummary.Length > 50 ? rawSummary.Substring(0, 50) + "..." : rawSummary;
+                                    var date = item.HasValue("newsDate") ? item.Value<DateTime>("newsDate") : item.CreateDate;
+                                    var author = item.Value<string>("author");
+                                    var url = item.Url();
+                                    <!-- start content carousal item -->
+                                    <div class="swiper-slide">
+                                        <div class="overflow-hidden border-radius-6px box-shadow-large">
+                                            <div class="image">
+                                                <a href="@item.Url()">
+                                                    <img class="w-100" src="@image?.Url()" alt="">
+                                                </a>
+                                            </div> 
+                                            <div class="bg-white p-35px position-relative">
+                                                <a href="@item.Url()" class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">@title</a>
+                                                <div class="d-flex align-items-center pt-15px mt-20px border-top border-color-extra-medium-gray">
+                                                    <span class="blog-date">@date.ToShortDateString()</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end content carousal item -->
+                              
+                               }
+                            </div>
+                            <!-- start slider pagination -->
+                            <div class="swiper-navigation-wrapper d-flex align-items-center justify-content-center">
+                                <div class="swiper-button-previous-nav swiper-button-prev slider-four-slide-prev"><i class="feather icon-feather-arrow-left icon-small text-dark-gray"></i></div>
+                                <div class="swiper-pagination-progress w-200px xs-w-150px bg-medium-gray-transparent"><span class="swiper-progress"></span></div>
+                                <div class="swiper-button-next-nav swiper-button-next slider-four-slide-next"><i class="feather icon-feather-arrow-right icon-small text-dark-gray"></i></div>
+                            </div>
+                            <!-- end slider pagination -->
+                        </div> 
+                    </div>
+                </div> 
+            @*
+            <ul class="blog-classic blog-wrapper grid-loading grid grid-4col xl-grid-4col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                  <li class="grid-sizer"></li>
                  <!-- start carousel item 1 -->
                  @foreach (var item in news)
@@ -66,7 +113,7 @@
                             <li class="grid-item">
                                 <div class="card bg-transparent border-0 h-100">
                                     <div class="blog-image position-relative overflow-hidden border-radius-6px">
-                                        <a href="@url"><img src="@image.GetCropUrl("newsPreview")" alt="" /></a>
+                                        <a href="@url"><img src="@image?.GetCropUrl("newsPreview")" alt="" /></a>
                                     </div>
                                     <div class="card-body px-0 pb-30px pt-30px xs-pb-15px">
                                         <span class="fs-14 text-uppercase mb-5px d-block">
@@ -82,8 +129,8 @@
                            }
                            
                         </ul>
-            
-            <div class="text-center mt-5 pt-4 blur-reveal delay-2 is-visible">
+            *@
+            <div class="text-center blur-reveal delay-2 is-visible">
                 @{
                     var newsCall2Action = Model.Value<Umbraco.Cms.Core.Models.Link>("newsCall2Action");
                 }

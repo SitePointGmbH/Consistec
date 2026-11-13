@@ -114,6 +114,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel MainNavigationWithDropdown => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "mainNavigationWithDropdown");
 
 		///<summary>
+		/// News Preview Placeholder: 800x655 Pixel
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("newsPreviewPlaceholder")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops NewsPreviewPlaceholder => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "newsPreviewPlaceholder");
+
+		///<summary>
 		/// Social Media
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
