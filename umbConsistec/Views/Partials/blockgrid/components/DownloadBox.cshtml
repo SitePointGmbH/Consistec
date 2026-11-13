@@ -1,18 +1,113 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<DownloadBox>>
+@inject umbConsistec.Services.ProtectedDownloadService Downloads
+@using System.Globalization
+
+@{
+    var isProtected = Model.Content.Value<bool>("protectedDownload");
+    var fileReference = Model.Content.Value<string>("protectedFileName");
+    const string mediaPrefix = "umb://media/";
+    var isMediaReference = fileReference?.StartsWith(mediaPrefix, StringComparison.Ordinal) == true;
+    string? fileUrl = null;
+    if (!isProtected)
+    {
+        if (isMediaReference && Guid.TryParse(fileReference![mediaPrefix.Length..], out var mediaId))
+        {
+            fileUrl = Umbraco.Media(mediaId)?.MediaUrl();
+        }
+
+        if (string.IsNullOrWhiteSpace(fileUrl) || fileUrl == "#")
+        {
+            fileUrl = Model.Content.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("file")?.Url();
+        }
+    }
+
+    var ticket = isProtected && !isMediaReference && Downloads.IsConfigured
+        ? Downloads.CreateTicket(fileReference)
+        : null;
+    var german = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "de";
+    var modalId = $"download-modal-{Model.ContentKey:N}";
+    var modalTitleId = $"{modalId}-title";
+    var emailId = $"download-email-{Model.ContentKey:N}";
+    var downloadLabel = german ? "Download starten" : "Download";
+    var emailDownload = german ? "Download per E-Mail" : "Download by email";
+    var unavailable = german ? "Dieser Download ist momentan nicht verfügbar." : "This download is currently unavailable.";
+}
 
 <div class="feature-box box-shadow-bottom">
     <div class="box-move-bottom-top pt-18 pb-18 ps-15 pe-15 transition-inner-all">
         <div class="feature-box-icon feature-box-icon-rounded light-hover w-120px h-120px rounded-circle mb-25px box-shadow-medium mx-auto">
-            <i class="bi bi-cloud-download-fill"></i>
+            <i class="bi @(isProtected ? "bi-envelope-arrow-down" : "bi-cloud-download-fill")" aria-hidden="true"></i>
             <div class="feature-box-icon-hover bg-base-color rounded-circle"></div>
         </div>
         <div class="feature-box-content last-paragraph-no-margin overflow-hidden">
-            <span class="d-inline-block fw-500 fs-18">@Model.Content?.Title</span>
-            <p class="w-90 m-auto">@Html.Raw(Model.Content?.Description)</p>
-            <div class="move-bottom-top mt-15px">
-                <a href="@Model.Content?.File?.Url()" class="hover-link btn btn-link btn-medium ls-05px">Download starten</a>
-            </div> 
+            <span class="d-inline-block fw-500 fs-18">@Model.Content.Title</span>
+            <p class="w-90 m-auto">@Model.Content.Description</p>
+            @if (ticket != null || (!string.IsNullOrWhiteSpace(fileUrl) && fileUrl != "#"))
+            {
+                <div class="move-bottom-top mt-15px">
+                    @if (ticket != null)
+                    {
+                        <a href="#@modalId" class="hover-link btn btn-link btn-medium ls-05px"
+                           data-bs-toggle="modal" aria-haspopup="dialog">
+                            @downloadLabel
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@fileUrl" download class="hover-link btn btn-link btn-medium ls-05px">
+                            @downloadLabel
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="mt-15px">@unavailable</p>
+            }
         </div>
     </div>
     <div class="feature-box-overlay border-radius-6px"></div>
 </div>
+
+@if (ticket != null)
+{
+    <div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="@modalTitleId" aria-hidden="true"
+         data-download-modal>
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0 rounded-2">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5 fw-600 text-dark-gray mb-0" id="@modalTitleId">@emailDownload</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="@(german ? "Schließen" : "Close")"></button>
+                </div>
+                <div class="modal-body">
+                    @if (!string.IsNullOrWhiteSpace(Model.Content.Title))
+                    {
+                        <p class="fw-500 mb-15px">@Model.Content.Title</p>
+                    }
+                    <form action="@Url.Action("Send", "ProtectedDownloads")" method="post"
+                          data-protected-download
+                          data-language="@(german ? "de" : "en")"
+                          data-sending="@(german ? "Wird gesendet..." : "Sending...")"
+                          data-success="@(german ? "Das Dokument wurde per E-Mail gesendet." : "The document was sent by email.")"
+                          data-invalid="@(german ? "Bitte prüfen Sie Ihre E-Mail-Adresse und laden Sie die Seite neu." : "Check your email address and reload the page.")"
+                          data-verification="@(german ? "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte erneut versuchen." : "Verification failed. Please try again.")"
+                          data-rate-limit="@(german ? "Zu viele Anfragen. Bitte versuchen Sie es später erneut." : "Too many requests. Please try again later.")"
+                          data-error="@unavailable">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="ticket" value="@ticket" />
+                        <label class="fw-500 mb-5px" for="@emailId">@(german ? "E-Mail-Adresse" : "Email address")</label>
+                        <input id="@emailId" class="form-control mb-15px" type="email" name="email"
+                               autocomplete="email" maxlength="254" required />
+                        <div data-download-captcha data-sitekey="@Downloads.SiteKey" class="mb-15px"></div>
+                        <button type="submit" class="btn btn-medium btn-gradient-pink-orange text-white rounded-0" disabled>
+                            @(german ? "Per E-Mail senden" : "Send by email")
+                        </button>
+                        <p class="mt-10px mb-0" role="status"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="@Url.Content("~/js/download-box.js?v=3")"></script>
+}

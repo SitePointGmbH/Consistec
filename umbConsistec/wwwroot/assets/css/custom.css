@@ -1804,6 +1804,15 @@ a,
 }
 
 
+/* Download dialog sits above fixed navigation and consent controls. */
+body.download-modal-open > .modal-backdrop {
+    z-index: 10000;
+}
+
+.modal[data-download-modal] {
+    z-index: 10005;
+}
+
 /* Consent Tool */
 .consent-banner {
     position: fixed;

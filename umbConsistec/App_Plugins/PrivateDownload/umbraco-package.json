@@ -1,0 +1,17 @@
+{
+  "name": "Consistec Private Download",
+  "extensions": [
+    {
+      "type": "propertyEditorUi",
+      "alias": "Consistec.PropertyEditorUi.PrivateDownload",
+      "name": "Consistec Download File",
+      "element": "/App_Plugins/PrivateDownload/private-download.element.js",
+      "meta": {
+        "label": "Download File",
+        "propertyEditorSchemaAlias": "Umbraco.TextBox",
+        "icon": "icon-upload",
+        "group": "media"
+      }
+    }
+  ]
+}

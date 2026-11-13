@@ -66,6 +66,21 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops File => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "file");
 
 		///<summary>
+		/// Protected Download
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
+		[ImplementPropertyType("protectedDownload")]
+		public virtual bool ProtectedDownload => this.Value<bool>(_publishedValueFallback, "protectedDownload");
+
+		///<summary>
+		/// Download File
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("protectedFileName")]
+		public virtual string ProtectedFileName => this.Value<string>(_publishedValueFallback, "protectedFileName");
+
+		///<summary>
 		/// Titel
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]

@@ -22,7 +22,8 @@ public static class AppExtension
                 .CustomSources(
                     "https://*.consistec.de",
                     "https://matomo2.consistec.de",
-                    "https://*.videolyser.de")) // LinkedIn Insight Tag
+                    "https://*.videolyser.de",
+                    "https://cdn.jsdelivr.net/npm/@friendlycaptcha/sdk@1.1.3/+esm"))
             .StyleSources(s => s
                 .Self()
                 .UnsafeInline())
@@ -34,7 +35,8 @@ public static class AppExtension
                 .Self()
                 .CustomSources(
                     "data:",
-                    "https://marketplace.umbraco.com"))
+                    "https://marketplace.umbraco.com",
+                    "https://*.frcapi.com"))
             .ObjectSources(s => s.None())
             .FormActions(s => s.Self())
             .BlockAllMixedContent()

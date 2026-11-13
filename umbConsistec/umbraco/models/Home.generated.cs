@@ -170,13 +170,6 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string GoodAnswerSubheading => this.Value<string>(_publishedValueFallback, "goodAnswerSubheading");
 
 		///<summary>
-		/// News-Carousel ausblenden
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
-		[ImplementPropertyType("hideNews")]
-		public virtual bool HideNews => this.Value<bool>(_publishedValueFallback, "hideNews");
-
-		///<summary>
 		/// Introtext
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
@@ -237,6 +230,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("newsCall2Action")]
 		public virtual global::Umbraco.Cms.Core.Models.Link NewsCall2Action => this.Value<global::Umbraco.Cms.Core.Models.Link>(_publishedValueFallback, "newsCall2Action");
+
+		///<summary>
+		/// News Picker
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("newsPicker")]
+		public virtual global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent> NewsPicker => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>>(_publishedValueFallback, "newsPicker");
 
 		///<summary>
 		/// Outro

@@ -19,6 +19,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
 builder.CreateUmbracoBuilder()
     .AddMiddleWares()
+    .AddProtectedDownloads()
     .AddBackOffice()
     .AddWebsite()
     .AddComposers()
@@ -54,5 +55,7 @@ app.UseUmbraco()
         u.UseBackOfficeEndpoints();
         u.UseWebsiteEndpoints();
     });
+
+app.MapControllers();
 
 await app.RunAsync();
