@@ -754,8 +754,8 @@ a,
     overflow: hidden;
 }
 .p-section {
-    position: sticky;
-    top: 80px;
+    position: relative;
+    top: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
