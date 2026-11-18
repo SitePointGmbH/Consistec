@@ -16,6 +16,8 @@ function initializeDownloads() {
         document.body.append(modal);
         const form = modal.querySelector("[data-protected-download]");
         const element = form.querySelector("[data-download-captcha]");
+        const email = form.elements.namedItem("email");
+        const terms = form.elements.namedItem("acceptTerms");
         const button = form.querySelector("button[type=submit]");
         const status = form.querySelector("[role=status]");
         let sending = false;
@@ -23,12 +25,20 @@ function initializeDownloads() {
         let loading = false;
         let widget;
 
+        const canSubmit = (captchaState = widget?.getState()) =>
+            !sending && !sent && email.validity.valid && terms.checked && captchaState === "completed";
+
+        const updateButton = () => { button.disabled = !canSubmit(); };
+        email.addEventListener("input", updateButton);
+        email.addEventListener("change", updateButton);
+        terms.addEventListener("change", updateButton);
+
         modal.addEventListener("show.bs.modal", () => document.body.classList.add("download-modal-open"));
         modal.addEventListener("hidden.bs.modal", () => document.body.classList.remove("download-modal-open"));
 
         element.addEventListener("frc:widget.statechange", ({ detail }) => {
-            button.disabled = sending || sent || detail.state !== "completed";
-            if (detail.state === "error" || detail.state === "expired") {
+            button.disabled = !canSubmit(detail.state);
+            if (!sending && !sent && (detail.state === "error" || detail.state === "expired")) {
                 status.textContent = form.dataset.verification;
             }
         });
@@ -55,7 +65,7 @@ function initializeDownloads() {
 
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
-            if (sending || sent || widget?.getState() !== "completed") return;
+            if (!canSubmit()) return;
 
             sending = true;
             button.disabled = true;
@@ -78,6 +88,7 @@ function initializeDownloads() {
             } finally {
                 sending = false;
                 if (!sent) widget.reset();
+                updateButton();
             }
         });
     }

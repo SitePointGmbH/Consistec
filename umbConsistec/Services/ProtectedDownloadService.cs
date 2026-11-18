@@ -1,4 +1,6 @@
+using System.Globalization;
 using System.Security.Cryptography;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Options;
@@ -12,7 +14,10 @@ public sealed class ProtectedDownloadOptions
 {
     public string SiteKey { get; set; } = "";
     public string ApiKey { get; set; } = "";
+    public string PublicBaseUrl { get; set; } = "https://consistec.de";
 }
+
+internal sealed record ProtectedDownloadGrant(string FileName, DateTimeOffset ExpiresAtUtc, bool German);
 
 public sealed class ProtectedDownloadService(
     IWebHostEnvironment environment,
@@ -29,12 +34,21 @@ public sealed class ProtectedDownloadService(
     {
         ".pdf", ".docx", ".xlsx", ".pptx", ".txt", ".csv", ".odt", ".ods"
     };
-    private readonly ITimeLimitedDataProtector _protector =
-        dataProtection.CreateProtector("Consistec.ProtectedDownload.v1").ToTimeLimitedDataProtector();
+    private static readonly TimeZoneInfo ExpiryTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Europe/Berlin");
+    private readonly ITimeLimitedDataProtector _requestProtector =
+        dataProtection.CreateProtector("Consistec.ProtectedDownload.Request.v2").ToTimeLimitedDataProtector();
+    private readonly IDataProtector _linkProtector =
+        dataProtection.CreateProtector("Consistec.ProtectedDownload.Link.v1");
     private readonly string _privateDirectory =
         Path.Combine(environment.ContentRootPath, "App_Data", "ProtectedDownloads");
 
     public string SiteKey => options.Value.SiteKey;
+    internal Uri? PublicOrigin =>
+        Uri.TryCreate(options.Value.PublicBaseUrl, UriKind.Absolute, out var url)
+        && url.Scheme == Uri.UriSchemeHttps && url.UserInfo.Length == 0
+        && url.AbsolutePath == "/" && url.Query.Length == 0 && url.Fragment.Length == 0
+            ? url : null;
+
     public bool IsConfigured =>
         !string.IsNullOrWhiteSpace(SiteKey)
         && !string.IsNullOrWhiteSpace(options.Value.ApiKey)
@@ -76,23 +90,40 @@ public sealed class ProtectedDownloadService(
         return storedName;
     }
 
-    public string? CreateTicket(string? fileName)
+    public string? CreateTicket(string? fileName, DateOnly? validThrough, bool german)
     {
-        var file = FindFile(fileName);
-        return file is null ? null : _protector.Protect(file.Name, TimeSpan.FromHours(1));
+        if (validThrough is not { } date || date == DateOnly.MaxValue)
+            return null;
+
+        var nextMidnight = date.AddDays(1).ToDateTime(TimeOnly.MinValue);
+        var expiresAtUtc = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(nextMidnight, ExpiryTimeZone));
+        var now = DateTimeOffset.UtcNow;
+        if (expiresAtUtc <= now || FindFile(fileName) is not { } file)
+            return null;
+
+        var grant = new ProtectedDownloadGrant(file.Name, expiresAtUtc, german);
+        var ticketExpires = now.AddHours(1);
+        return _requestProtector.Protect(JsonSerializer.Serialize(grant),
+            ticketExpires < expiresAtUtc ? ticketExpires : expiresAtUtc);
     }
 
-    public FileInfo? ResolveTicket(string ticket)
+    internal ProtectedDownloadGrant? ResolveTicket(string ticket) =>
+        ReadGrant(() => _requestProtector.Unprotect(ticket));
+
+    internal string CreateDownloadToken(ProtectedDownloadGrant grant) =>
+        _linkProtector.Protect(JsonSerializer.Serialize(grant));
+
+    // An authentic expired link must still be distinguishable from an invalid token.
+    internal ProtectedDownloadGrant? ResolveDownloadToken(string token) =>
+        ReadGrant(() => _linkProtector.Unprotect(token));
+
+    private static ProtectedDownloadGrant? ReadGrant(Func<string> unprotect)
     {
         try
         {
-            return FindFile(_protector.Unprotect(ticket));
+            return JsonSerializer.Deserialize<ProtectedDownloadGrant>(unprotect());
         }
-        catch (CryptographicException)
-        {
-            return null;
-        }
-        catch (FormatException)
+        catch (Exception error) when (error is CryptographicException or FormatException or JsonException)
         {
             return null;
         }
@@ -109,25 +140,22 @@ public sealed class ProtectedDownloadService(
         return (await result.Content.ReadFromJsonAsync<CaptchaResult>(cancellationToken))?.Success == true;
     }
 
-    public async Task SendAsync(FileInfo file, string email)
+    internal async Task SendLinkAsync(ProtectedDownloadGrant grant, string email, Uri downloadUrl)
     {
-        await using var stream = file.OpenRead();
-        if (stream.Length is <= 0 or > MaxAttachmentBytes)
-        {
-            throw new IOException("Protected download attachment size is invalid.");
-        }
-
+        var culture = CultureInfo.GetCultureInfo(grant.German ? "de-DE" : "en-GB");
+        var lastValidDay = TimeZoneInfo.ConvertTime(grant.ExpiresAtUtc.AddTicks(-1), ExpiryTimeZone);
+        var body = await ProtectedDownloadEmailTemplate.RenderAsync(environment.ContentRootPath, GetDownloadName(grant.FileName), downloadUrl,
+            lastValidDay.ToString("D", culture), grant.German);
         var message = new EmailMessage(
             globalSettings.CurrentValue.Smtp!.From!,
-            [email], [], [], [],
-            "Consistec - Download",
-            "Ihr angefordertes Dokument ist beigefuegt.\nYour requested document is attached.",
-            false,
-            [new EmailMessageAttachment(stream, GetAttachmentName(file.Name))]);
+            email,
+            grant.German ? "Consistec - Ihr Download-Link" : "Consistec - Your download link",
+            body,
+            true);
         await emailSender.SendAsync(message, "ProtectedDownload", true, TimeSpan.FromSeconds(30));
     }
 
-    private static string GetAttachmentName(string fileName)
+    internal static string GetDownloadName(string fileName)
     {
         return fileName.Length > UploadNameOffset
             && fileName.StartsWith(UploadPrefix, StringComparison.Ordinal)
@@ -152,7 +180,7 @@ public sealed class ProtectedDownloadService(
         return directory.Exists && !directory.Attributes.HasFlag(FileAttributes.ReparsePoint) ? directory : null;
     }
 
-    private FileInfo? FindFile(string? fileName)
+    internal FileInfo? FindFile(string? fileName)
     {
         if (!IsValidFileName(fileName) || GetPrivateDirectory() is not { } directory) return null;
         var file = new FileInfo(Path.Combine(directory.FullName, fileName!));

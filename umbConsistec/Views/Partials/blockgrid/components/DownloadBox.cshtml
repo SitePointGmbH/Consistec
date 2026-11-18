@@ -21,13 +21,14 @@
         }
     }
 
-    var ticket = isProtected && !isMediaReference && Downloads.IsConfigured
-        ? Downloads.CreateTicket(fileReference)
-        : null;
     var german = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "de";
+    var ticket = isProtected && !isMediaReference && Downloads.IsConfigured
+        ? Downloads.CreateTicket(fileReference, Model.Content.Value<DateOnly?>("fileExpireDate"), german)
+        : null;
     var modalId = $"download-modal-{Model.ContentKey:N}";
     var modalTitleId = $"{modalId}-title";
     var emailId = $"download-email-{Model.ContentKey:N}";
+    var termsId = $"download-terms-{Model.ContentKey:N}";
     var downloadLabel = german ? "Download starten" : "Download";
     var emailDownload = german ? "Download per E-Mail" : "Download by email";
     var unavailable = german ? "Dieser Download ist momentan nicht verfügbar." : "This download is currently unavailable.";
@@ -89,8 +90,8 @@
                           data-protected-download
                           data-language="@(german ? "de" : "en")"
                           data-sending="@(german ? "Wird gesendet..." : "Sending...")"
-                          data-success="@(german ? "Das Dokument wurde per E-Mail gesendet." : "The document was sent by email.")"
-                          data-invalid="@(german ? "Bitte prüfen Sie Ihre E-Mail-Adresse und laden Sie die Seite neu." : "Check your email address and reload the page.")"
+                          data-success="@(german ? "Der Download-Link wurde per E-Mail gesendet." : "The download link was sent by email.")"
+                          data-invalid="@(german ? "Bitte prüfen Sie Ihre E-Mail-Adresse und bestätigen Sie die Nutzungsbedingungen." : "Check your email address and accept the terms and conditions.")"
                           data-verification="@(german ? "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte erneut versuchen." : "Verification failed. Please try again.")"
                           data-rate-limit="@(german ? "Zu viele Anfragen. Bitte versuchen Sie es später erneut." : "Too many requests. Please try again later.")"
                           data-error="@unavailable">
@@ -99,6 +100,17 @@
                         <label class="fw-500 mb-5px" for="@emailId">@(german ? "E-Mail-Adresse" : "Email address")</label>
                         <input id="@emailId" class="form-control mb-15px" type="email" name="email"
                                autocomplete="email" maxlength="254" required />
+                        <div class="d-flex align-items-start gap-2 mb-15px">
+                            <input id="@termsId" class="form-check-input download-terms-checkbox" type="checkbox" name="acceptTerms" value="true"
+                                   aria-labelledby="@($"{termsId}-label {termsId}-link")" required />
+                            <div>
+                                <label id="@($"{termsId}-label")" class="form-check-label" for="@termsId">
+                                    @(german ? "Ich akzeptiere die" : "I agree to the")
+                                </label>
+                                <a id="@($"{termsId}-link")" class="text-decoration-underline" href="@Url.Content("~/datenschutz/")"
+                                   target="_blank" rel="noopener">@(german ? "Nutzungsbedingungen" : "Terms & Conditions")</a>
+                            </div>
+                        </div>
                         <div data-download-captcha data-sitekey="@Downloads.SiteKey" class="mb-15px"></div>
                         <button type="submit" class="btn btn-medium btn-gradient-pink-orange text-white rounded-0" disabled>
                             @(german ? "Per E-Mail senden" : "Send by email")
@@ -109,5 +121,5 @@
             </div>
         </div>
     </div>
-    <script type="module" src="@Url.Content("~/js/download-box.js?v=3")"></script>
+    <script type="module" src="@Url.Content("~/js/download-box.js?v=4")"></script>
 }

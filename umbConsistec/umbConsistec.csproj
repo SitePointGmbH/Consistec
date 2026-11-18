@@ -84,6 +84,7 @@
 
     <ItemGroup>
       <Folder Include="App_Data\" />
+      <None Update="EmailTemplates\*.html" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     </ItemGroup>
 
 

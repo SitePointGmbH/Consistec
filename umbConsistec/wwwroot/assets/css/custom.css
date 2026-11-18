@@ -1824,6 +1824,24 @@ body.download-modal-open > .modal-backdrop {
     z-index: 10005;
 }
 
+[data-download-modal] .download-terms-checkbox {
+    width: 1.125rem;
+    height: 1.125rem;
+    padding: 0;
+    margin: 0.25em 0 0;
+    cursor: pointer;
+}
+
+[data-download-modal] .download-terms-checkbox:checked {
+    background-color: var(--consistec-red);
+    border-color: var(--consistec-red);
+}
+
+[data-download-modal] .download-terms-checkbox:focus-visible {
+    outline: 2px solid var(--consistec-red);
+    outline-offset: 2px;
+}
+
 /* Consent Tool */
 .consent-banner {
     position: fixed;

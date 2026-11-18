@@ -58,15 +58,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string Description => this.Value<string>(_publishedValueFallback, "description");
 
 		///<summary>
-		/// File
+		/// File Expire Date
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("file")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops File => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "file");
+		[ImplementPropertyType("fileExpireDate")]
+		public virtual global::System.Nullable<global::System.DateOnly> FileExpireDate => this.Value<global::System.Nullable<global::System.DateOnly>>(_publishedValueFallback, "fileExpireDate");
 
 		///<summary>
-		/// Is Protected Download
+		/// Protected Download
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.0+83984e2")]
 		[ImplementPropertyType("protectedDownload")]

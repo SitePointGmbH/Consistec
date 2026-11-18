@@ -1,0 +1,26 @@
+{
+  "name": "Consistec Download Leads",
+  "extensions": [
+    {
+      "type": "condition",
+      "alias": "Consistec.Condition.SensitiveData",
+      "name": "Sensitive Data Access",
+      "api": "/App_Plugins/DownloadLeads/sensitive-data.condition.js"
+    },
+    {
+      "type": "dashboard",
+      "alias": "Consistec.Dashboard.DownloadLeads",
+      "name": "Download Leads Dashboard",
+      "element": "/App_Plugins/DownloadLeads/download-leads.element.js",
+      "weight": 5,
+      "meta": {
+        "label": "Download Leads",
+        "pathname": "download-leads"
+      },
+      "conditions": [
+        { "alias": "Umb.Condition.SectionAlias", "match": "Umb.Section.Content" },
+        { "alias": "Consistec.Condition.SensitiveData" }
+      ]
+    }
+  ]
+}

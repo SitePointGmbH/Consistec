@@ -1,5 +1,8 @@
 using System.Threading.RateLimiting;
+using umbConsistec.Migrations;
 using umbConsistec.Services;
+using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
 
 namespace umbConsistec.Extensions;
@@ -11,6 +14,8 @@ public static class ProtectedDownloadExtensions
         builder.Services.Configure<ProtectedDownloadOptions>(
             builder.Config.GetSection("ProtectedDownloads"));
         builder.Services.AddDataProtection();
+        builder.Services.AddScoped<ProtectedDownloadLeadStore>();
+        builder.AddNotificationAsyncHandler<UmbracoApplicationStartingNotification, ProtectedDownloadLeadMigrationHandler>();
         builder.Services.AddHttpClient<ProtectedDownloadService>(client =>
             client.Timeout = TimeSpan.FromSeconds(10));
         builder.Services.AddRateLimiter(options =>
