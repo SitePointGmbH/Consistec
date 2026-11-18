@@ -11,8 +11,11 @@ public static class ProtectedDownloadExtensions
 {
     public static IUmbracoBuilder AddProtectedDownloads(this IUmbracoBuilder builder)
     {
-        builder.Services.Configure<ProtectedDownloadOptions>(
-            builder.Config.GetSection("ProtectedDownloads"));
+        builder.Services.AddOptions<ProtectedDownloadOptions>()
+            .Bind(builder.Config.GetSection("ProtectedDownloads"))
+            .Validate(options => Enum.IsDefined(options.LinkExpiry),
+                "ProtectedDownloads:LinkExpiry must be Weekly, Fortnightly, or Monthly.")
+            .ValidateOnStart();
         builder.Services.AddDataProtection();
         builder.Services.AddScoped<ProtectedDownloadLeadStore>();
         builder.AddNotificationAsyncHandler<UmbracoApplicationStartingNotification, ProtectedDownloadLeadMigrationHandler>();

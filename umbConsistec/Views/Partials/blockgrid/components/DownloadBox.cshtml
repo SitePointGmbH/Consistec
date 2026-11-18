@@ -23,7 +23,7 @@
 
     var german = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "de";
     var ticket = isProtected && !isMediaReference && Downloads.IsConfigured
-        ? Downloads.CreateTicket(fileReference, Model.Content.Value<DateOnly?>("fileExpireDate"), german)
+        ? Downloads.CreateTicket(fileReference, german)
         : null;
     var modalId = $"download-modal-{Model.ContentKey:N}";
     var modalTitleId = $"{modalId}-title";

@@ -40,8 +40,8 @@ public sealed class ProtectedDownloadsController(
             return UnprocessableEntity();
         }
 
-        if (!downloads.IsConfigured || downloads.ResolveTicket(ticket) is not { } grant
-            || grant.ExpiresAtUtc <= DateTimeOffset.UtcNow || downloads.FindFile(grant.FileName) is null)
+        if (!downloads.IsConfigured || downloads.ResolveTicket(ticket) is not { } request
+            || downloads.FindFile(request.FileName) is null)
         {
             return StatusCode(StatusCodes.Status503ServiceUnavailable);
         }
@@ -52,13 +52,14 @@ public sealed class ProtectedDownloadsController(
             {
                 return UnprocessableEntity();
             }
-            var requestedAt = DateTime.UtcNow;
+            var requestedAt = DateTimeOffset.UtcNow;
+            var grant = downloads.CreateGrant(request, requestedAt);
             var token = downloads.CreateDownloadToken(grant);
             var link = CreateDownloadUrl(token);
-            if (link is null || grant.ExpiresAtUtc.UtcDateTime <= requestedAt)
+            if (link is null)
                 return StatusCode(StatusCodes.Status503ServiceUnavailable);
 
-            await leads.CreateAsync(token, recipient.Address, grant, requestedAt);
+            await leads.CreateAsync(token, recipient.Address, grant, requestedAt.UtcDateTime);
             await downloads.SendLinkAsync(grant, recipient.Address, link);
             try
             {

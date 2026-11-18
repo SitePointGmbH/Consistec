@@ -15,8 +15,12 @@ public sealed class ProtectedDownloadOptions
     public string SiteKey { get; set; } = "";
     public string ApiKey { get; set; } = "";
     public string PublicBaseUrl { get; set; } = "https://consistec.de";
+    public ProtectedDownloadLinkExpiry LinkExpiry { get; set; } = ProtectedDownloadLinkExpiry.Weekly;
 }
 
+public enum ProtectedDownloadLinkExpiry { Weekly, Fortnightly, Monthly }
+
+internal sealed record ProtectedDownloadRequest(string FileName, bool German);
 internal sealed record ProtectedDownloadGrant(string FileName, DateTimeOffset ExpiresAtUtc, bool German);
 
 public sealed class ProtectedDownloadService(
@@ -90,38 +94,42 @@ public sealed class ProtectedDownloadService(
         return storedName;
     }
 
-    public string? CreateTicket(string? fileName, DateOnly? validThrough, bool german)
+    public string? CreateTicket(string? fileName, bool german)
     {
-        if (validThrough is not { } date || date == DateOnly.MaxValue)
+        if (FindFile(fileName) is not { } file)
             return null;
 
-        var nextMidnight = date.AddDays(1).ToDateTime(TimeOnly.MinValue);
-        var expiresAtUtc = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(nextMidnight, ExpiryTimeZone));
-        var now = DateTimeOffset.UtcNow;
-        if (expiresAtUtc <= now || FindFile(fileName) is not { } file)
-            return null;
-
-        var grant = new ProtectedDownloadGrant(file.Name, expiresAtUtc, german);
-        var ticketExpires = now.AddHours(1);
-        return _requestProtector.Protect(JsonSerializer.Serialize(grant),
-            ticketExpires < expiresAtUtc ? ticketExpires : expiresAtUtc);
+        var request = new ProtectedDownloadRequest(file.Name, german);
+        return _requestProtector.Protect(JsonSerializer.Serialize(request), TimeSpan.FromHours(1));
     }
 
-    internal ProtectedDownloadGrant? ResolveTicket(string ticket) =>
-        ReadGrant(() => _requestProtector.Unprotect(ticket));
+    internal ProtectedDownloadRequest? ResolveTicket(string ticket) =>
+        ReadProtectedValue<ProtectedDownloadRequest>(() => _requestProtector.Unprotect(ticket));
+
+    internal ProtectedDownloadGrant CreateGrant(ProtectedDownloadRequest request, DateTimeOffset requestedAtUtc)
+    {
+        var expiresAtUtc = options.Value.LinkExpiry switch
+        {
+            ProtectedDownloadLinkExpiry.Weekly => requestedAtUtc.AddDays(7),
+            ProtectedDownloadLinkExpiry.Fortnightly => requestedAtUtc.AddDays(14),
+            ProtectedDownloadLinkExpiry.Monthly => requestedAtUtc.AddMonths(1),
+            _ => throw new InvalidOperationException("Invalid protected download link expiry.")
+        };
+        return new ProtectedDownloadGrant(request.FileName, expiresAtUtc, request.German);
+    }
 
     internal string CreateDownloadToken(ProtectedDownloadGrant grant) =>
         _linkProtector.Protect(JsonSerializer.Serialize(grant));
 
     // An authentic expired link must still be distinguishable from an invalid token.
     internal ProtectedDownloadGrant? ResolveDownloadToken(string token) =>
-        ReadGrant(() => _linkProtector.Unprotect(token));
+        ReadProtectedValue<ProtectedDownloadGrant>(() => _linkProtector.Unprotect(token));
 
-    private static ProtectedDownloadGrant? ReadGrant(Func<string> unprotect)
+    private static T? ReadProtectedValue<T>(Func<string> unprotect) where T : class
     {
         try
         {
-            return JsonSerializer.Deserialize<ProtectedDownloadGrant>(unprotect());
+            return JsonSerializer.Deserialize<T>(unprotect());
         }
         catch (Exception error) when (error is CryptographicException or FormatException or JsonException)
         {
@@ -143,9 +151,9 @@ public sealed class ProtectedDownloadService(
     internal async Task SendLinkAsync(ProtectedDownloadGrant grant, string email, Uri downloadUrl)
     {
         var culture = CultureInfo.GetCultureInfo(grant.German ? "de-DE" : "en-GB");
-        var lastValidDay = TimeZoneInfo.ConvertTime(grant.ExpiresAtUtc.AddTicks(-1), ExpiryTimeZone);
+        var localExpiry = TimeZoneInfo.ConvertTime(grant.ExpiresAtUtc, ExpiryTimeZone);
         var body = await ProtectedDownloadEmailTemplate.RenderAsync(environment.ContentRootPath, GetDownloadName(grant.FileName), downloadUrl,
-            lastValidDay.ToString("D", culture), grant.German);
+            localExpiry.ToString("f", culture), grant.German);
         var message = new EmailMessage(
             globalSettings.CurrentValue.Smtp!.From!,
             email,
