@@ -18,6 +18,7 @@ public static class ProtectedDownloadExtensions
             .ValidateOnStart();
         builder.Services.AddDataProtection();
         builder.Services.AddScoped<ProtectedDownloadLeadStore>();
+        builder.Services.AddScoped<DownloadBoxTextService>();
         builder.AddNotificationAsyncHandler<UmbracoApplicationStartingNotification, ProtectedDownloadLeadMigrationHandler>();
         builder.Services.AddHttpClient<ProtectedDownloadService>(client =>
             client.Timeout = TimeSpan.FromSeconds(10));

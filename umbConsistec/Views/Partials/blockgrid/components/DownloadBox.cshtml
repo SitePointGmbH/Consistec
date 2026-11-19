@@ -1,5 +1,6 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<DownloadBox>>
 @inject umbConsistec.Services.ProtectedDownloadService Downloads
+@inject umbConsistec.Services.DownloadBoxTextService TextService
 @using System.Globalization
 
 @{
@@ -29,9 +30,7 @@
     var modalTitleId = $"{modalId}-title";
     var emailId = $"download-email-{Model.ContentKey:N}";
     var termsId = $"download-terms-{Model.ContentKey:N}";
-    var downloadLabel = german ? "Download starten" : "Download";
-    var emailDownload = german ? "Download per E-Mail" : "Download by email";
-    var unavailable = german ? "Dieser Download ist momentan nicht verfügbar." : "This download is currently unavailable.";
+    var texts = TextService.Get(german);
 }
 
 <div class="feature-box box-shadow-bottom">
@@ -42,7 +41,7 @@
         </div>
         <div class="feature-box-content last-paragraph-no-margin overflow-hidden">
             <span class="d-inline-block fw-500 fs-18">@Model.Content.Title</span>
-            <p class="w-90 m-auto">@Model.Content.Description</p>
+            <p class="w-90 m-auto">@Html.Raw(Model.Content.Description)</p>
             @if (ticket != null || (!string.IsNullOrWhiteSpace(fileUrl) && fileUrl != "#"))
             {
                 <div class="move-bottom-top mt-15px">
@@ -50,20 +49,20 @@
                     {
                         <a href="#@modalId" class="hover-link btn btn-link btn-medium ls-05px"
                            data-bs-toggle="modal" aria-haspopup="dialog">
-                            @downloadLabel
+                            @texts.ButtonLabel
                         </a>
                     }
                     else
                     {
                         <a href="@fileUrl" download class="hover-link btn btn-link btn-medium ls-05px">
-                            @downloadLabel
+                            @texts.ButtonLabel
                         </a>
                     }
                 </div>
             }
             else
             {
-                <p class="mt-15px">@unavailable</p>
+                <p class="mt-15px">@texts.UnavailableText</p>
             }
         </div>
     </div>
@@ -77,9 +76,9 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content border-0 rounded-2">
                 <div class="modal-header">
-                    <h2 class="modal-title fs-5 fw-600 text-dark-gray mb-0" id="@modalTitleId">@emailDownload</h2>
+                    <h2 class="modal-title fs-5 fw-600 text-dark-gray mb-0" id="@modalTitleId">@texts.ModalTitle</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="@(german ? "Schließen" : "Close")"></button>
+                            aria-label="@texts.CloseLabel"></button>
                 </div>
                 <div class="modal-body">
                     @if (!string.IsNullOrWhiteSpace(Model.Content.Title))
@@ -89,31 +88,27 @@
                     <form action="@Url.Action("Send", "ProtectedDownloads")" method="post"
                           data-protected-download
                           data-language="@(german ? "de" : "en")"
-                          data-sending="@(german ? "Wird gesendet..." : "Sending...")"
-                          data-success="@(german ? "Der Download-Link wurde per E-Mail gesendet." : "The download link was sent by email.")"
-                          data-invalid="@(german ? "Bitte prüfen Sie Ihre E-Mail-Adresse und bestätigen Sie die Nutzungsbedingungen." : "Check your email address and accept the terms and conditions.")"
-                          data-verification="@(german ? "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte erneut versuchen." : "Verification failed. Please try again.")"
-                          data-rate-limit="@(german ? "Zu viele Anfragen. Bitte versuchen Sie es später erneut." : "Too many requests. Please try again later.")"
-                          data-error="@unavailable">
+                          data-sending="@texts.SendingText"
+                          data-success="@texts.SuccessText"
+                          data-invalid="@texts.InvalidText"
+                          data-verification="@texts.VerificationText"
+                          data-rate-limit="@texts.RateLimitText"
+                          data-error="@texts.UnavailableText">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="ticket" value="@ticket" />
-                        <label class="fw-500 mb-5px" for="@emailId">@(german ? "E-Mail-Adresse" : "Email address")</label>
+                        <label class="fw-500 mb-5px" for="@emailId">@texts.EmailLabel</label>
                         <input id="@emailId" class="form-control mb-15px" type="email" name="email"
                                autocomplete="email" maxlength="254" required />
                         <div class="d-flex align-items-start gap-2 mb-15px">
                             <input id="@termsId" class="form-check-input download-terms-checkbox" type="checkbox" name="acceptTerms" value="true"
-                                   aria-labelledby="@($"{termsId}-label {termsId}-link")" required />
-                            <div>
-                                <label id="@($"{termsId}-label")" class="form-check-label" for="@termsId">
-                                    @(german ? "Ich akzeptiere die" : "I agree to the")
-                                </label>
-                                <a id="@($"{termsId}-link")" class="text-decoration-underline" href="@Url.Content("~/datenschutz/")"
-                                   target="_blank" rel="noopener">@(german ? "Nutzungsbedingungen" : "Terms & Conditions")</a>
-                            </div>
+                                   required />
+                            <label class="form-check-label download-terms-label" for="@termsId">
+                                @Html.Raw(umbConsistec.Services.DownloadBoxTextService.Unwrap(texts.ConsentHtml))
+                            </label>
                         </div>
                         <div data-download-captcha data-sitekey="@Downloads.SiteKey" class="mb-15px"></div>
                         <button type="submit" class="btn btn-medium btn-gradient-pink-orange text-white rounded-0" disabled>
-                            @(german ? "Per E-Mail senden" : "Send by email")
+                            @texts.SubmitLabel
                         </button>
                         <p class="mt-10px mb-0" role="status"></p>
                     </form>

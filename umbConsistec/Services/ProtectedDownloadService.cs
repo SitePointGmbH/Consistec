@@ -29,6 +29,7 @@ public sealed class ProtectedDownloadService(
     IOptions<ProtectedDownloadOptions> options,
     IOptionsMonitor<GlobalSettings> globalSettings,
     IEmailSender emailSender,
+    DownloadBoxTextService texts,
     HttpClient httpClient)
 {
     internal const long MaxAttachmentBytes = 10 * 1024 * 1024;
@@ -152,12 +153,15 @@ public sealed class ProtectedDownloadService(
     {
         var culture = CultureInfo.GetCultureInfo(grant.German ? "de-DE" : "en-GB");
         var localExpiry = TimeZoneInfo.ConvertTime(grant.ExpiresAtUtc, ExpiryTimeZone);
-        var body = await ProtectedDownloadEmailTemplate.RenderAsync(environment.ContentRootPath, GetDownloadName(grant.FileName), downloadUrl,
-            localExpiry.ToString("f", culture), grant.German);
+        var fileName = GetDownloadName(grant.FileName);
+        var validThrough = localExpiry.ToString("f", culture);
+        var mailTexts = texts.Get(grant.German);
+        var body = await ProtectedDownloadEmailTemplate.RenderAsync(environment.ContentRootPath, mailTexts, fileName,
+            downloadUrl, validThrough, grant.German);
         var message = new EmailMessage(
             globalSettings.CurrentValue.Smtp!.From!,
             email,
-            grant.German ? "Consistec - Ihr Download-Link" : "Consistec - Your download link",
+            ProtectedDownloadEmailTemplate.FillText(mailTexts.MailSubject, fileName, validThrough),
             body,
             true);
         await emailSender.SendAsync(message, "ProtectedDownload", true, TimeSpan.FromSeconds(30));

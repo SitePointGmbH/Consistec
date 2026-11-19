@@ -82,7 +82,7 @@ public sealed class ProtectedDownloadsController(
 
     [HttpGet("/api/downloads/file", Name = DownloadRoute)]
     [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-    public IActionResult Download([FromQuery] string? token)
+    public async Task<IActionResult> Download([FromQuery] string? token)
     {
         if (string.IsNullOrWhiteSpace(token) || token.Length > 2048
             || downloads.ResolveDownloadToken(token) is not { } grant)
@@ -106,11 +106,13 @@ public sealed class ProtectedDownloadsController(
             if (downloads.FindFile(grant.FileName) is not { } file)
                 return NotFound();
 
-            var result = File(file.OpenRead(), "application/octet-stream", ProtectedDownloadService.GetDownloadName(file.Name));
+            var stream = file.OpenRead();
+            // Recorded when the file is served: completion callbacks are unreliable under IIS, where the
+            // request-aborted token is often already cancelled once the response has finished.
             if (HttpMethods.IsGet(Request.Method))
-                Response.OnCompleted(() => RecordDownloadAsync(token, startedAt));
+                await RecordDownloadAsync(token, startedAt);
 
-            return result;
+            return File(stream, "application/octet-stream", ProtectedDownloadService.GetDownloadName(file.Name));
         }
         catch (Exception error) when (error is IOException or UnauthorizedAccessException)
         {
@@ -120,9 +122,6 @@ public sealed class ProtectedDownloadsController(
 
     private async Task RecordDownloadAsync(string token, DateTime startedAtUtc)
     {
-        if (Response.StatusCode != StatusCodes.Status200OK || HttpContext.RequestAborted.IsCancellationRequested)
-            return;
-
         try
         {
             await leads.MarkDownloadedAsync(token, startedAtUtc);

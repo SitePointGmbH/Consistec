@@ -1842,6 +1842,40 @@ body.download-modal-open > .modal-backdrop {
     outline-offset: 2px;
 }
 
+[data-download-modal] .download-terms-label a {
+    text-decoration: underline;
+}
+
+/* Download boxes in one row share the height of the tallest box; buttons line up at the bottom. */
+.umb-block-grid__layout-item[data-content-element-type-alias="downloadBox"] {
+    display: flex;
+    flex-direction: column;
+}
+
+.umb-block-grid__layout-item[data-content-element-type-alias="downloadBox"] > .feature-box {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.umb-block-grid__layout-item[data-content-element-type-alias="downloadBox"] > .feature-box > .box-move-bottom-top,
+.umb-block-grid__layout-item[data-content-element-type-alias="downloadBox"] .feature-box-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* In a flex column, "m-auto" would also center vertically; keep it horizontal only. */
+.umb-block-grid__layout-item[data-content-element-type-alias="downloadBox"] .feature-box-content > .m-auto {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.umb-block-grid__layout-item[data-content-element-type-alias="downloadBox"] .feature-box-content > :last-child {
+    margin-top: auto !important;
+    padding-top: 15px;
+}
+
 /* Consent Tool */
 .consent-banner {
     position: fixed;
