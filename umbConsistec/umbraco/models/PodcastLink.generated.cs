@@ -50,12 +50,20 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		// properties
 
 		///<summary>
-		/// Icon
+		/// Eigenes Icon (optional): Nur nötig, wenn die Plattform oben nicht zur Auswahl steht.
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.2+6085291")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("icon")]
 		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops Icon => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "icon");
+
+		///<summary>
+		/// Plattform-Icon: Icon der Podcast-Plattform. Hat Vorrang vor einem eigenen Icon.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "17.8.2+6085291")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("platformIcon")]
+		public virtual string PlatformIcon => this.Value<string>(_publishedValueFallback, "platformIcon");
 
 		///<summary>
 		/// Podcast URL

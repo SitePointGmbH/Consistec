@@ -1,0 +1,17 @@
+{
+  "name": "Consistec Podcast Icon Picker",
+  "extensions": [
+    {
+      "type": "propertyEditorUi",
+      "alias": "Consistec.PropertyEditorUi.PodcastIconPicker",
+      "name": "Consistec Podcast Icon Picker",
+      "element": "/App_Plugins/PodcastIconPicker/podcast-icon-picker.element.js",
+      "meta": {
+        "label": "Podcast Icon Picker",
+        "propertyEditorSchemaAlias": "Umbraco.Plain.String",
+        "icon": "icon-mic",
+        "group": "pickers"
+      }
+    }
+  ]
+}

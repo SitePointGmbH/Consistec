@@ -970,13 +970,30 @@ a,
 }
 
 .solution-card .podcast-link {
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.solution-card .podcast-link:hover {
+  transform: scale(1.1);
+}
+
+/* Bootstrap tooltip "Podcast auf: {Plattform}" in the site's dark blue. */
+.podcast-tooltip {
+  --bs-tooltip-bg: #262d5c;
+  --bs-tooltip-color: #fff;
+  --bs-tooltip-font-size: 13px;
+  --bs-tooltip-opacity: 1;
 }
 
 .solution-card .podcast-link img {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
 }
 
 .hover-lift:hover {

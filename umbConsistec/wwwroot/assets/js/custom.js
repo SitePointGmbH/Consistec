@@ -750,3 +750,23 @@ document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
         toggle.setAttribute('aria-expanded', isOpen);
     });
 });
+
+// Podcast icons: Bootstrap tooltips "Podcast auf: {Plattform}", initialised as soon as the DOM is ready
+// (main.js only initialises [data-bs-toggle="tooltip"] on window load, which comes too late).
+function initPodcastTooltips() {
+    if (typeof bootstrap === 'undefined') return;
+    document.querySelectorAll('[data-podcast-tooltip]').forEach(el => {
+        bootstrap.Tooltip.getOrCreateInstance(el, {
+            title: el.getAttribute('data-podcast-tooltip'),
+            placement: 'top',
+            customClass: 'podcast-tooltip',
+            delay: { show: 0, hide: 0 }
+        });
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPodcastTooltips);
+} else {
+    initPodcastTooltips();
+}

@@ -17,15 +17,35 @@
 <div class="solution-card p-5 border bg-light h-100 transition shadow-sm hover-lift d-flex flex-column @textAlignment @Model.Settings?.CustomCssClass">
     <h4 class="fw-bold mb-3"> @Html.Raw(sectionHeader)</h4>
     @Html.Raw(richTextContent)
-    <div class="d-flex flex-wrap align-items-center gap-3 mt-auto @actionAlignment">
-        @foreach (var block in Model.Content.PodcastLinks ?? BlockListModel.Empty)
+    @{
+        // Tooltip prefix from the Translation section (dictionary item "Podcast auf"), with a per-language fallback.
+        var podcastOn = Umbraco.GetDictionaryValue("Podcast auf");
+        if (string.IsNullOrWhiteSpace(podcastOn))
         {
-            if (block.Content is not PodcastLink podcast || podcast.Icon is not { } icon || podcast.PodcastUrl is not { } link)
+            podcastOn = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "de" ? "Podcast auf" : "Podcast on";
+        }
+        var podcasts = new List<(string Href, string? Target, string Label, string IconUrl)>();
+        foreach (var block in Model.Content.PodcastLinks ?? BlockListModel.Empty)
+        {
+            if (block.Content is not PodcastLink podcast || podcast.PodcastUrl is not { } link)
             {
                 continue;
             }
 
-            var iconUrl = icon.Url();
+            // A chosen platform icon wins; the uploaded image remains as fallback for custom icons.
+            string? iconUrl = null;
+            string? platform = null;
+            if (umbConsistec.Services.PodcastIcons.TryGet(podcast.Value<string>("platformIcon"), out var platformUrl, out var platformLabel))
+            {
+                iconUrl = platformUrl;
+                platform = platformLabel;
+            }
+            else if (podcast.Icon is { } icon)
+            {
+                iconUrl = icon.Url();
+                platform = string.IsNullOrWhiteSpace(link.Name) ? icon.Content.Name : link.Name;
+            }
+
             var href = link.Url;
             if (string.IsNullOrWhiteSpace(iconUrl) || iconUrl == "#" || string.IsNullOrWhiteSpace(href)
                 || (!Url.IsLocalUrl(href) && (!Uri.TryCreate(href, UriKind.Absolute, out var podcastUri)
@@ -34,20 +54,36 @@
                 continue;
             }
 
-            var label = string.IsNullOrWhiteSpace(link.Name) ? icon.Content.Name : link.Name;
-            <a href="@href" target="@link.Target" rel="@(link.Target == "_blank" ? "noopener" : null)"
-               aria-label="@label" title="@label"
-               class="podcast-link d-inline-flex align-items-center justify-content-center flex-shrink-0 border bg-white border-radius-4px focus-ring">
-                <img src="@iconUrl" alt="" width="36" height="36" class="object-fit-contain" />
-            </a>
+            podcasts.Add((href, link.Target, $"{podcastOn}: {platform}", iconUrl));
         }
-        @if (buttonLink != null)
-        {
-            <a href="@buttonLink.Url"
+
+        // Button left, podcast icons right; without icons the alignment setting applies to the button.
+        var rowAlignment = podcasts.Count > 0 ? "justify-content-between" : actionAlignment;
+    }
+    @if (podcasts.Count > 0 || buttonLink != null)
+    {
+        <div class="d-flex flex-wrap align-items-center gap-3 mt-auto @rowAlignment">
+            @if (buttonLink != null)
+            {
+                <a href="@buttonLink.Url"
                    target="@buttonLink.Target"
                    class="btn btn-large btn-gradient-pink-orange text-white rounded-0">
-                @buttonLink.Name
-            </a>
-        }
-    </div>
+                    @buttonLink.Name
+                </a>
+            }
+            @if (podcasts.Count > 0)
+            {
+                <div class="d-flex flex-wrap align-items-center justify-content-end gap-1 ms-auto">
+                    @foreach (var podcast in podcasts)
+                    {
+                        <a href="@podcast.Href" target="@podcast.Target" rel="@(podcast.Target == "_blank" ? "noopener" : null)"
+                           aria-label="@podcast.Label" data-podcast-tooltip="@podcast.Label"
+                           class="podcast-link d-inline-flex align-items-center justify-content-center flex-shrink-0 focus-ring">
+                            <img src="@podcast.IconUrl" alt="" width="28" height="28" class="object-fit-contain" />
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    }
 </div>
